@@ -1,6 +1,6 @@
 # godikit-logger
 
-[![License](https://img.shields.io/github/license/lentiancn/godikit-logger-java.svg)](LICENSE)
+[![License](https://img.shields.io/github/license/lentiancn/godikit-logger-java.svg)](https://github.com/lentiancn/godikit-logger-java/LICENSE)
 [![Codecov](https://img.shields.io/codecov/c/github/lentiancn/godikit-logger-java.svg)](https://codecov.io/gh/lentiancn/godikit-logger-java)
 [![GitHub Release](https://img.shields.io/github/tag/lentiancn/godikit-logger-java.svg?label=release)](https://github.com/lentiancn/godikit-logger-java/releases)
 
