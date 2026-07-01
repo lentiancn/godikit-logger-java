@@ -29,6 +29,17 @@ import com.godikit.logger.utils.LoggerThrowableUtils;
 import static com.godikit.logger.utils.LoggerUtils.mergeMsgAndThrowable;
 
 /**
+ * Logger implementation that delegates to SLF4J with Logback as the underlying provider.
+ *
+ * <p>This implementation wraps {@code org.slf4j.Logger} and uses Logback as the logging backend.
+ * The method ordering follows usage frequency for better code readability.</p>
+ *
+ * <h2>Usage:</h2>
+ * <pre>{@code
+ * Logger logger = new Slf4jLogbackLoggerImpl(MyClass.class);
+ * logger.info("Application started");
+ * }</pre>
+ *
  * @author Len (len782768@gmail.com)
  * @since 2025-11-07 23:22
  */
@@ -88,8 +99,8 @@ public class Slf4jLogbackLoggerImpl implements Logger {
     }
 
     @Override
-    public void trace(final Throwable cause, final String msg, final Object... args) {
-        FACADE_LOGGER.trace(mergeMsgAndThrowable(msg, cause), args);
+    public void trace(final String msg, final Object... args) {
+        FACADE_LOGGER.trace(msg, args);
     }
 
     @Override
@@ -98,18 +109,8 @@ public class Slf4jLogbackLoggerImpl implements Logger {
     }
 
     @Override
-    public void trace(final String msg, final Object... args) {
-        FACADE_LOGGER.trace(msg, args);
-    }
-
-    @Override
-    public void debug(final Throwable cause, final String msg, final Object... args) {
-        FACADE_LOGGER.debug(mergeMsgAndThrowable(msg, cause), args);
-    }
-
-    @Override
-    public void debug(final Throwable cause) {
-        FACADE_LOGGER.debug(LoggerThrowableUtils.toString(cause));
+    public void trace(final Throwable cause, final String msg, final Object... args) {
+        FACADE_LOGGER.trace(mergeMsgAndThrowable(msg, cause), args);
     }
 
     @Override
@@ -118,13 +119,13 @@ public class Slf4jLogbackLoggerImpl implements Logger {
     }
 
     @Override
-    public void info(final Throwable cause, final String msg, final Object... args) {
-        FACADE_LOGGER.info(mergeMsgAndThrowable(msg, cause), args);
+    public void debug(final Throwable cause) {
+        FACADE_LOGGER.debug(LoggerThrowableUtils.toString(cause));
     }
 
     @Override
-    public void info(final Throwable cause) {
-        FACADE_LOGGER.info(LoggerThrowableUtils.toString(cause));
+    public void debug(final Throwable cause, final String msg, final Object... args) {
+        FACADE_LOGGER.debug(mergeMsgAndThrowable(msg, cause), args);
     }
 
     @Override
@@ -133,13 +134,13 @@ public class Slf4jLogbackLoggerImpl implements Logger {
     }
 
     @Override
-    public void warn(final Throwable cause, final String msg, final Object... args) {
-        FACADE_LOGGER.warn(mergeMsgAndThrowable(msg, cause), args);
+    public void info(final Throwable cause) {
+        FACADE_LOGGER.info(LoggerThrowableUtils.toString(cause));
     }
 
     @Override
-    public void warn(final Throwable cause) {
-        FACADE_LOGGER.warn(LoggerThrowableUtils.toString(cause));
+    public void info(final Throwable cause, final String msg, final Object... args) {
+        FACADE_LOGGER.info(mergeMsgAndThrowable(msg, cause), args);
     }
 
     @Override
@@ -148,8 +149,18 @@ public class Slf4jLogbackLoggerImpl implements Logger {
     }
 
     @Override
-    public void error(final Throwable cause, final String msg, final Object... args) {
-        FACADE_LOGGER.error(mergeMsgAndThrowable(msg, cause), args);
+    public void warn(final Throwable cause) {
+        FACADE_LOGGER.warn(LoggerThrowableUtils.toString(cause));
+    }
+
+    @Override
+    public void warn(final Throwable cause, final String msg, final Object... args) {
+        FACADE_LOGGER.warn(mergeMsgAndThrowable(msg, cause), args);
+    }
+
+    @Override
+    public void error(final String msg, final Object... args) {
+        FACADE_LOGGER.error(msg, args);
     }
 
     @Override
@@ -158,7 +169,7 @@ public class Slf4jLogbackLoggerImpl implements Logger {
     }
 
     @Override
-    public void error(final String msg, final Object... args) {
-        FACADE_LOGGER.error(msg, args);
+    public void error(final Throwable cause, final String msg, final Object... args) {
+        FACADE_LOGGER.error(mergeMsgAndThrowable(msg, cause), args);
     }
 }

@@ -24,13 +24,21 @@
 package com.godikit.logger.impl;
 
 import com.godikit.logger.Logger;
-//import com.godikit.logger.utils.LoggerSlf4jUtils;
+import com.godikit.logger.utils.LoggerThrowableUtils;
+
+import static com.godikit.logger.utils.LoggerUtils.mergeMsgAndThrowable;
 
 /**
  * Logger implementation that delegates to SLF4J with Log4j2 as the underlying provider.
  *
- * <p>This implementation wraps org.slf4j.Logger and uses Log4j2 as the logging backend.
- * JUL (Java Util Logging) is automatically bridged to SLF4J upon class initialization.</p>
+ * <p>This implementation wraps {@code org.slf4j.Logger} and uses Log4j2 as the logging backend.
+ * The method ordering follows usage frequency for better code readability.</p>
+ *
+ * <h2>Usage:</h2>
+ * <pre>{@code
+ * Logger logger = new Slf4jLog4j2LoggerImpl(MyClass.class);
+ * logger.info("Application started");
+ * }</pre>
  *
  * @author Len (len782768@gmail.com)
  * @since 2025-11-07 23:22
@@ -101,27 +109,18 @@ public class Slf4jLog4j2LoggerImpl implements Logger {
     }
 
     @Override
-    public void trace(Throwable cause, String msg, Object... args) {
-    }
-
-    @Override
-    public void trace(final Throwable cause) {
-        FACADE_LOGGER.trace(cause.toString());
-    }
-
-    @Override
     public void trace(final String msg, final Object... args) {
         FACADE_LOGGER.trace(msg, args);
     }
 
     @Override
-    public void debug(Throwable cause, String msg, Object... args) {
-        FACADE_LOGGER.debug(msg, args, cause);
+    public void trace(final Throwable cause) {
+        FACADE_LOGGER.trace(LoggerThrowableUtils.toString(cause));
     }
 
     @Override
-    public void debug(final Throwable cause) {
-        FACADE_LOGGER.debug(cause.toString());
+    public void trace(final Throwable cause, final String msg, final Object... args) {
+        FACADE_LOGGER.trace(mergeMsgAndThrowable(msg, cause), args);
     }
 
     @Override
@@ -130,12 +129,13 @@ public class Slf4jLog4j2LoggerImpl implements Logger {
     }
 
     @Override
-    public void info(Throwable cause, String msg, Object... args) {
+    public void debug(final Throwable cause) {
+        FACADE_LOGGER.debug(LoggerThrowableUtils.toString(cause));
     }
 
     @Override
-    public void info(final Throwable cause) {
-        FACADE_LOGGER.info(cause.toString());
+    public void debug(final Throwable cause, final String msg, final Object... args) {
+        FACADE_LOGGER.debug(mergeMsgAndThrowable(msg, cause), args);
     }
 
     @Override
@@ -144,12 +144,13 @@ public class Slf4jLog4j2LoggerImpl implements Logger {
     }
 
     @Override
-    public void warn(Throwable cause, String msg, Object... args) {
+    public void info(final Throwable cause) {
+        FACADE_LOGGER.info(LoggerThrowableUtils.toString(cause));
     }
 
     @Override
-    public void warn(final Throwable cause) {
-        FACADE_LOGGER.warn(cause.toString());
+    public void info(final Throwable cause, final String msg, final Object... args) {
+        FACADE_LOGGER.info(mergeMsgAndThrowable(msg, cause), args);
     }
 
     @Override
@@ -158,16 +159,27 @@ public class Slf4jLog4j2LoggerImpl implements Logger {
     }
 
     @Override
-    public void error(Throwable cause, String msg, Object... args) {
+    public void warn(final Throwable cause) {
+        FACADE_LOGGER.warn(LoggerThrowableUtils.toString(cause));
     }
 
     @Override
-    public void error(final Throwable cause) {
-        FACADE_LOGGER.error(cause.toString());
+    public void warn(final Throwable cause, final String msg, final Object... args) {
+        FACADE_LOGGER.warn(mergeMsgAndThrowable(msg, cause), args);
     }
 
     @Override
     public void error(final String msg, final Object... args) {
         FACADE_LOGGER.error(msg, args);
+    }
+
+    @Override
+    public void error(final Throwable cause) {
+        FACADE_LOGGER.error(LoggerThrowableUtils.toString(cause));
+    }
+
+    @Override
+    public void error(final Throwable cause, final String msg, final Object... args) {
+        FACADE_LOGGER.error(mergeMsgAndThrowable(msg, cause), args);
     }
 }
