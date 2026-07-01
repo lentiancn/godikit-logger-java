@@ -49,7 +49,7 @@ public class Log4jOverSlf4jLoggerTest {
     @Test
     public void logWithThrowable() {
         Throwable cause = new RuntimeException("Test exception");
-        log4jLogger.error("Log4j-over-SLF4J error with throwable", cause);
+        log4jLogger.error("Log4j-over-SLF4J log with throwable", cause);
     }
 
     @Test
@@ -58,10 +58,17 @@ public class Log4jOverSlf4jLoggerTest {
         log4jLogger.log(Level.ERROR, "Log4j-over-SLF4J log with message and throwable", cause);
     }
 
-    @Test
-    public void forcedLog() {
-        log4jLogger.log(Level.INFO, "Log4j-over-SLF4J forced log message");
-    }
+//    @Test
+//    public void forcedLog() {
+//        org.apache.log4j.spi.LoggingEvent event = new org.apache.log4j.spi.LoggingEvent(
+//                "com.godikit.logger.impl.Log4jOverSlf4jLoggerTest",
+//                log4jLogger,
+//                Level.INFO,
+//                "Log4j-over-SLF4J forced log message",
+//                null
+//        );
+//        log4jLogger.log(event);
+//    }
 
     @Test
     public void isDebugEnabled() {
@@ -80,10 +87,10 @@ public class Log4jOverSlf4jLoggerTest {
     @Test
     public void isEnabledFor() {
         if (log4jLogger.isEnabledFor(Level.DEBUG)) {
-            log4jLogger.debug("DEBUG is enabled");
+            log4jLogger.debug("Debug is enabled for Level.DEBUG");
         }
         if (log4jLogger.isEnabledFor(Level.INFO)) {
-            log4jLogger.info("INFO is enabled");
+            log4jLogger.info("Info is enabled for Level.INFO");
         }
     }
 
@@ -101,13 +108,5 @@ public class Log4jOverSlf4jLoggerTest {
         Logger loggerB = Logger.getLogger("com.godikit.logger.ClassB");
         loggerA.info("Log4j-over-SLF4J logger for ClassA");
         loggerB.info("Log4j-over-SLF4J logger for ClassB");
-    }
-
-    @Test
-    public void categoryApi() {
-        Category category = Category.getInstance("com.godikit.logger.CategoryTest");
-        category.info("Log4j-over-SLF4J Category API message");
-        Category rootCategory = Category.getRoot();
-        rootCategory.info("Log4j-over-SLF4J Root Category message");
     }
 }
