@@ -106,7 +106,7 @@ setProvider("godikit","logback");
 
 ## License
 
-MIT License
+`godikit-logger` is licensed under the [MIT License](LICENSE).
 
 ## Links
 
