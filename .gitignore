@@ -1,0 +1,8 @@
+
+.idea/
+.trae/
+target/
+
+*.iml
+.flattened-pom.xml
+.DS_Store
