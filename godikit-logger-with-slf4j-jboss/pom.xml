@@ -9,11 +9,11 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>godikit-logger-with-slf4j-logback</artifactId>
+    <artifactId>godikit-logger-with-slf4j-jboss</artifactId>
     <version>${revision}</version>
-    <name>GodiKit Logger with SLF4J Logback</name>
+    <name>GodiKit Logger with SLF4J JBoss</name>
     <description>
-        GodiKit Logger with SLF4J Logback
+        GodiKit Logger with SLF4J JBoss Logging
     </description>
     <url>https://www.godikit.com/logger</url>
 
@@ -24,33 +24,23 @@
         </dependency>
         <dependency>
             <groupId>com.godikit.logger</groupId>
-            <artifactId>godikit-logger-with-slf4j-logback-config</artifactId>
+            <artifactId>godikit-logger-with-slf4j-jboss-config</artifactId>
         </dependency>
         <!-- Facade -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
-        <!-- Provider: ch.qos.logback.classic.spi.LogbackServiceProvider -->
+        <!-- Provider: JBoss Logging Provider + SLF4J Bridge -->
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
+            <groupId>org.jboss.slf4j</groupId>
+            <artifactId>slf4j-jboss-logging</artifactId>
         </dependency>
-        <!-- Log4j2 Bridge -->
-        <!--        <dependency>-->
-        <!--            <groupId>org.apache.logging.log4j</groupId>-->
-        <!--            <artifactId>log4j-to-slf4j</artifactId>-->
-        <!--        </dependency>-->
-        <!-- OSGi Bridge -->
-        <!--        <dependency>-->
-        <!--            <groupId>org.slf4j</groupId>-->
-        <!--            <artifactId>osgi-over-slf4j</artifactId>-->
-        <!--        </dependency>-->
-        <!-- OSGi Logger API -->
-        <!--        <dependency>-->
-        <!--            <groupId>org.osgi</groupId>-->
-        <!--            <artifactId>org.osgi.service.log</artifactId>-->
-        <!--        </dependency>-->
+        <!-- JBoss Logging API -->
+        <dependency>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>jboss-logging</artifactId>
+        </dependency>
     </dependencies>
 
     <developers>

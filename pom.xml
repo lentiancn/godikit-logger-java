@@ -58,6 +58,8 @@
 
     <modules>
         <module>godikit-logger</module>
+        <module>godikit-logger-with-slf4j-jboss</module>
+        <module>godikit-logger-with-slf4j-jboss-config</module>
         <module>godikit-logger-with-slf4j-log4j2</module>
         <module>godikit-logger-with-slf4j-log4j2-config</module>
         <module>godikit-logger-with-slf4j-logback</module>
@@ -73,6 +75,16 @@
             <dependency>
                 <groupId>com.godikit.logger</groupId>
                 <artifactId>godikit-logger</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.godikit.logger</groupId>
+                <artifactId>godikit-logger-with-slf4j-jboss</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.godikit.logger</groupId>
+                <artifactId>godikit-logger-with-slf4j-jboss-config</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
@@ -94,6 +106,11 @@
                 <groupId>com.godikit.logger</groupId>
                 <artifactId>godikit-logger-with-slf4j-logback-config</artifactId>
                 <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.logging</groupId>
+                <artifactId>jboss-logging</artifactId>
+                <version>3.6.3.Final</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>

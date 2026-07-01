@@ -9,32 +9,18 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>godikit-logger-with-slf4j-log4j2</artifactId>
+    <artifactId>godikit-logger-with-slf4j-jboss-config</artifactId>
     <version>${revision}</version>
-    <name>GodiKit Logger with SLF4J Apache Log4j 2</name>
+    <name>GodiKit Logger with SLF4J JBoss Config</name>
     <description>
-        GodiKit Logger with SLF4J Apache Log4j 2
+        GodiKit Logger with SLF4J JBoss Logging Config
     </description>
     <url>https://www.godikit.com/logger</url>
 
     <dependencies>
         <dependency>
-            <groupId>com.godikit.logger</groupId>
-            <artifactId>godikit-logger</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.godikit.logger</groupId>
-            <artifactId>godikit-logger-with-slf4j-log4j2-config</artifactId>
-        </dependency>
-        <!-- Facade -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
-        <!-- Provider: Log4j2 SLF4J Implementation -->
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j2-impl</artifactId>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>jboss-logging</artifactId>
         </dependency>
     </dependencies>
 
