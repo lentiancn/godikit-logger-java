@@ -42,12 +42,11 @@ public class LoggerSlf4jUtils {
      * to redirect JUL logging calls to SLF4J.</p>
      */
     public static void forceJulToSlf4j() {
-        java.util.logging.Logger rootLogger = java.util.logging.LogManager.getLogManager().getLogger("");
-
-        for (java.util.logging.Handler handler : rootLogger.getHandlers()) {
-            rootLogger.removeHandler(handler);
+        try {
+            SLF4JBridgeHandler.removeHandlersForRootLogger();
+            SLF4JBridgeHandler.install();
+        } catch (Throwable ignored) {
+            // no-op
         }
-
-        SLF4JBridgeHandler.install();
     }
 }
