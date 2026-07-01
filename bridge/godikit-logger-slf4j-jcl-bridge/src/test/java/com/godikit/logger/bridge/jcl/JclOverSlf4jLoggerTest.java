@@ -1,4 +1,4 @@
-package com.godikit.logger.impl;
+package com.godikit.logger.bridge.jcl;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -11,6 +11,7 @@ public class JclOverSlf4jLoggerTest {
     @Test
     public void trace() {
         log.trace("JCL-over-SLF4J trace message");
+        System.out.println(log.getClass());
     }
 
     @Test
