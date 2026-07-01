@@ -45,6 +45,12 @@ public class JclOverSlf4jLoggerTest {
     }
 
     @Test
+    public void fatalWithThrowable() {
+        Throwable cause = new RuntimeException("Test exception");
+        log.fatal("JCL-over-SLF4J fatal with throwable", cause);
+    }
+
+    @Test
     public void isTraceEnabled() {
         if (log.isTraceEnabled()) {
             log.trace("Trace is enabled");
@@ -84,5 +90,13 @@ public class JclOverSlf4jLoggerTest {
         if (log.isFatalEnabled()) {
             log.fatal("Fatal is enabled");
         }
+    }
+
+    @Test
+    public void logWithDifferentClasses() {
+        Log classALog = LogFactory.getLog("com.godikit.logger.ClassA");
+        Log classBLog = LogFactory.getLog(JclOverSlf4jLoggerTest.class);
+        classALog.info("JCL-over-SLF4J logger for ClassA");
+        classBLog.info("JCL-over-SLF4J logger for JclOverSlf4jLoggerTest");
     }
 }
