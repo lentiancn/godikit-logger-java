@@ -15,9 +15,9 @@
     <url>https://www.godikit.com/logger</url>
 
     <properties>
-        <revision>1.0.0-jdk17</revision>
+        <revision>1.0.1</revision>
         <godikit.charset>UTF-8</godikit.charset>
-        <godikit.java.version>17</godikit.java.version>
+        <godikit.java.version>8</godikit.java.version>
 
         <java.version>${godikit.java.version}</java.version>
         <maven.compiler.source>${godikit.java.version}</maven.compiler.source>
@@ -124,7 +124,7 @@
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
-                <version>1.5.37</version>
+                <version>1.2.13</version>
             </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>
