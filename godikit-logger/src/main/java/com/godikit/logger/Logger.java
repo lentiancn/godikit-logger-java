@@ -23,6 +23,9 @@
  */
 package com.godikit.logger;
 
+import com.godikit.logger.impl.NoOperationLoggerImpl;
+import com.godikit.logger.impl.SystemLoggerImpl;
+
 /**
  * Core logger interface that serves as a facade for various logging implementations.
  *
@@ -40,6 +43,10 @@ package com.godikit.logger;
  * @since 2025-11-07 22:53
  */
 public interface Logger {
+
+    Logger NO_OP_LOGGER = new NoOperationLoggerImpl("");
+
+    Logger SYSTEM_LOGGER = new SystemLoggerImpl("");
 
     /**
      * Returns the facade name.
@@ -100,8 +107,8 @@ public interface Logger {
     /**
      * Logs a message at TRACE level with optional arguments.
      *
-     * @param msg   the message pattern
-     * @param args  the arguments to be substituted into the message pattern
+     * @param msg  the message pattern
+     * @param args the arguments to be substituted into the message pattern
      */
     void trace(final String msg, final Object... args);
 
@@ -124,8 +131,8 @@ public interface Logger {
     /**
      * Logs a message at DEBUG level with optional arguments.
      *
-     * @param msg   the message pattern
-     * @param args  the arguments to be substituted into the message pattern
+     * @param msg  the message pattern
+     * @param args the arguments to be substituted into the message pattern
      */
     void debug(final String msg, final Object... args);
 
@@ -148,8 +155,8 @@ public interface Logger {
     /**
      * Logs a message at INFO level with optional arguments.
      *
-     * @param msg   the message pattern
-     * @param args  the arguments to be substituted into the message pattern
+     * @param msg  the message pattern
+     * @param args the arguments to be substituted into the message pattern
      */
     void info(final String msg, final Object... args);
 
@@ -172,8 +179,8 @@ public interface Logger {
     /**
      * Logs a message at WARN level with optional arguments.
      *
-     * @param msg   the message pattern
-     * @param args  the arguments to be substituted into the message pattern
+     * @param msg  the message pattern
+     * @param args the arguments to be substituted into the message pattern
      */
     void warn(final String msg, final Object... args);
 
@@ -196,8 +203,8 @@ public interface Logger {
     /**
      * Logs a message at ERROR level with optional arguments.
      *
-     * @param msg   the message pattern
-     * @param args  the arguments to be substituted into the message pattern
+     * @param msg  the message pattern
+     * @param args the arguments to be substituted into the message pattern
      */
     void error(final String msg, final Object... args);
 

@@ -26,9 +26,6 @@ package com.godikit.logger.impl;
 import com.godikit.logger.Logger;
 import com.godikit.logger.utils.LoggerThrowableUtils;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
 /**
  * Logger implementation that outputs to System.out and System.err.
  *
