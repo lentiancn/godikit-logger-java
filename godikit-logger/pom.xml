@@ -29,13 +29,13 @@
     <licenses>
         <license>
             <name>MIT License</name>
-            <url>https://raw.githubusercontent.com/lentiancn/godikit-logger/refs/heads/main/LICENSE</url>
+            <url>https://raw.githubusercontent.com/lentiancn/godikit-logger-java/refs/heads/main/LICENSE</url>
         </license>
     </licenses>
 
     <scm>
-        <url>https://github.com/lentiancn/godikit-logger</url>
-        <connection>scm:git:https://github.com/lentiancn/godikit-logger.git</connection>
-        <developerConnection>scm:git:git@github.com:lentiancn/godikit-logger.git</developerConnection>
+        <url>https://github.com/lentiancn/godikit-logger-java</url>
+        <connection>scm:git:https://github.com/lentiancn/godikit-logger-java.git</connection>
+        <developerConnection>scm:git:git@github.com:lentiancn/godikit-logger-java.git</developerConnection>
     </scm>
 </project>
