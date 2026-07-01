@@ -15,9 +15,9 @@
     <url>https://www.godikit.com/logger</url>
 
     <properties>
-        <revision>1.0.0</revision>
+        <revision>1.0.0-jdk17</revision>
         <godikit.charset>UTF-8</godikit.charset>
-        <godikit.java.version>8</godikit.java.version>
+        <godikit.java.version>17</godikit.java.version>
 
         <java.version>${godikit.java.version}</java.version>
         <maven.compiler.source>${godikit.java.version}</maven.compiler.source>
