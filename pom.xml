@@ -65,6 +65,7 @@
         <module>bridge/godikit-logger-slf4j-jcl-bridge</module>
         <module>bridge/godikit-logger-slf4j-jul-bridge</module>
         <module>bridge/godikit-logger-slf4j-log4j1-bridge</module>
+        <module>bridge/godikit-logger-slf4j-jboss-bridge</module>
     </modules>
 
     <dependencyManagement>

@@ -7,40 +7,27 @@
         <groupId>com.godikit.logger</groupId>
         <artifactId>godikit-logger-parent</artifactId>
         <version>${revision}</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>godikit-logger-with-slf4j-log4j2</artifactId>
+    <artifactId>godikit-logger-slf4j-jboss-bridge</artifactId>
     <version>${revision}</version>
-    <name>GodiKit Logger with SLF4J Apache Log4j 2</name>
+    <name>GodiKit Logger Bridge JBoss</name>
     <description>
-        GodiKit Logger with SLF4J Apache Log4j 2
+        GodiKit Logger Bridge JBoss Logging
     </description>
     <url>https://www.godikit.com/logger</url>
 
     <dependencies>
         <dependency>
             <groupId>com.godikit.logger</groupId>
-            <artifactId>godikit-logger</artifactId>
+            <artifactId>godikit-logger-with-slf4j-logback</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.godikit.logger</groupId>
-            <artifactId>godikit-logger-with-slf4j-log4j2-config</artifactId>
+            <groupId>org.jboss.slf4j</groupId>
+            <artifactId>slf4j-jboss-logging</artifactId>
         </dependency>
-        <!-- Facade -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
-        <!-- Provider: Log4j2 SLF4J Implementation -->
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j2-impl</artifactId>
-        </dependency>
-        <!-- JBoss Bridge -->
-        <!--        <dependency>-->
-        <!--            <groupId>org.jboss.slf4j</groupId>-->
-        <!--            <artifactId>slf4j-jboss-logging</artifactId>-->
-        <!--        </dependency>-->
     </dependencies>
 
     <developers>
