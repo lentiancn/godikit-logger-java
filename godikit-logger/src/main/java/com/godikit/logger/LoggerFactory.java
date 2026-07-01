@@ -52,7 +52,6 @@ public final class LoggerFactory {
 
     private static final String PROVIDER_KEY_FORMAT = "%s+%s";
     private static final Map<String, Class<? extends Logger>> LOGGER_IMPL_MAP = new ConcurrentHashMap<>();
-    private static final Map<String, Logger> LOGGER_CACHE = new ConcurrentHashMap<>();
     private static volatile String currentFacade = NoOperationLoggerImpl.FACADE;
     private static volatile String currentProvider = NoOperationLoggerImpl.PROVIDER;
 
@@ -62,6 +61,7 @@ public final class LoggerFactory {
 
     private static void loadLoggerImplementations() {
         try {
+            int providerCount = 0;
             List<Class<? extends Logger>> loggerImplClasses = LoggerUtils.loadLoggerImplClasses(Logger.class);
             for (Class<? extends Logger> loggerImplClass : loggerImplClasses) {
                 String facade = (String) loggerImplClass.getDeclaredField("FACADE").get(null);
@@ -72,6 +72,12 @@ public final class LoggerFactory {
                     currentFacade = facade;
                     currentProvider = provider;
                 }
+                providerCount++;
+            }
+            if (providerCount == 0) {
+                System.err.println("你没有安装任何日志提供器。请引入其中1个");
+            } else if (providerCount > 1) {
+                System.err.println("你导入了多个日志提供器。只能使用其中1个，避免日志框架冲突");
             }
         } catch (Throwable e) {
             System.err.println("[GodiKit Logger] Failed to load Logger implementations: " + LoggerThrowableUtils.toString(e));
@@ -96,78 +102,8 @@ public final class LoggerFactory {
         return String.format(PROVIDER_KEY_FORMAT, currentFacade, currentProvider);
     }
 
-    /**
-     * Sets the current provider for logging.
-     *
-     * @param facade   the facade name (e.g., "godikit")
-     * @param provider the provider name (e.g., "logback", "log4j2")
-     */
-    public static void setProvider(final String facade, final String provider) {
-        String key = String.format(PROVIDER_KEY_FORMAT, facade, provider);
-        if (LOGGER_IMPL_MAP.containsKey(key)) {
-            currentFacade = facade;
-            currentProvider = provider;
-            LOGGER_CACHE.clear();
-            return;
-        }
-        System.err.println("[GodiKit Logger] Provider not found: " + key);
-    }
-
-    /**
-     * Gets a Logger instance by name.
-     *
-     * @param name the logger name
-     * @return Logger instance (cached)
-     */
     public static Logger getLogger(final String name) {
-        return getLogger(name, false);
-    }
-
-    /**
-     * Gets a Logger instance by class.
-     *
-     * @param clazz the class for the logger
-     * @return Logger instance (cached)
-     */
-    public static Logger getLogger(final Class<?> clazz) {
-        return getLogger(clazz.getName(), false);
-    }
-
-    /**
-     * Gets a Logger instance by name with optional caching control.
-     *
-     * @param name      the logger name
-     * @param createNew if true, creates a new instance bypassing cache
-     * @return Logger instance
-     */
-    public static Logger getLogger(final String name, final boolean createNew) {
-        if (!createNew) {
-            Logger cached = LOGGER_CACHE.get(name);
-            if (cached != null) {
-                return cached;
-            }
-        }
-        Logger logger = createLogger(name);
-        if (!createNew) {
-            LOGGER_CACHE.put(name, logger);
-        }
-        return logger;
-    }
-
-    /**
-     * Gets a Logger instance by class with optional caching control.
-     *
-     * @param clazz     the class for the logger
-     * @param createNew if true, creates a new instance bypassing cache
-     * @return Logger instance
-     */
-    public static Logger getLogger(final Class<?> clazz, final boolean createNew) {
-        return getLogger(clazz.getName(), createNew);
-    }
-
-    private static Logger createLogger(final String name) {
-        String key = getCurrentProvider();
-        Class<? extends Logger> loggerImplClass = LOGGER_IMPL_MAP.get(key);
+        Class<? extends Logger> loggerImplClass = LOGGER_IMPL_MAP.get(getCurrentProvider());
         if (loggerImplClass == null) {
             return new NoOperationLoggerImpl(name);
         }
@@ -178,6 +114,36 @@ public final class LoggerFactory {
         } catch (Throwable e) {
             System.err.println("[GodiKit Logger] Failed to create Logger: " + LoggerThrowableUtils.toString(e));
             return new NoOperationLoggerImpl(name);
+        }
+    }
+
+    public static Logger getLogger(final Class clazz) {
+        Class<? extends Logger> loggerImplClass = LOGGER_IMPL_MAP.get(getCurrentProvider());
+        if (loggerImplClass == null) {
+            return new NoOperationLoggerImpl(clazz);
+        }
+        try {
+            Constructor<? extends Logger> constructor = loggerImplClass.getDeclaredConstructor(Class.class);
+            constructor.setAccessible(true);
+            return constructor.newInstance(clazz);
+        } catch (Throwable e) {
+            System.err.println("[GodiKit Logger] Failed to create Logger: " + LoggerThrowableUtils.toString(e));
+            return new NoOperationLoggerImpl(clazz);
+        }
+    }
+
+    public static Logger getLogger(final Object facadeLogger) {
+        Class<? extends Logger> loggerImplClass = LOGGER_IMPL_MAP.get(getCurrentProvider());
+        if (loggerImplClass == null) {
+            return new NoOperationLoggerImpl(facadeLogger);
+        }
+        try {
+            Constructor<? extends Logger> constructor = loggerImplClass.getDeclaredConstructor(facadeLogger.getClass());
+            constructor.setAccessible(true);
+            return constructor.newInstance(facadeLogger);
+        } catch (Throwable e) {
+            System.err.println("[GodiKit Logger] Failed to create Logger: " + LoggerThrowableUtils.toString(e));
+            return new NoOperationLoggerImpl(facadeLogger);
         }
     }
 }

@@ -58,6 +58,10 @@ public class Slf4jLogbackLoggerImpl implements Logger {
         FACADE_LOGGER = org.slf4j.LoggerFactory.getLogger(clazz);
     }
 
+    public Slf4jLogbackLoggerImpl(final org.slf4j.Logger logger) {
+        FACADE_LOGGER = logger;
+    }
+
     @Override
     public String getFacadeName() {
         return FACADE;

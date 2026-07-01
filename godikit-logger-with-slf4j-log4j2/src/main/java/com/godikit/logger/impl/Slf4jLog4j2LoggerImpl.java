@@ -55,7 +55,7 @@ public class Slf4jLog4j2LoggerImpl implements Logger {
      *
      * @param name the logger name
      */
-    public Slf4jLog4j2LoggerImpl(String name) {
+    public Slf4jLog4j2LoggerImpl(final String name) {
         FACADE_LOGGER = org.slf4j.LoggerFactory.getLogger(name);
     }
 
@@ -64,8 +64,12 @@ public class Slf4jLog4j2LoggerImpl implements Logger {
      *
      * @param clazz the class for the logger
      */
-    public Slf4jLog4j2LoggerImpl(Class clazz) {
+    public Slf4jLog4j2LoggerImpl(final Class clazz) {
         FACADE_LOGGER = org.slf4j.LoggerFactory.getLogger(clazz);
+    }
+
+    public Slf4jLog4j2LoggerImpl(final org.slf4j.Logger logger) {
+        FACADE_LOGGER = logger;
     }
 
     @Override

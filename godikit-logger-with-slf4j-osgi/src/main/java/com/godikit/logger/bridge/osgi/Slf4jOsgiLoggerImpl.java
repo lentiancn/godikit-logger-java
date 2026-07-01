@@ -24,10 +24,13 @@
 package com.godikit.logger.bridge.osgi;
 
 import com.godikit.logger.Logger;
+import com.godikit.logger.utils.LoggerThrowableUtils;
 import org.osgi.service.log.LoggerFactory;
 
 import java.util.Iterator;
 import java.util.ServiceLoader;
+
+import static com.godikit.logger.utils.LoggerUtils.mergeMsgAndThrowable;
 
 /**
  * SLF4J OSGi implementation for GodiKit Logger.
@@ -55,12 +58,16 @@ public class Slf4jOsgiLoggerImpl implements Logger {
 
     private final org.osgi.service.log.Logger osgiLogger;
 
-    public Slf4jOsgiLoggerImpl(Class<?> clazz) {
+    public Slf4jOsgiLoggerImpl(final Class<?> clazz) {
         this.osgiLogger = getLoggerFactory().getLogger(clazz);
     }
 
-    public Slf4jOsgiLoggerImpl(String name) {
+    public Slf4jOsgiLoggerImpl(final String name) {
         this.osgiLogger = getLoggerFactory().getLogger(name);
+    }
+
+    public Slf4jOsgiLoggerImpl(final org.osgi.service.log.Logger facadeLogger) {
+        osgiLogger = facadeLogger;
     }
 
     private static LoggerFactory getLoggerFactory() {
@@ -125,12 +132,12 @@ public class Slf4jOsgiLoggerImpl implements Logger {
 
     @Override
     public void trace(Throwable cause, String msg, Object... args) {
-        osgiLogger.trace(msg, args, cause);
+        osgiLogger.trace(mergeMsgAndThrowable(msg, cause), args);
     }
 
     @Override
     public void trace(Throwable cause) {
-        osgiLogger.trace(cause.getMessage(), cause);
+        osgiLogger.trace(LoggerThrowableUtils.toString(cause));
     }
 
     @Override
@@ -140,12 +147,12 @@ public class Slf4jOsgiLoggerImpl implements Logger {
 
     @Override
     public void debug(Throwable cause, String msg, Object... args) {
-        osgiLogger.debug(msg, args, cause);
+        osgiLogger.debug(mergeMsgAndThrowable(msg, cause), args);
     }
 
     @Override
     public void debug(Throwable cause) {
-        osgiLogger.debug(cause.getMessage(), cause);
+        osgiLogger.debug(LoggerThrowableUtils.toString(cause));
     }
 
     @Override
@@ -155,12 +162,12 @@ public class Slf4jOsgiLoggerImpl implements Logger {
 
     @Override
     public void info(Throwable cause, String msg, Object... args) {
-        osgiLogger.info(msg, args, cause);
+        osgiLogger.info(mergeMsgAndThrowable(msg, cause), args);
     }
 
     @Override
     public void info(Throwable cause) {
-        osgiLogger.info(cause.getMessage(), cause);
+        osgiLogger.info(LoggerThrowableUtils.toString(cause));
     }
 
     @Override
@@ -170,12 +177,12 @@ public class Slf4jOsgiLoggerImpl implements Logger {
 
     @Override
     public void warn(Throwable cause, String msg, Object... args) {
-        osgiLogger.warn(msg, args, cause);
+        osgiLogger.warn(mergeMsgAndThrowable(msg, cause), args);
     }
 
     @Override
     public void warn(Throwable cause) {
-        osgiLogger.warn(cause.getMessage(), cause);
+        osgiLogger.warn(LoggerThrowableUtils.toString(cause));
     }
 
     @Override
@@ -185,12 +192,12 @@ public class Slf4jOsgiLoggerImpl implements Logger {
 
     @Override
     public void error(Throwable cause, String msg, Object... args) {
-        osgiLogger.error(msg, args, cause);
+        osgiLogger.error(mergeMsgAndThrowable(msg, cause), args);
     }
 
     @Override
     public void error(Throwable cause) {
-        osgiLogger.error(cause.getMessage(), cause);
+        osgiLogger.error(LoggerThrowableUtils.toString(cause));
     }
 
     @Override

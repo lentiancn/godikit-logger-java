@@ -45,6 +45,9 @@ public class NoOperationLoggerImpl implements Logger {
     public NoOperationLoggerImpl(final Class<?> clazz) {
     }
 
+    public NoOperationLoggerImpl(final Object facadeLogger) {
+    }
+
     @Override
     public String getFacadeName() {
         return FACADE;
