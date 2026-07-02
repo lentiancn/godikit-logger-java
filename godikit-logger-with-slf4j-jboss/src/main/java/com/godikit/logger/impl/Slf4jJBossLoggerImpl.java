@@ -39,14 +39,18 @@ public class Slf4jJBossLoggerImpl implements Logger {
     public static final String FACADE = "slf4j";
     public static final String PROVIDER = "jboss";
 
-    private final org.slf4j.Logger logger;
+    private final org.slf4j.Logger FACADE_LOGGER;
 
     public Slf4jJBossLoggerImpl(Class<?> clazz) {
-        this.logger = LoggerFactory.getLogger(clazz);
+        this.FACADE_LOGGER = LoggerFactory.getLogger(clazz);
     }
 
     public Slf4jJBossLoggerImpl(String name) {
-        this.logger = LoggerFactory.getLogger(name);
+        this.FACADE_LOGGER = LoggerFactory.getLogger(name);
+    }
+
+    public Slf4jJBossLoggerImpl(Object delegateLogger) {
+        this.FACADE_LOGGER = (org.slf4j.Logger) delegateLogger;
     }
 
     @Override
@@ -56,7 +60,7 @@ public class Slf4jJBossLoggerImpl implements Logger {
 
     @Override
     public Object getFacadeLogger() {
-        return logger;
+        return FACADE_LOGGER;
     }
 
     @Override
@@ -66,101 +70,101 @@ public class Slf4jJBossLoggerImpl implements Logger {
 
     @Override
     public boolean isTraceEnabled() {
-        return logger.isTraceEnabled();
+        return FACADE_LOGGER.isTraceEnabled();
     }
 
     @Override
     public boolean isDebugEnabled() {
-        return logger.isDebugEnabled();
+        return FACADE_LOGGER.isDebugEnabled();
     }
 
     @Override
     public boolean isInfoEnabled() {
-        return logger.isInfoEnabled();
+        return FACADE_LOGGER.isInfoEnabled();
     }
 
     @Override
     public boolean isWarnEnabled() {
-        return logger.isWarnEnabled();
+        return FACADE_LOGGER.isWarnEnabled();
     }
 
     @Override
     public boolean isErrorEnabled() {
-        return logger.isErrorEnabled();
+        return FACADE_LOGGER.isErrorEnabled();
     }
 
     @Override
     public void trace(Throwable cause, String msg, Object... args) {
-        logger.trace(msg, args, cause);
+        FACADE_LOGGER.trace(msg, args, cause);
     }
 
     @Override
     public void trace(Throwable cause) {
-        logger.trace(cause.getMessage(), cause);
+        FACADE_LOGGER.trace(cause.getMessage(), cause);
     }
 
     @Override
     public void trace(String msg, Object... args) {
-        logger.trace(msg, args);
+        FACADE_LOGGER.trace(msg, args);
     }
 
     @Override
     public void debug(Throwable cause, String msg, Object... args) {
-        logger.debug(msg, args, cause);
+        FACADE_LOGGER.debug(msg, args, cause);
     }
 
     @Override
     public void debug(Throwable cause) {
-        logger.debug(cause.getMessage(), cause);
+        FACADE_LOGGER.debug(cause.getMessage(), cause);
     }
 
     @Override
     public void debug(String msg, Object... args) {
-        logger.debug(msg, args);
+        FACADE_LOGGER.debug(msg, args);
     }
 
     @Override
     public void info(Throwable cause, String msg, Object... args) {
-        logger.info(msg, args, cause);
+        FACADE_LOGGER.info(msg, args, cause);
     }
 
     @Override
     public void info(Throwable cause) {
-        logger.info(cause.getMessage(), cause);
+        FACADE_LOGGER.info(cause.getMessage(), cause);
     }
 
     @Override
     public void info(String msg, Object... args) {
-        logger.info(msg, args);
+        FACADE_LOGGER.info(msg, args);
     }
 
     @Override
     public void warn(Throwable cause, String msg, Object... args) {
-        logger.warn(msg, args, cause);
+        FACADE_LOGGER.warn(msg, args, cause);
     }
 
     @Override
     public void warn(Throwable cause) {
-        logger.warn(cause.getMessage(), cause);
+        FACADE_LOGGER.warn(cause.getMessage(), cause);
     }
 
     @Override
     public void warn(String msg, Object... args) {
-        logger.warn(msg, args);
+        FACADE_LOGGER.warn(msg, args);
     }
 
     @Override
     public void error(Throwable cause, String msg, Object... args) {
-        logger.error(msg, args, cause);
+        FACADE_LOGGER.error(msg, args, cause);
     }
 
     @Override
     public void error(Throwable cause) {
-        logger.error(cause.getMessage(), cause);
+        FACADE_LOGGER.error(cause.getMessage(), cause);
     }
 
     @Override
     public void error(String msg, Object... args) {
-        logger.error(msg, args);
+        FACADE_LOGGER.error(msg, args);
     }
 }

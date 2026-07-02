@@ -65,9 +65,9 @@ public class NoOperationLoggerImpl implements Logger {
     /**
      * Creates a no-operation logger wrapping the specified facade logger.
      *
-     * @param facadeLogger the facade logger to wrap (ignored in this implementation)
+     * @param delegateLogger the facade logger to wrap (ignored in this implementation)
      */
-    public NoOperationLoggerImpl(final Object facadeLogger) {
+    public NoOperationLoggerImpl(final Object delegateLogger) {
     }
 
     /**
@@ -87,7 +87,7 @@ public class NoOperationLoggerImpl implements Logger {
      */
     @Override
     public Object getFacadeLogger() {
-        return this;
+        return null;
     }
 
     /**

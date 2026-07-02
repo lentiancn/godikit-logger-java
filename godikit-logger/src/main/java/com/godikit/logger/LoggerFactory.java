@@ -152,29 +152,32 @@ public final class LoggerFactory {
      * <p>This method attempts to create a Logger implementation that wraps
      * the provided facade logger.</p>
      *
-     * @param facadeLogger the facade logger instance to wrap
+     * @param delegateLogger the facade logger instance to wrap
      * @return a new Logger instance wrapping the facade logger, or NoOperationLoggerImpl if creation fails
      */
-    public static Logger getLogger(final Object facadeLogger) {
-        if (facadeLogger == null) {
+    public static Logger getLogger(final Object delegateLogger) {
+        if (delegateLogger == null) {
             return new NoOperationLoggerImpl((Object) null);
         }
 
         try {
             if (currentConstructor == null) {
-                return new NoOperationLoggerImpl(facadeLogger);
+                return new NoOperationLoggerImpl(delegateLogger);
             }
 
             Constructor<? extends Logger> constructor = currentConstructor.getDeclaringClass()
-                    .getDeclaredConstructor(facadeLogger.getClass());
+                    .getDeclaredConstructor(Object.class);
             constructor.setAccessible(true);
-            return constructor.newInstance(facadeLogger);
+            return constructor.newInstance(delegateLogger);
+        } catch (ClassCastException e) {
+            System.out.println("[GodiKit Logger] No Logger implementation found for: " + delegateLogger.getClass().getName() + ". Using stdout as fallback.");
+            return Logger.SYSTEM_LOGGER;
         } catch (NoSuchMethodException e) {
-            System.err.println("[GodiKit Logger] No matching constructor found for: " + facadeLogger.getClass().getName());
-            return new NoOperationLoggerImpl(facadeLogger);
+            System.err.println("[GodiKit Logger] No matching constructor found for: " + delegateLogger.getClass().getName());
+            return Logger.NO_OP_LOGGER;
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
             System.err.println("[GodiKit Logger] Failed to create Logger: " + ThrowableUtils.toString(e));
-            return new NoOperationLoggerImpl(facadeLogger);
+            return Logger.NO_OP_LOGGER;
         }
     }
 }

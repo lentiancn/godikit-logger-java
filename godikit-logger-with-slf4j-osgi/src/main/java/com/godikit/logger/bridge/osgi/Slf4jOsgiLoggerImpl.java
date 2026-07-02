@@ -92,10 +92,10 @@ public class Slf4jOsgiLoggerImpl implements Logger {
     /**
      * Creates a logger from an existing OSGi Logger instance.
      *
-     * @param facadeLogger the OSGi Logger instance to wrap
+     * @param delegateLogger the OSGi Logger instance to wrap
      */
-    public Slf4jOsgiLoggerImpl(final org.osgi.service.log.Logger facadeLogger) {
-        osgiLogger = facadeLogger;
+    public Slf4jOsgiLoggerImpl(final Object delegateLogger) {
+        osgiLogger = (org.osgi.service.log.Logger) delegateLogger;
     }
 
     /**

@@ -22,10 +22,6 @@
             <groupId>com.godikit.logger</groupId>
             <artifactId>godikit-logger</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.godikit.logger</groupId>
-            <artifactId>godikit-logger-with-slf4j-log4j2-config</artifactId>
-        </dependency>
         <!-- Facade -->
         <dependency>
             <groupId>org.slf4j</groupId>

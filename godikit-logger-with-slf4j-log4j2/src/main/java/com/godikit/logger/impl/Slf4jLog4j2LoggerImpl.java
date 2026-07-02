@@ -81,10 +81,10 @@ public class Slf4jLog4j2LoggerImpl implements Logger {
     /**
      * Creates a logger from an existing SLF4J Logger instance.
      *
-     * @param facadeLogger the SLF4J Logger instance to wrap
+     * @param delegateLogger the SLF4J Logger instance to wrap
      */
-    public Slf4jLog4j2LoggerImpl(final org.slf4j.Logger facadeLogger) {
-        FACADE_LOGGER = facadeLogger;
+    public Slf4jLog4j2LoggerImpl(final Object delegateLogger) {
+        FACADE_LOGGER = (org.slf4j.Logger) delegateLogger;
     }
 
     /**

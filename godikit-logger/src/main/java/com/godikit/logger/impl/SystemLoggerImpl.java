@@ -55,12 +55,15 @@ public class SystemLoggerImpl implements Logger {
      */
     public static final String PROVIDER = "system";
 
+    private final Object DELEGATE_LOGGER;
+
     /**
      * Creates a system logger with the specified name.
      *
      * @param name the logger name (currently unused)
      */
     public SystemLoggerImpl(final String name) {
+        DELEGATE_LOGGER = "system";
     }
 
     /**
@@ -69,14 +72,16 @@ public class SystemLoggerImpl implements Logger {
      * @param clazz the class for the logger (currently unused)
      */
     public SystemLoggerImpl(final Class<?> clazz) {
+        DELEGATE_LOGGER = "system";
     }
 
     /**
      * Creates a system logger wrapping the specified facade logger.
      *
-     * @param facadeLogger the facade logger to wrap (ignored in this implementation)
+     * @param delegateLogger the facade logger to wrap (ignored in this implementation)
      */
-    public SystemLoggerImpl(final Object facadeLogger) {
+    public SystemLoggerImpl(final Object delegateLogger) {
+        DELEGATE_LOGGER = delegateLogger;
     }
 
     /**
@@ -96,7 +101,7 @@ public class SystemLoggerImpl implements Logger {
      */
     @Override
     public Object getFacadeLogger() {
-        return this;
+        return DELEGATE_LOGGER;
     }
 
     /**
