@@ -294,6 +294,7 @@
                                 <addBuildEnvironmentEntries>true</addBuildEnvironmentEntries>
                             </manifest>
                             <manifestEntries>
+                                <Built-By>Len (田隆)</Built-By>
                                 <Built-Date>${maven.build.timestamp}</Built-Date>
                             </manifestEntries>
                         </archive>
