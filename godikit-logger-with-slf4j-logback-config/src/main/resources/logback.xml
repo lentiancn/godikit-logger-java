@@ -6,7 +6,8 @@
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%godikitLevelColor([%d{yyyy-MM-dd HH:mm:ss}]) %godikitLevelColor(%-5level) %msg%n</pattern>
+            <pattern>%godikitLevelColor([%d{yyyy-MM-dd HH:mm:ss}]) %godikitLevelColor(%-5level) [logback] %msg%n
+            </pattern>
         </encoder>
     </appender>
 

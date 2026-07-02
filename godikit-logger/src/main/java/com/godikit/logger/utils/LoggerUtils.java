@@ -71,6 +71,21 @@ public final class LoggerUtils {
     }
 
     /**
+     * Merges a message template and a Throwable into a single formatted string.
+     *
+     * <p>This utility combines a log message with its associated exception stack trace,
+     * useful when the underlying logging framework does not natively support
+     * both message formatting and exception logging in a single call.</p>
+     *
+     * @param msg   the message template, may be null
+     * @param cause the Throwable to include, may be null
+     * @return the merged string, or empty string if both inputs are null
+     */
+    public static String mergeMsgAndThrowable(final String msg, final Throwable cause) {
+        return (msg != null ? msg : "") + (cause != null ? LoggerThrowableUtils.toString(cause) : "");
+    }
+
+    /**
      * Gets a Logger instance by name, falling back to SystemLogger if no provider is available.
      *
      * @param name the logger name

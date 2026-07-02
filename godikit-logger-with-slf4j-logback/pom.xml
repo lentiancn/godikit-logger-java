@@ -36,41 +36,16 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
         </dependency>
-        <!-- JCL Bridge -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-        </dependency>
-        <!-- JUL Bridge -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jul-to-slf4j</artifactId>
-        </dependency>
-        <!-- Log4j1 Bridge -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>log4j-over-slf4j</artifactId>
-        </dependency>
-        <!-- Log4j2 Bridge -->
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-to-slf4j</artifactId>
-        </dependency>
         <!-- OSGi Bridge -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>osgi-over-slf4j</artifactId>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.slf4j</groupId>-->
+        <!--            <artifactId>osgi-over-slf4j</artifactId>-->
+        <!--        </dependency>-->
         <!-- OSGi Logger API -->
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.service.log</artifactId>
-        </dependency>
-        <!-- JBoss Bridge -->
-        <dependency>
-            <groupId>org.jboss.slf4j</groupId>
-            <artifactId>slf4j-jboss-logging</artifactId>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.osgi</groupId>-->
+        <!--            <artifactId>org.osgi.service.log</artifactId>-->
+        <!--        </dependency>-->
     </dependencies>
 
     <developers>

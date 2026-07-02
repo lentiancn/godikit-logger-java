@@ -58,10 +58,19 @@
 
     <modules>
         <module>godikit-logger</module>
+        <module>godikit-logger-with-slf4j-jboss</module>
+        <module>godikit-logger-with-slf4j-jboss-config</module>
         <module>godikit-logger-with-slf4j-log4j2</module>
         <module>godikit-logger-with-slf4j-log4j2-config</module>
         <module>godikit-logger-with-slf4j-logback</module>
         <module>godikit-logger-with-slf4j-logback-config</module>
+        <module>godikit-logger-with-slf4j-osgi</module>
+        <module>bridge/godikit-logger-slf4j-jboss-bridge</module>
+        <module>bridge/godikit-logger-slf4j-jcl-bridge</module>
+        <module>bridge/godikit-logger-slf4j-jul-bridge</module>
+        <module>bridge/godikit-logger-slf4j-log4j1-bridge</module>
+        <module>bridge/godikit-logger-slf4j-log4j2-bridge</module>
+        <module>bridge/godikit-logger-slf4j-osgi-bridge</module>
     </modules>
 
     <dependencyManagement>
@@ -69,6 +78,16 @@
             <dependency>
                 <groupId>com.godikit.logger</groupId>
                 <artifactId>godikit-logger</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.godikit.logger</groupId>
+                <artifactId>godikit-logger-with-slf4j-jboss</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.godikit.logger</groupId>
+                <artifactId>godikit-logger-with-slf4j-jboss-config</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
@@ -90,6 +109,11 @@
                 <groupId>com.godikit.logger</groupId>
                 <artifactId>godikit-logger-with-slf4j-logback-config</artifactId>
                 <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.logging</groupId>
+                <artifactId>jboss-logging</artifactId>
+                <version>3.4.3.Final</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>

@@ -36,112 +36,267 @@ import com.godikit.logger.Logger;
  */
 public class NoOperationLoggerImpl implements Logger {
 
+    /**
+     * The facade identifier for this logger implementation.
+     */
     public static final String FACADE = "godikit";
+
+    /**
+     * The provider identifier for this logger implementation.
+     */
     public static final String PROVIDER = "no-op";
 
+    /**
+     * Creates a no-operation logger with the specified name.
+     *
+     * @param name the logger name (ignored in this implementation)
+     */
     public NoOperationLoggerImpl(final String name) {
     }
 
+    /**
+     * Creates a no-operation logger based on the specified class.
+     *
+     * @param clazz the class for the logger (ignored in this implementation)
+     */
     public NoOperationLoggerImpl(final Class<?> clazz) {
     }
 
+    /**
+     * Creates a no-operation logger wrapping the specified facade logger.
+     *
+     * @param facadeLogger the facade logger to wrap (ignored in this implementation)
+     */
+    public NoOperationLoggerImpl(final Object facadeLogger) {
+    }
+
+    /**
+     * Returns the facade name identifier.
+     *
+     * @return the facade identifier, always "godikit"
+     */
     @Override
     public String getFacadeName() {
         return FACADE;
     }
 
+    /**
+     * Returns a reference to this no-operation logger instance.
+     *
+     * @return this instance
+     */
     @Override
     public Object getFacadeLogger() {
         return this;
     }
 
+    /**
+     * Returns the provider name identifier.
+     *
+     * @return the provider identifier, always "no-op"
+     */
     @Override
     public String getProviderName() {
         return PROVIDER;
     }
 
+    /**
+     * Always returns false as no logging is performed.
+     *
+     * @return always false
+     */
     @Override
     public boolean isTraceEnabled() {
         return false;
     }
 
+    /**
+     * Always returns false as no logging is performed.
+     *
+     * @return always false
+     */
     @Override
     public boolean isDebugEnabled() {
         return false;
     }
 
+    /**
+     * Always returns false as no logging is performed.
+     *
+     * @return always false
+     */
     @Override
     public boolean isInfoEnabled() {
         return false;
     }
 
+    /**
+     * Always returns false as no logging is performed.
+     *
+     * @return always false
+     */
     @Override
     public boolean isWarnEnabled() {
         return false;
     }
 
+    /**
+     * Always returns false as no logging is performed.
+     *
+     * @return always false
+     */
     @Override
     public boolean isErrorEnabled() {
         return false;
     }
 
-    @Override
-    public void trace(final Throwable cause, final String msg, final Object... args) {
-    }
-
-    @Override
-    public void trace(final Throwable cause) {
-    }
-
+    /**
+     * Discards the message and arguments (no-operation).
+     *
+     * @param msg  the message pattern (ignored)
+     * @param args the arguments (ignored)
+     */
     @Override
     public void trace(final String msg, final Object... args) {
     }
 
+    /**
+     * Discards the exception (no-operation).
+     *
+     * @param cause the Throwable to discard (ignored)
+     */
     @Override
-    public void debug(final Throwable cause, final String msg, final Object... args) {
+    public void trace(final Throwable cause) {
     }
 
+    /**
+     * Discards the message, exception, and arguments (no-operation).
+     *
+     * @param cause the Throwable to discard (ignored)
+     * @param msg   the message pattern (ignored)
+     * @param args  the arguments (ignored)
+     */
     @Override
-    public void debug(final Throwable cause) {
+    public void trace(final Throwable cause, final String msg, final Object... args) {
     }
 
+    /**
+     * Discards the message and arguments (no-operation).
+     *
+     * @param msg  the message pattern (ignored)
+     * @param args the arguments (ignored)
+     */
     @Override
     public void debug(final String msg, final Object... args) {
     }
 
+    /**
+     * Discards the exception (no-operation).
+     *
+     * @param cause the Throwable to discard (ignored)
+     */
     @Override
-    public void info(final Throwable cause, final String msg, final Object... args) {
+    public void debug(final Throwable cause) {
     }
 
+    /**
+     * Discards the message, exception, and arguments (no-operation).
+     *
+     * @param cause the Throwable to discard (ignored)
+     * @param msg   the message pattern (ignored)
+     * @param args  the arguments (ignored)
+     */
     @Override
-    public void info(final Throwable cause) {
+    public void debug(final Throwable cause, final String msg, final Object... args) {
     }
 
+    /**
+     * Discards the message and arguments (no-operation).
+     *
+     * @param msg  the message pattern (ignored)
+     * @param args the arguments (ignored)
+     */
     @Override
     public void info(final String msg, final Object... args) {
     }
 
+    /**
+     * Discards the exception (no-operation).
+     *
+     * @param cause the Throwable to discard (ignored)
+     */
     @Override
-    public void warn(final Throwable cause, final String msg, final Object... args) {
+    public void info(final Throwable cause) {
     }
 
+    /**
+     * Discards the message, exception, and arguments (no-operation).
+     *
+     * @param cause the Throwable to discard (ignored)
+     * @param msg   the message pattern (ignored)
+     * @param args  the arguments (ignored)
+     */
     @Override
-    public void warn(final Throwable cause) {
+    public void info(final Throwable cause, final String msg, final Object... args) {
     }
 
+    /**
+     * Discards the message and arguments (no-operation).
+     *
+     * @param msg  the message pattern (ignored)
+     * @param args the arguments (ignored)
+     */
     @Override
     public void warn(final String msg, final Object... args) {
     }
 
+    /**
+     * Discards the exception (no-operation).
+     *
+     * @param cause the Throwable to discard (ignored)
+     */
     @Override
-    public void error(final Throwable cause, final String msg, final Object... args) {
+    public void warn(final Throwable cause) {
     }
 
+    /**
+     * Discards the message, exception, and arguments (no-operation).
+     *
+     * @param cause the Throwable to discard (ignored)
+     * @param msg   the message pattern (ignored)
+     * @param args  the arguments (ignored)
+     */
+    @Override
+    public void warn(final Throwable cause, final String msg, final Object... args) {
+    }
+
+    /**
+     * Discards the message and arguments (no-operation).
+     *
+     * @param msg  the message pattern (ignored)
+     * @param args the arguments (ignored)
+     */
+    @Override
+    public void error(final String msg, final Object... args) {
+    }
+
+    /**
+     * Discards the exception (no-operation).
+     *
+     * @param cause the Throwable to discard (ignored)
+     */
     @Override
     public void error(final Throwable cause) {
     }
 
+    /**
+     * Discards the message, exception, and arguments (no-operation).
+     *
+     * @param cause the Throwable to discard (ignored)
+     * @param msg   the message pattern (ignored)
+     * @param args  the arguments (ignored)
+     */
     @Override
-    public void error(final String msg, final Object... args) {
+    public void error(final Throwable cause, final String msg, final Object... args) {
     }
 }

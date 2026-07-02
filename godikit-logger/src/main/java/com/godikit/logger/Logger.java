@@ -23,6 +23,9 @@
  */
 package com.godikit.logger;
 
+import com.godikit.logger.impl.NoOperationLoggerImpl;
+import com.godikit.logger.impl.SystemLoggerImpl;
+
 /**
  * Core logger interface that serves as a facade for various logging implementations.
  *
@@ -40,6 +43,10 @@ package com.godikit.logger;
  * @since 2025-11-07 22:53
  */
 public interface Logger {
+
+    Logger NO_OP_LOGGER = new NoOperationLoggerImpl("");
+
+    Logger SYSTEM_LOGGER = new SystemLoggerImpl("");
 
     /**
      * Returns the facade name.
@@ -62,43 +69,158 @@ public interface Logger {
      */
     String getProviderName();
 
+    /**
+     * Checks if TRACE level logging is enabled.
+     *
+     * @return true if TRACE level is enabled
+     */
     boolean isTraceEnabled();
 
+    /**
+     * Checks if DEBUG level logging is enabled.
+     *
+     * @return true if DEBUG level is enabled
+     */
     boolean isDebugEnabled();
 
+    /**
+     * Checks if INFO level logging is enabled.
+     *
+     * @return true if INFO level is enabled
+     */
     boolean isInfoEnabled();
 
+    /**
+     * Checks if WARN level logging is enabled.
+     *
+     * @return true if WARN level is enabled
+     */
     boolean isWarnEnabled();
 
+    /**
+     * Checks if ERROR level logging is enabled.
+     *
+     * @return true if ERROR level is enabled
+     */
     boolean isErrorEnabled();
 
-    void trace(final Throwable cause, final String msg, final Object... args);
-
-    void trace(final Throwable cause);
-
+    /**
+     * Logs a message at TRACE level with optional arguments.
+     *
+     * @param msg  the message pattern
+     * @param args the arguments to be substituted into the message pattern
+     */
     void trace(final String msg, final Object... args);
 
-    void debug(final Throwable cause, final String msg, final Object... args);
+    /**
+     * Logs an exception at TRACE level.
+     *
+     * @param cause the Throwable to log
+     */
+    void trace(final Throwable cause);
 
-    void debug(final Throwable cause);
+    /**
+     * Logs a message at TRACE level with an exception and optional arguments.
+     *
+     * @param cause the Throwable to log
+     * @param msg   the message pattern
+     * @param args  the arguments to be substituted into the message pattern
+     */
+    void trace(final Throwable cause, final String msg, final Object... args);
 
+    /**
+     * Logs a message at DEBUG level with optional arguments.
+     *
+     * @param msg  the message pattern
+     * @param args the arguments to be substituted into the message pattern
+     */
     void debug(final String msg, final Object... args);
 
-    void info(final Throwable cause, final String msg, final Object... args);
+    /**
+     * Logs an exception at DEBUG level.
+     *
+     * @param cause the Throwable to log
+     */
+    void debug(final Throwable cause);
 
-    void info(final Throwable cause);
+    /**
+     * Logs a message at DEBUG level with an exception and optional arguments.
+     *
+     * @param cause the Throwable to log
+     * @param msg   the message pattern
+     * @param args  the arguments to be substituted into the message pattern
+     */
+    void debug(final Throwable cause, final String msg, final Object... args);
 
+    /**
+     * Logs a message at INFO level with optional arguments.
+     *
+     * @param msg  the message pattern
+     * @param args the arguments to be substituted into the message pattern
+     */
     void info(final String msg, final Object... args);
 
-    void warn(final Throwable cause, final String msg, final Object... args);
+    /**
+     * Logs an exception at INFO level.
+     *
+     * @param cause the Throwable to log
+     */
+    void info(final Throwable cause);
 
-    void warn(final Throwable cause);
+    /**
+     * Logs a message at INFO level with an exception and optional arguments.
+     *
+     * @param cause the Throwable to log
+     * @param msg   the message pattern
+     * @param args  the arguments to be substituted into the message pattern
+     */
+    void info(final Throwable cause, final String msg, final Object... args);
 
+    /**
+     * Logs a message at WARN level with optional arguments.
+     *
+     * @param msg  the message pattern
+     * @param args the arguments to be substituted into the message pattern
+     */
     void warn(final String msg, final Object... args);
 
-    void error(final Throwable cause, final String msg, final Object... args);
+    /**
+     * Logs an exception at WARN level.
+     *
+     * @param cause the Throwable to log
+     */
+    void warn(final Throwable cause);
 
+    /**
+     * Logs a message at WARN level with an exception and optional arguments.
+     *
+     * @param cause the Throwable to log
+     * @param msg   the message pattern
+     * @param args  the arguments to be substituted into the message pattern
+     */
+    void warn(final Throwable cause, final String msg, final Object... args);
+
+    /**
+     * Logs a message at ERROR level with optional arguments.
+     *
+     * @param msg  the message pattern
+     * @param args the arguments to be substituted into the message pattern
+     */
+    void error(final String msg, final Object... args);
+
+    /**
+     * Logs an exception at ERROR level.
+     *
+     * @param cause the Throwable to log
+     */
     void error(final Throwable cause);
 
-    void error(final String msg, final Object... args);
+    /**
+     * Logs a message at ERROR level with an exception and optional arguments.
+     *
+     * @param cause the Throwable to log
+     * @param msg   the message pattern
+     * @param args  the arguments to be substituted into the message pattern
+     */
+    void error(final Throwable cause, final String msg, final Object... args);
 }

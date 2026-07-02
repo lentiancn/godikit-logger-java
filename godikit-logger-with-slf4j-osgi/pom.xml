@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.godikit.logger</groupId>
+        <artifactId>godikit-logger-parent</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>godikit-logger-with-slf4j-osgi</artifactId>
+    <version>${revision}</version>
+    <name>GodiKit Logger with SLF4J OSGi</name>
+    <description>
+        GodiKit Logger with SLF4J OSGi Logging
+    </description>
+    <url>https://www.godikit.com/logger</url>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.godikit.logger</groupId>
+            <artifactId>godikit-logger</artifactId>
+        </dependency>
+        <!-- Facade -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <!-- OSGi Log Service API -->
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.service.log</artifactId>
+        </dependency>
+    </dependencies>
+
+    <developers>
+        <developer>
+            <name>Len (田隆)</name>
+            <email>len782768@gmail.com</email>
+            <url>https://github.com/lentiancn</url>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://raw.githubusercontent.com/lentiancn/godikit-logger-java/refs/heads/main/LICENSE</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/lentiancn/godikit-logger-java</url>
+        <connection>scm:git:https://github.com/lentiancn/godikit-logger-java.git</connection>
+        <developerConnection>scm:git:git@github.com:lentiancn/godikit-logger-java.git</developerConnection>
+    </scm>
+</project>
