@@ -23,8 +23,8 @@
  */
 package com.godikit.logger;
 
+import com.godikit.error.utils.ThrowableUtils;
 import com.godikit.logger.impl.NoOperationLoggerImpl;
-import com.godikit.logger.utils.LoggerThrowableUtils;
 import com.godikit.logger.utils.LoggerUtils;
 
 import java.lang.reflect.Constructor;
@@ -86,7 +86,7 @@ public final class LoggerFactory {
             constructor.setAccessible(true);
             currentConstructor = constructor;
         } catch (Throwable e) {
-            System.err.println("[GodiKit Logger] Failed to load Logger implementation: " + LoggerThrowableUtils.toString(e));
+            System.err.println("[GodiKit Logger] Failed to load Logger implementation: " + ThrowableUtils.toString(e));
         }
     }
 
@@ -127,7 +127,7 @@ public final class LoggerFactory {
             try {
                 logger = currentConstructor.newInstance(name);
             } catch (Throwable e) {
-                System.err.println("[GodiKit Logger] Failed to create Logger: " + LoggerThrowableUtils.toString(e));
+                System.err.println("[GodiKit Logger] Failed to create Logger: " + ThrowableUtils.toString(e));
                 logger = new NoOperationLoggerImpl(name);
             }
         }
@@ -173,7 +173,7 @@ public final class LoggerFactory {
             System.err.println("[GodiKit Logger] No matching constructor found for: " + facadeLogger.getClass().getName());
             return new NoOperationLoggerImpl(facadeLogger);
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
-            System.err.println("[GodiKit Logger] Failed to create Logger: " + LoggerThrowableUtils.toString(e));
+            System.err.println("[GodiKit Logger] Failed to create Logger: " + ThrowableUtils.toString(e));
             return new NoOperationLoggerImpl(facadeLogger);
         }
     }

@@ -23,6 +23,7 @@
  */
 package com.godikit.logger.utils;
 
+import com.godikit.error.utils.ThrowableUtils;
 import com.godikit.logger.Logger;
 import com.godikit.logger.LoggerConstants;
 import com.godikit.logger.LoggerFactory;
@@ -82,7 +83,7 @@ public final class LoggerUtils {
      * @return the merged string, or empty string if both inputs are null
      */
     public static String mergeMsgAndThrowable(final String msg, final Throwable cause) {
-        return (msg != null ? msg : "") + (cause != null ? LoggerThrowableUtils.toString(cause) : "");
+        return (msg != null ? msg : "") + (cause != null ? ThrowableUtils.toString(cause) : "");
     }
 
     /**

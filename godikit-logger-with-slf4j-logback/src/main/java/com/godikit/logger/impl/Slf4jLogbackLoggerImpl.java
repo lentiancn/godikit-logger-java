@@ -23,8 +23,8 @@
  */
 package com.godikit.logger.impl;
 
+import com.godikit.error.utils.ThrowableUtils;
 import com.godikit.logger.Logger;
-import com.godikit.logger.utils.LoggerThrowableUtils;
 
 import static com.godikit.logger.utils.LoggerUtils.mergeMsgAndThrowable;
 
@@ -185,7 +185,7 @@ public class Slf4jLogbackLoggerImpl implements Logger {
      */
     @Override
     public void trace(final Throwable cause) {
-        FACADE_LOGGER.trace(LoggerThrowableUtils.toString(cause));
+        FACADE_LOGGER.trace(ThrowableUtils.toString(cause));
     }
 
     /**
@@ -218,7 +218,7 @@ public class Slf4jLogbackLoggerImpl implements Logger {
      */
     @Override
     public void debug(final Throwable cause) {
-        FACADE_LOGGER.debug(LoggerThrowableUtils.toString(cause));
+        FACADE_LOGGER.debug(ThrowableUtils.toString(cause));
     }
 
     /**
@@ -251,7 +251,7 @@ public class Slf4jLogbackLoggerImpl implements Logger {
      */
     @Override
     public void info(final Throwable cause) {
-        FACADE_LOGGER.info(LoggerThrowableUtils.toString(cause));
+        FACADE_LOGGER.info(ThrowableUtils.toString(cause));
     }
 
     /**
@@ -284,7 +284,7 @@ public class Slf4jLogbackLoggerImpl implements Logger {
      */
     @Override
     public void warn(final Throwable cause) {
-        FACADE_LOGGER.warn(LoggerThrowableUtils.toString(cause));
+        FACADE_LOGGER.warn(ThrowableUtils.toString(cause));
     }
 
     /**
@@ -317,7 +317,7 @@ public class Slf4jLogbackLoggerImpl implements Logger {
      */
     @Override
     public void error(final Throwable cause) {
-        FACADE_LOGGER.error(LoggerThrowableUtils.toString(cause));
+        FACADE_LOGGER.error(ThrowableUtils.toString(cause));
     }
 
     /**

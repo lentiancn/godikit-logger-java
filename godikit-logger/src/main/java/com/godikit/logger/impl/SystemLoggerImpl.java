@@ -23,8 +23,8 @@
  */
 package com.godikit.logger.impl;
 
+import com.godikit.error.utils.ThrowableUtils;
 import com.godikit.logger.Logger;
-import com.godikit.logger.utils.LoggerThrowableUtils;
 
 /**
  * Logger implementation that outputs to System.out and System.err.
@@ -338,7 +338,7 @@ public class SystemLoggerImpl implements Logger {
             sb.append(formatMessage(msg, args));
         }
         if (cause != null) {
-            sb.append(LoggerThrowableUtils.toString(cause));
+            sb.append(ThrowableUtils.toString(cause));
         }
         if (isErr) {
             System.err.println(sb);

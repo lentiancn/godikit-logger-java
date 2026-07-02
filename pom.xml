@@ -76,6 +76,11 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>com.godikit.error</groupId>
+                <artifactId>godikit-error</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+            <dependency>
                 <groupId>com.godikit.logger</groupId>
                 <artifactId>godikit-logger</artifactId>
                 <version>${revision}</version>
@@ -179,6 +184,10 @@
     </dependencyManagement>
 
     <dependencies>
+        <dependency>
+            <groupId>com.godikit.error</groupId>
+            <artifactId>godikit-error</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
