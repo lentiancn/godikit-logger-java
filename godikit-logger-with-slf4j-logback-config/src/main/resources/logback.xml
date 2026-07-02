@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <conversionRule conversionWord="godikitLevelColor"
-                    converterClass="com.godikit.logger.logback.converter.LoggerLevelColorCompositeConverter"
-                    class="com.godikit.logger.logback.converter.LoggerLevelColorCompositeConverter"/>
+    <conversionRule conversionWord="GT_LEVEL_COLOR"
+                    converterClass="com.godikit.logger.converter.LevelColorCompositeConverter"
+                    class="com.godikit.logger.converter.LevelColorCompositeConverter"/>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%godikitLevelColor([%d{yyyy-MM-dd HH:mm:ss}]) %godikitLevelColor(%-5level) [logback] %msg%n
+            <pattern>%GT_LEVEL_COLOR([%d{yyyy-MM-dd HH:mm:ss}]) %GT_LEVEL_COLOR(%-5level) %msg%n
             </pattern>
         </encoder>
     </appender>

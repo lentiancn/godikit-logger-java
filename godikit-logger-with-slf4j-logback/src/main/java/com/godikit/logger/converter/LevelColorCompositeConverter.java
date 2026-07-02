@@ -1,4 +1,4 @@
-package com.godikit.logger.logback.converter;
+package com.godikit.logger.converter;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.spi.ILoggingEvent;
@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 
 import static ch.qos.logback.core.pattern.color.ANSIConstants.DEFAULT_FG;
 
-public class LoggerLevelColorCompositeConverter extends ForegroundCompositeConverterBase<ILoggingEvent> {
+public class LevelColorCompositeConverter extends ForegroundCompositeConverterBase<ILoggingEvent> {
 
     private static final String BOLD = "1;";
     private static final String FE_PREFIX = "38;2;";
@@ -22,44 +22,38 @@ public class LoggerLevelColorCompositeConverter extends ForegroundCompositeConve
     static {
         ResourceBundle bundle = null;
         try {
-            bundle = ResourceBundle.getBundle("logger-with-slf4j-logback-config");
-        } catch (Throwable ex) {
-            // do nothing
+            bundle = ResourceBundle.getBundle("godikit-logger-level-color");
+        } catch (Throwable ignored) {
         }
         try {
-            if (bundle.containsKey("highlight.color.TRACE.bold") && bundle.containsKey("highlight.color.TRACE")) {
-                TRACE_COLOR_CODE = hexToAnsiColor(Boolean.parseBoolean(bundle.getString("highlight.color.TRACE.bold")), bundle.getString("highlight.color.TRACE"));
+            if (bundle.containsKey("level.color.TRACE.bold") && bundle.containsKey("level.color.TRACE")) {
+                TRACE_COLOR_CODE = hexToAnsiColor(Boolean.parseBoolean(bundle.getString("level.color.TRACE.bold")), bundle.getString("level.color.TRACE"));
             }
-        } catch (Throwable ex) {
-            // do nothing
+        } catch (Throwable ignored) {
         }
         try {
-            if (bundle.containsKey("highlight.color.DEBUG.bold") && bundle.containsKey("highlight.color.DEBUG")) {
-                DEBUG_COLOR_CODE = hexToAnsiColor(Boolean.parseBoolean(bundle.getString("highlight.color.DEBUG.bold")), bundle.getString("highlight.color.DEBUG"));
+            if (bundle.containsKey("level.color.DEBUG.bold") && bundle.containsKey("level.color.DEBUG")) {
+                DEBUG_COLOR_CODE = hexToAnsiColor(Boolean.parseBoolean(bundle.getString("level.color.DEBUG.bold")), bundle.getString("level.color.DEBUG"));
             }
-        } catch (Throwable ex) {
-            // do nothing
+        } catch (Throwable ignored) {
         }
         try {
-            if (bundle.containsKey("highlight.color.INFO.bold") && bundle.containsKey("highlight.color.INFO")) {
-                INFO_COLOR_CODE = hexToAnsiColor(Boolean.parseBoolean(bundle.getString("highlight.color.INFO.bold")), bundle.getString("highlight.color.INFO"));
+            if (bundle.containsKey("level.color.INFO.bold") && bundle.containsKey("level.color.INFO")) {
+                INFO_COLOR_CODE = hexToAnsiColor(Boolean.parseBoolean(bundle.getString("level.color.INFO.bold")), bundle.getString("level.color.INFO"));
             }
-        } catch (Throwable ex) {
-            // do nothing
+        } catch (Throwable ignored) {
         }
         try {
-            if (bundle.containsKey("highlight.color.WARN.bold") && bundle.containsKey("highlight.color.WARN")) {
-                WARN_COLOR_CODE = hexToAnsiColor(Boolean.parseBoolean(bundle.getString("highlight.color.WARN.bold")), bundle.getString("highlight.color.WARN"));
+            if (bundle.containsKey("level.color.WARN.bold") && bundle.containsKey("level.color.WARN")) {
+                WARN_COLOR_CODE = hexToAnsiColor(Boolean.parseBoolean(bundle.getString("level.color.WARN.bold")), bundle.getString("level.color.WARN"));
             }
-        } catch (Throwable ex) {
-            // do nothing
+        } catch (Throwable ignored) {
         }
         try {
-            if (bundle.containsKey("highlight.color.ERROR.bold") && bundle.containsKey("highlight.color.ERROR")) {
-                ERROR_COLOR_CODE = hexToAnsiColor(Boolean.parseBoolean(bundle.getString("highlight.color.ERROR.bold")), bundle.getString("highlight.color.ERROR"));
+            if (bundle.containsKey("level.color.ERROR.bold") && bundle.containsKey("level.color.ERROR")) {
+                ERROR_COLOR_CODE = hexToAnsiColor(Boolean.parseBoolean(bundle.getString("level.color.ERROR.bold")), bundle.getString("level.color.ERROR"));
             }
-        } catch (Throwable ex) {
-            // do nothing
+        } catch (Throwable ignored) {
         }
     }
 
