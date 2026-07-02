@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
     <name>GodiKit Logger Parent</name>
     <description>
-        A logging utility package for JDK 17, designed to unify the management of logging components in Java projects
+        A logging utility package for JDK 8+, designed to unify the management of logging components in Java projects
         and establish a consistent standard.
     </description>
     <url>https://www.godikit.com/logger</url>

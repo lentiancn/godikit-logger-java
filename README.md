@@ -20,7 +20,7 @@ English
 |--------------------------------------------|------------------------------------------|
 | `godikit-logger`                           | Core API (Logger + LoggerFactory)        |
 | `godikit-logger-with-slf4j-log4j2`         | Log4j2 backend via SLF4J                 |
-| `godikit-logger-with-slf4j-log4j2-config`  | Log4j2 default config (colored console) |
+| `godikit-logger-with-slf4j-log4j2-config`  | Log4j2 default config (colored console)  |
 | `godikit-logger-with-slf4j-logback`        | Logback backend via SLF4J                |
 | `godikit-logger-with-slf4j-logback-config` | Logback default config (colored console) |
 
