@@ -1,4 +1,4 @@
-package com.godikit.logger.spi.provider.facade.slf4j;
+package com.godikit.logger.impl;
 
 import com.godikit.logger.Logger;
 import org.slf4j.helpers.FormattingTuple;
@@ -16,9 +16,9 @@ import static org.slf4j.spi.LocationAwareLogger.WARN_INT;
 /**
  * Adapts the GodiKit Logger API to SLF4J without depending on a backend.
  */
-public final class Slf4jLogger implements Logger {
+public final class Slf4jLoggerImpl implements Logger {
 
-    private static final String FQCN = Slf4jLogger.class.getName();
+    private static final String FQCN = Slf4jLoggerImpl.class.getName();
     private static final Object[] NO_ARGUMENTS = new Object[0];
 
     private final org.slf4j.Logger delegate;
@@ -27,7 +27,7 @@ public final class Slf4jLogger implements Logger {
     /**
      * Called by the facade provider after implementation validation.
      */
-    Slf4jLogger(org.slf4j.Logger delegate, String providerName) {
+    public Slf4jLoggerImpl(org.slf4j.Logger delegate, String providerName) {
         this.delegate = Objects.requireNonNull(delegate, "Delegate must not be null.");
         this.providerName = Objects.requireNonNull(
             providerName, "Provider name must not be null.");

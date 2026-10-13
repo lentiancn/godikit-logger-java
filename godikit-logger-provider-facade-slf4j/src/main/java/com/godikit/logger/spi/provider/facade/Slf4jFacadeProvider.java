@@ -1,6 +1,7 @@
-package com.godikit.logger.spi.provider.facade.slf4j;
+package com.godikit.logger.spi.provider.facade;
 
 import com.godikit.logger.Logger;
+import com.godikit.logger.impl.Slf4jLoggerImpl;
 import com.godikit.logger.spi.provider.facade.LoggerFacadeProvider;
 import com.godikit.logger.spi.provider.impl.LoggerImplProvider;
 import lombok.AccessLevel;
@@ -61,7 +62,7 @@ public final class Slf4jFacadeProvider implements LoggerFacadeProvider {
                     + ": " + (delegate == null ? "null" : delegate.getClass().getName()));
         }
 
-        return new Slf4jLogger(
+        return new Slf4jLoggerImpl(
             (org.slf4j.Logger) delegate, implementation.getName());
     }
 }

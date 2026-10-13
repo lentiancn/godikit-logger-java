@@ -1,8 +1,7 @@
-package com.godikit.logger.spi.provider.impl.logback;
+package com.godikit.logger.spi.provider.impl;
 
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
-import com.godikit.logger.spi.provider.impl.LoggerImplProvider;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

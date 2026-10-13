@@ -1,1 +1,1 @@
-com.godikit.logger.spi.provider.impl.logback.LogbackLoggerImplProvider
+com.godikit.logger.spi.provider.impl.LogbackLoggerImplProvider

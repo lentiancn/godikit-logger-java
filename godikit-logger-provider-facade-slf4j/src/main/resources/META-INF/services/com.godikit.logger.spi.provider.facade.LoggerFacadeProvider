@@ -1,1 +1,1 @@
-com.godikit.logger.spi.provider.facade.slf4j.Slf4jFacadeProvider
+com.godikit.logger.spi.provider.facade.Slf4jFacadeProvider
