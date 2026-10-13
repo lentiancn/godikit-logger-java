@@ -104,30 +104,6 @@ public class LoggerRegistry {
     }
 
     /**
-     * Returns a facade provider by its exact, case-sensitive name.
-     *
-     * @param name the facade name
-     * @return the provider, or null if not registered
-     */
-    public LoggerFacade getFacade(String name) {
-        Objects.requireNonNull(name, "Facade name must not be null.");
-        ensureInitialized();
-        return facades.get(name);
-    }
-
-    /**
-     * Returns an implementation provider by its exact, case-sensitive name.
-     *
-     * @param name the implementation name
-     * @return the provider, or null if not registered
-     */
-    public LoggerProvider getProvider(String name) {
-        Objects.requireNonNull(name, "Implementation name must not be null.");
-        ensureInitialized();
-        return providers.get(name);
-    }
-
-    /**
      * Returns a copy of all registered facade providers.
      *
      * @return the facade providers; iteration order is not a selection priority
