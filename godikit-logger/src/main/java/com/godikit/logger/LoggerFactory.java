@@ -33,8 +33,10 @@ import com.godikit.logger.spi.provider.impl.NoOperationLoggerProviderImpl;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -78,8 +80,29 @@ public final class LoggerFactory {
             LoggerProviderEnum implEnum = LoggerProviderConfig.getImpl();
 
             LoggerRegistry registry = LoggerRegistry.getInstance();
-            LoggerFacade facade = registry.getFacade(facadeEnum.getName());
-            LoggerProvider provider = registry.getProvider(implEnum.getName());
+
+            List<LoggerFacade> allFacades = registry.getFacades();
+            if (allFacades.size() > 1) {
+                String names = allFacades.stream()
+                    .map(LoggerFacade::getName)
+                    .collect(Collectors.joining(", "));
+                throw new IllegalStateException(
+                    "Multiple facade providers found: [" + names + "]"
+                        + ". Only one facade JAR should be present in classpath.");
+            }
+
+            List<LoggerProvider> allProviders = registry.getProviders();
+            if (allProviders.size() > 1) {
+                String names = allProviders.stream()
+                    .map(LoggerProvider::getName)
+                    .collect(Collectors.joining(", "));
+                throw new IllegalStateException(
+                    "Multiple implementation providers found: [" + names + "]"
+                        + ". Only one provider JAR should be present in classpath.");
+            }
+
+            LoggerFacade facade = !allFacades.isEmpty() ? allFacades.get(0) : null;
+            LoggerProvider provider = !allProviders.isEmpty() ? allProviders.get( 0 ) : null ;
 
             boolean facadeMissing = facade == null;
             boolean implMissing = provider == null;
