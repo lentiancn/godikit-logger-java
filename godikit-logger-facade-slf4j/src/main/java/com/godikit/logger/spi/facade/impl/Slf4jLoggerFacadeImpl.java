@@ -1,9 +1,9 @@
-package com.godikit.logger.spi.provider.facade;
+package com.godikit.logger.spi.facade.impl;
 
 import com.godikit.logger.Logger;
 import com.godikit.logger.impl.Slf4jLoggerImpl;
 import com.godikit.logger.spi.facade.LoggerFacade;
-import com.godikit.logger.spi.provider.impl.LoggerProvider;
+import com.godikit.logger.spi.provider.LoggerProvider;
 import org.slf4j.ILoggerFactory;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +12,7 @@ import java.util.Objects;
 /**
  * GodiKit SPI provider for the SLF4J facade.
  */
-public final class Slf4jFacadeProvider implements LoggerFacade {
+public final class Slf4jLoggerFacadeImpl implements LoggerFacade {
 
     @Override
     public String getName() {

@@ -2,7 +2,7 @@ package com.godikit.logger.impl;
 
 import com.godikit.logger.Logger;
 import com.godikit.logger.spi.facade.LoggerFacade;
-import com.godikit.logger.spi.provider.impl.LoggerProvider;
+import com.godikit.logger.spi.provider.LoggerProvider;
 import org.slf4j.helpers.FormattingTuple;
 import org.slf4j.helpers.MessageFormatter;
 import org.slf4j.spi.LocationAwareLogger;
@@ -24,21 +24,21 @@ public final class Slf4jLoggerImpl implements Logger {
     private static final Object[] NO_ARGUMENTS = new Object[0];
 
     private final org.slf4j.Logger delegate;
-    private final LoggerFacade facadeProvider;
+    private final LoggerFacade facade;
     private final LoggerProvider provider;
 
     /**
      * Called by the facade provider after implementation validation.
      */
-    public Slf4jLoggerImpl(org.slf4j.Logger delegate, LoggerFacade facadeProvider, LoggerProvider provider) {
+    public Slf4jLoggerImpl(org.slf4j.Logger delegate, LoggerFacade facade, LoggerProvider provider) {
         this.delegate = Objects.requireNonNull(delegate, "Delegate must not be null.");
-        this.facadeProvider = facadeProvider;
+        this.facade = facade;
         this.provider = provider;
     }
 
     @Override
     public LoggerFacade getFacade() {
-        return facadeProvider;
+        return facade;
     }
 
     @Override

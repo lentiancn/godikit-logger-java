@@ -5,11 +5,12 @@ import ch.qos.logback.classic.LoggerContext;
 import com.godikit.logger.enums.LoggerFacadeEnum;
 import com.godikit.logger.enums.LoggerProviderEnum;
 import com.godikit.logger.spi.facade.LoggerFacade;
+import com.godikit.logger.spi.provider.LoggerProvider;
 
 /**
  * Identifies and validates the Logback implementation behind SLF4J.
  */
-public final class LogbackLoggerImplProvider implements LoggerProvider {
+public final class LogbackLoggerProviderImpl implements LoggerProvider {
 
     @Override
     public String getName() {
@@ -17,8 +18,8 @@ public final class LogbackLoggerImplProvider implements LoggerProvider {
     }
 
     @Override
-    public boolean supportsFactory(LoggerFacade facadeProvider) {
-        return LoggerFacadeEnum.SLF4J.getName().equals(facadeProvider.getName()) && facadeProvider.getFacadeFactory() instanceof LoggerContext;
+    public boolean supportsFactory(LoggerFacade facade) {
+        return LoggerFacadeEnum.SLF4J.getName().equals(facade.getName()) && facade.getFacadeFactory() instanceof LoggerContext;
     }
 
     @Override

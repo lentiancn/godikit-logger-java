@@ -4,11 +4,11 @@ import com.godikit.logger.enums.LoggerProviderEnum;
 import com.godikit.logger.spi.facade.LoggerFacade;
 import com.godikit.logger.spi.provider.LoggerProvider;
 
-public class SystemLoggerProvider implements LoggerProvider {
+public class NoOperationLoggerProviderImpl implements LoggerProvider {
 
     @Override
     public String getName() {
-        return LoggerProviderEnum.SYSTEM.getName();
+        return LoggerProviderEnum.NO_OP.getName();
     }
 
     @Override

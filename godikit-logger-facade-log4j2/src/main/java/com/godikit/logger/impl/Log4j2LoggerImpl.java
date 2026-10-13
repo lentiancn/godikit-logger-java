@@ -11,18 +11,18 @@ public final class Log4j2LoggerImpl implements Logger {
 
     private final org.apache.logging.log4j.Logger delegate;
 
-    private final LoggerFacade facadeProvider;
+    private final LoggerFacade facade;
     private final LoggerProvider provider;
 
-    public Log4j2LoggerImpl(org.apache.logging.log4j.Logger delegate, LoggerFacade facadeProvider, LoggerProvider provider) {
+    public Log4j2LoggerImpl(org.apache.logging.log4j.Logger delegate, LoggerFacade facade, LoggerProvider provider) {
         this.delegate = delegate;
-        this.facadeProvider = facadeProvider;
+        this.facade = facade;
         this.provider = provider;
     }
 
     @Override
     public LoggerFacade getFacade() {
-        return facadeProvider;
+        return facade;
     }
 
     @Override

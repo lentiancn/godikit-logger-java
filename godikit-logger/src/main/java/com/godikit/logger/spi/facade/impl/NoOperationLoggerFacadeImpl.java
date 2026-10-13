@@ -6,7 +6,7 @@ import com.godikit.logger.impl.NoOperationLoggerImpl;
 import com.godikit.logger.spi.facade.LoggerFacade;
 import com.godikit.logger.spi.provider.LoggerProvider;
 
-public class NoOperationLoggerFacadeProvider implements LoggerFacade {
+public class NoOperationLoggerFacadeImpl implements LoggerFacade {
 
     @Override
     public String getName() {

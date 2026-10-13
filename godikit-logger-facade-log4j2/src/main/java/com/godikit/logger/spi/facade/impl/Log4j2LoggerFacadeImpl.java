@@ -1,4 +1,4 @@
-package com.godikit.logger.spi.provider.facade;
+package com.godikit.logger.spi.facade.impl;
 
 import com.godikit.logger.Logger;
 import com.godikit.logger.enums.LoggerFacadeEnum;
@@ -13,7 +13,7 @@ import java.util.Objects;
 /**
  * GodiKit SPI provider for the Log4j2 facade.
  */
-public final class Log4j2FacadeProvider implements LoggerFacade {
+public final class Log4j2LoggerFacadeImpl implements LoggerFacade {
 
     @Override
     public String getName() {

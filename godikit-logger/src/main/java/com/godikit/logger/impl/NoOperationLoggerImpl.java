@@ -25,8 +25,9 @@ package com.godikit.logger.impl;
 
 import com.godikit.logger.Logger;
 import com.godikit.logger.spi.facade.LoggerFacade;
+import com.godikit.logger.spi.facade.impl.NoOperationLoggerFacadeImpl;
 import com.godikit.logger.spi.provider.LoggerProvider;
-import com.godikit.logger.spi.provider.impl.NoOperationLoggerProvider;
+import com.godikit.logger.spi.provider.impl.NoOperationLoggerProviderImpl;
 
 /**
  * No-operation logger implementation that discards all log messages.
@@ -57,12 +58,12 @@ public class NoOperationLoggerImpl implements Logger {
 
     @Override
     public LoggerFacade getFacade() {
-        return new NoOperationLoggerFacade();
+        return new NoOperationLoggerFacadeImpl();
     }
 
     @Override
     public LoggerProvider getProvider() {
-        return new NoOperationLoggerProvider();
+        return new NoOperationLoggerProviderImpl();
     }
 
     @Override

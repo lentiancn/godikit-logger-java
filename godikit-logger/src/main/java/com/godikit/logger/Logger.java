@@ -62,7 +62,7 @@ public interface Logger {
     /**
      * Returns the implementation provider instance.
      *
-     * @return the impl provider (e.g., LogbackLoggerImplProvider, Log4j2LoggerImplProvider)
+     * @return the impl provider (e.g., LogbackLoggerProviderImpl, Log4j2LoggerImplProvider)
      */
     LoggerProvider getProvider();
 

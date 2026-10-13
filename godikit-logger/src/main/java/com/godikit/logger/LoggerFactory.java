@@ -27,9 +27,9 @@ import com.godikit.logger.enums.LoggerFacadeEnum;
 import com.godikit.logger.enums.LoggerProviderEnum;
 import com.godikit.logger.spi.LoggerRegistry;
 import com.godikit.logger.spi.facade.LoggerFacade;
-import com.godikit.logger.spi.facade.impl.NoOperationLoggerFacadeProvider;
+import com.godikit.logger.spi.facade.impl.NoOperationLoggerFacadeImpl;
 import com.godikit.logger.spi.provider.LoggerProvider;
-import com.godikit.logger.spi.provider.impl.NoOperationLoggerProvider;
+import com.godikit.logger.spi.provider.impl.NoOperationLoggerProviderImpl;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -87,14 +87,14 @@ public final class LoggerFactory {
             if (facadeMissing) {
                 System.err.println("[GodiKit Logger] WARNING: Facade provider '" + facadeEnum.getName()
                     + "' not found. Please ensure you have added the corresponding facade jar, "
-                    + "such as 'godikit-logger-provider-facade-slf4j'.");
-                facade = new NoOperationLoggerFacadeProvider();
+                    + "such as 'godikit-logger-facade-slf4j'.");
+                facade = new NoOperationLoggerFacadeImpl();
             }
             if (implMissing) {
                 System.err.println("[GodiKit Logger] WARNING: Impl provider '" + implEnum.getName()
                     + "' not found. Please ensure you have added the corresponding impl jar, "
                     + "such as 'godikit-logger-provider-impl-logback'.");
-                provider = new NoOperationLoggerProvider();
+                provider = new NoOperationLoggerProviderImpl();
             }
 
             if (!facadeMissing && !implMissing) {
@@ -114,11 +114,11 @@ public final class LoggerFactory {
     }
 
     private static final class Providers {
-        private final LoggerFacade facadeProvider;
+        private final LoggerFacade facade;
         private final LoggerProvider provider;
 
-        private Providers(LoggerFacade facadeProvider, LoggerProvider provider) {
-            this.facadeProvider = facadeProvider;
+        private Providers(LoggerFacade facade, LoggerProvider provider) {
+            this.facade = facade;
             this.provider = provider;
         }
     }
@@ -132,7 +132,7 @@ public final class LoggerFactory {
     public static Logger getLogger(final String name) {
         Objects.requireNonNull(name, "Logger name must not be null.");
         Providers currentProviders = getProviders();
-        return LOGGER_CACHE.computeIfAbsent(name, key -> currentProviders.facadeProvider.getLogger(key, currentProviders.provider));
+        return LOGGER_CACHE.computeIfAbsent(name, key -> currentProviders.facade.getLogger(key, currentProviders.provider));
     }
 
     /**
@@ -144,7 +144,7 @@ public final class LoggerFactory {
     public static Logger getLogger(final Class<?> clazz) {
         Objects.requireNonNull(clazz, "Logger name must not be null.");
         Providers currentProviders = getProviders();
-        return LOGGER_CACHE.computeIfAbsent(clazz.getName(), key -> currentProviders.facadeProvider.getLogger(clazz, currentProviders.provider));
+        return LOGGER_CACHE.computeIfAbsent(clazz.getName(), key -> currentProviders.facade.getLogger(clazz, currentProviders.provider));
     }
 
 //    /**
