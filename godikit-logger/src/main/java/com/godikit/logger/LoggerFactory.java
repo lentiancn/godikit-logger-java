@@ -23,12 +23,16 @@
  */
 package com.godikit.logger;
 
-import com.godikit.logger.impl.NoOperationLoggerImpl;
+import com.godikit.logger.enums.LoggerFacadeEnum;
+import com.godikit.logger.enums.LoggerImplEnum;
 import com.godikit.logger.spi.LoggerRegistry;
 import com.godikit.logger.spi.provider.facade.LoggerFacadeProvider;
+import com.godikit.logger.spi.provider.facade.NoOperationLoggerFacadeProvider;
 import com.godikit.logger.spi.provider.impl.LoggerImplProvider;
+import com.godikit.logger.spi.provider.impl.NoOperationLoggerImplProvider;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
@@ -48,15 +52,13 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author Len (len@godikit.com)
  * @since 2025-11-07 22:53
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class LoggerFactory {
 
     private static final Map<String, Logger> LOGGER_CACHE = new ConcurrentHashMap<>();
 
     private static volatile Providers providers;
     private static boolean initializing;
-
-    private LoggerFactory() {
-    }
 
     private static Providers getProviders() {
         Providers current = providers;
@@ -72,28 +74,28 @@ public final class LoggerFactory {
         }
         initializing = true;
         try {
+            LoggerFacadeEnum facadeEnum = LoggerProviderConfig.getFacade();
+            LoggerImplEnum implEnum = LoggerProviderConfig.getImpl();
+
             LoggerRegistry registry = LoggerRegistry.getInstance();
-            List<LoggerFacadeProvider> facades = registry.getFacadeProviders();
-            List<LoggerImplProvider> implementations = registry.getImplProviders();
-            if (facades.isEmpty() && implementations.isEmpty()) {
-                System.err.println("[GodiKit Logger] No providers found. Using no-op logging.");
-                providers = new Providers(null, null);
-            } else {
-                if (facades.size() != 1 || implementations.size() != 1) {
-                    throw new IllegalStateException(
-                        "Expected exactly one facade provider and one implementation provider, but found "
-                            + facades.size() + " and " + implementations.size() + ".");
-                }
-                LoggerFacadeProvider facade = facades.get(0);
-                LoggerImplProvider implementation = implementations.get(0);
-                Object factory = facade.getFacadeFactory();
-                if (!implementation.supportsFactory(facade.getName(), factory)) {
-                    throw new IllegalStateException("Active logging factory does not match "
-                        + facade.getName() + "+" + implementation.getName() + ": "
-                        + (factory == null ? "null" : factory.getClass().getName()));
-                }
-                providers = new Providers(facade, implementation);
+            LoggerFacadeProvider facade = registry.getFacadeProvider(facadeEnum.getName());
+            LoggerImplProvider impl = registry.getImplProvider(implEnum.getName());
+
+            if (facade == null) {
+                facade = new NoOperationLoggerFacadeProvider();
             }
+            if (impl == null) {
+                impl = new NoOperationLoggerImplProvider();
+            }
+
+            Object factory = facade.getFacadeFactory();
+            if (!impl.supportsFactory(facadeEnum.getName(), factory)) {
+                throw new IllegalStateException("Active logging factory does not match "
+                    + facadeEnum.getName() + "+" + implEnum.getName() + ": "
+                    + (factory == null ? "null" : factory.getClass().getName()));
+            }
+            providers = new Providers(facade, impl);
+
             return providers;
         } finally {
             initializing = false;
@@ -110,27 +112,27 @@ public final class LoggerFactory {
         }
     }
 
-    /**
-     * Gets the current facade name.
-     *
-     * @return the current facade name
-     */
-    public static String getCurrentFacade() {
-        Providers selected = getProviders();
-        return selected.facade == null ? NoOperationLoggerImpl.FACADE : selected.facade.getName();
-    }
-
-    /**
-     * Gets the current provider in format "facade+provider".
-     *
-     * @return the current provider string (e.g., "slf4j+log4j2")
-     */
-    public static String getCurrentProvider() {
-        Providers selected = getProviders();
-        return selected.facade == null
-            ? NoOperationLoggerImpl.FACADE + "+" + NoOperationLoggerImpl.PROVIDER
-            : selected.facade.getName() + "+" + selected.implementation.getName();
-    }
+//    /**
+//     * Gets the current facade name.
+//     *
+//     * @return the current facade name
+//     */
+//    public static String getCurrentFacade() {
+//        Providers selected = getProviders();
+//        return selected.facade == null ? NoOperationLoggerImpl.FACADE : selected.facade.getName();
+//    }
+//
+//    /**
+//     * Gets the current provider in format "facade+provider".
+//     *
+//     * @return the current provider string (e.g., "slf4j+log4j2")
+//     */
+//    public static String getCurrentProvider() {
+//        Providers selected = getProviders();
+//        return selected.facade == null
+//            ? NoOperationLoggerImpl.FACADE + "+" + NoOperationLoggerImpl.PROVIDER
+//            : selected.facade.getName() + "+" + selected.implementation.getName();
+//    }
 
     /**
      * Gets a Logger instance by name.
@@ -140,11 +142,8 @@ public final class LoggerFactory {
      */
     public static Logger getLogger(final String name) {
         Objects.requireNonNull(name, "Logger name must not be null.");
-        Providers selected = getProviders();
-        return LOGGER_CACHE.computeIfAbsent(name, key -> selected.facade == null
-            ? new NoOperationLoggerImpl(key)
-            : Objects.requireNonNull(selected.facade.createLogger(key, selected.implementation),
-                "Facade provider returned a null logger."));
+        Providers currentProvider = getProviders();
+        return LOGGER_CACHE.computeIfAbsent(name, key -> currentProvider.facade.createLogger(key, currentProvider.implementation));
     }
 
     /**
@@ -157,24 +156,24 @@ public final class LoggerFactory {
         return getLogger(clazz.getName());
     }
 
-    /**
-     * Creates a new Logger instance from an existing facade logger.
-     *
-     * <p>This method attempts to create a Logger implementation that wraps
-     * the provided facade logger.</p>
-     *
-     * @param delegateLogger the facade logger instance to wrap
-     * @return a new wrapper, or a no-op logger when no providers are installed
-     * @throws IllegalArgumentException if the delegate is incompatible
-     */
-    public static Logger getLogger(final Object delegateLogger) {
-        Objects.requireNonNull(delegateLogger, "Delegate logger must not be null.");
-        Providers selected = getProviders();
-        if (selected.facade == null) {
-            return new NoOperationLoggerImpl(delegateLogger);
-        }
-        return Objects.requireNonNull(
-            selected.facade.wrapLogger(delegateLogger, selected.implementation),
-            "Facade provider returned a null logger.");
-    }
+//    /**
+//     * Creates a new Logger instance from an existing facade logger.
+//     *
+//     * <p>This method attempts to create a Logger implementation that wraps
+//     * the provided facade logger.</p>
+//     *
+//     * @param delegateLogger the facade logger instance to wrap
+//     * @return a new wrapper, or a no-op logger when no providers are installed
+//     * @throws IllegalArgumentException if the delegate is incompatible
+//     */
+//    public static Logger getLogger(final Object delegateLogger) {
+//        Objects.requireNonNull(delegateLogger, "Delegate logger must not be null.");
+//        Providers selected = getProviders();
+//        if (selected.facade == null) {
+//            return new NoOperationLoggerImpl(delegateLogger);
+//        }
+//        return Objects.requireNonNull(
+//            selected.facade.wrapLogger(delegateLogger, selected.implementation),
+//            "Facade provider returned a null logger.");
+//    }
 }

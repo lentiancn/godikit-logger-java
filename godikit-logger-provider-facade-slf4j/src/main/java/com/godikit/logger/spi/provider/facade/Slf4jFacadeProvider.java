@@ -2,10 +2,7 @@ package com.godikit.logger.spi.provider.facade;
 
 import com.godikit.logger.Logger;
 import com.godikit.logger.impl.Slf4jLoggerImpl;
-import com.godikit.logger.spi.provider.facade.LoggerFacadeProvider;
 import com.godikit.logger.spi.provider.impl.LoggerImplProvider;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import org.slf4j.ILoggerFactory;
 
 import java.util.Objects;
@@ -13,7 +10,6 @@ import java.util.Objects;
 /**
  * GodiKit SPI provider for the SLF4J facade.
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class Slf4jFacadeProvider implements LoggerFacadeProvider {
 
     @Override
