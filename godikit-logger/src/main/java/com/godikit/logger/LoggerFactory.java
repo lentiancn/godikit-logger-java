@@ -76,56 +76,40 @@ public final class LoggerFactory {
         }
         initializing = true;
         try {
-            LoggerFacadeEnum facadeEnum = LoggerProviderConfig.getFacade();
-            LoggerProviderEnum implEnum = LoggerProviderConfig.getImpl();
-
             LoggerRegistry registry = LoggerRegistry.getInstance();
-
             List<LoggerFacade> allFacades = registry.getFacades();
+            List<LoggerProvider> allProviders = registry.getProviders();
+
             if (allFacades.size() > 1) {
-                String names = allFacades.stream()
-                    .map(LoggerFacade::getName)
-                    .collect(Collectors.joining(", "));
                 throw new IllegalStateException(
-                    "Multiple facade providers found: [" + names + "]"
+                    "Multiple facade providers found: [" + joinNames(allFacades) + "]"
                         + ". Only one facade JAR should be present in classpath.");
             }
 
-            List<LoggerProvider> allProviders = registry.getProviders();
             if (allProviders.size() > 1) {
-                String names = allProviders.stream()
-                    .map(LoggerProvider::getName)
-                    .collect(Collectors.joining(", "));
                 throw new IllegalStateException(
-                    "Multiple implementation providers found: [" + names + "]"
+                    "Multiple implementation providers found: [" + joinNames(allProviders) + "]"
                         + ". Only one provider JAR should be present in classpath.");
             }
 
-            LoggerFacade facade = !allFacades.isEmpty() ? allFacades.get(0) : null;
-            LoggerProvider provider = !allProviders.isEmpty() ? allProviders.get( 0 ) : null ;
+            LoggerFacade facade = allFacades.isEmpty() ? new NoOperationLoggerFacadeImpl() : allFacades.get(0);
+            LoggerProvider provider = allProviders.isEmpty() ? new NoOperationLoggerProviderImpl() : allProviders.get(0);
 
-            boolean facadeMissing = facade == null;
-            boolean implMissing = provider == null;
-
-            if (facadeMissing) {
-                System.err.println("[GodiKit Logger] WARNING: Facade provider '" + facadeEnum.getName()
-                    + "' not found. Please ensure you have added the corresponding facade jar, "
-                    + "such as 'godikit-logger-facade-slf4j'.");
-                facade = new NoOperationLoggerFacadeImpl();
+            if (facade instanceof NoOperationLoggerFacadeImpl) {
+                System.err.println("[GodiKit Logger] WARNING: No facade found. "
+                    + "Please add a facade jar, such as 'godikit-logger-facade-slf4j'.");
             }
-            if (implMissing) {
-                System.err.println("[GodiKit Logger] WARNING: Impl provider '" + implEnum.getName()
-                    + "' not found. Please ensure you have added the corresponding impl jar, "
-                    + "such as 'godikit-logger-provider-impl-logback'.");
-                provider = new NoOperationLoggerProviderImpl();
+            if (provider instanceof NoOperationLoggerProviderImpl) {
+                System.err.println("[GodiKit Logger] WARNING: No provider found. "
+                    + "Please add an impl jar, such as 'godikit-logger-provider-logback'.");
             }
 
-            if (!facadeMissing && !implMissing) {
+            if (!(facade instanceof NoOperationLoggerFacadeImpl) && !(provider instanceof NoOperationLoggerProviderImpl)) {
                 Object factory = facade.getFacadeFactory();
                 if (!provider.supportsFactory(facade)) {
-                    throw new IllegalStateException("Active logging factory does not match "
-                        + facadeEnum.getName() + "+" + implEnum.getName() + ": "
-                        + (factory == null ? "null" : factory.getClass().getName()));
+                    throw new IllegalStateException(
+                        "Facade '" + facade.getName() + "' does not match impl '" + provider.getName() + "': "
+                            + (factory == null ? "null" : factory.getClass().getName()));
                 }
             }
 
@@ -134,6 +118,17 @@ public final class LoggerFactory {
         } finally {
             initializing = false;
         }
+    }
+
+    private static String joinNames(List<?> providers) {
+        return providers.stream().map(p -> {
+            if (p instanceof LoggerFacade) {
+                return ((LoggerFacade) p).getName();
+            } else if (p instanceof LoggerProvider) {
+                return ((LoggerProvider) p).getName();
+            }
+            return p.getClass().getSimpleName();
+        }).collect(Collectors.joining(", "));
     }
 
     private static final class Providers {
