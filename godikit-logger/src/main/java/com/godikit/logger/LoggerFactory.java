@@ -68,13 +68,13 @@ public final class LoggerFactory {
             List<Class<? extends Logger>> loggerImplClasses = LoggerUtils.loadLoggerImplClasses(Logger.class);
             if (loggerImplClasses.isEmpty()) {
                 System.err.println("[GodiKit Logger] No Logger provider found on classpath. Please add one of: " +
-                        "godikit-logger-with-slf4j-log4j2, godikit-logger-with-slf4j-logback, etc.");
+                    "godikit-logger-with-slf4j-log4j2, godikit-logger-with-slf4j-logback, etc.");
                 return;
             }
 
             if (loggerImplClasses.size() > 1) {
                 System.err.println("[GodiKit Logger] Multiple Logger providers detected. Using the first one: " +
-                        loggerImplClasses.get(0).getName());
+                    loggerImplClasses.get(0).getName());
                 return;
             }
 
@@ -166,7 +166,7 @@ public final class LoggerFactory {
             }
 
             Constructor<? extends Logger> constructor = currentConstructor.getDeclaringClass()
-                    .getDeclaredConstructor(Object.class);
+                .getDeclaredConstructor(Object.class);
             constructor.setAccessible(true);
             return constructor.newInstance(delegateLogger);
         } catch (NoSuchMethodException e) {

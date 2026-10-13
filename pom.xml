@@ -58,6 +58,7 @@
 
     <modules>
         <module>godikit-logger</module>
+        <module>godikit-logger-jdk17</module>
         <module>godikit-logger-with-slf4j-jboss</module>
         <module>godikit-logger-with-slf4j-jboss-config</module>
         <module>godikit-logger-with-slf4j-log4j2</module>
