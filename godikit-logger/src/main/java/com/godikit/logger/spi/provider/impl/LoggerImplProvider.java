@@ -1,4 +1,4 @@
-package com.godikit.logger.spi.provider;
+package com.godikit.logger.spi.provider.impl;
 
 /**
  * SPI contract for logging implementation providers.

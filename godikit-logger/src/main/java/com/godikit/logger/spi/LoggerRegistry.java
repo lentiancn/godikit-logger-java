@@ -1,7 +1,7 @@
 package com.godikit.logger.spi;
 
-import com.godikit.logger.spi.provider.LoggerFacadeProvider;
-import com.godikit.logger.spi.provider.LoggerImplProvider;
+import com.godikit.logger.spi.provider.facade.LoggerFacadeProvider;
+import com.godikit.logger.spi.provider.impl.LoggerImplProvider;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

@@ -1,6 +1,7 @@
-package com.godikit.logger.spi.provider;
+package com.godikit.logger.spi.provider.facade;
 
 import com.godikit.logger.Logger;
+import com.godikit.logger.spi.provider.impl.LoggerImplProvider;
 
 /**
  * SPI contract for logging facade providers.

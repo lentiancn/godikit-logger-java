@@ -2,15 +2,15 @@ package com.godikit.logger.spi.provider.impl.logback;
 
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
-import com.godikit.logger.spi.provider.LoggerImplProvider;
+import com.godikit.logger.spi.provider.impl.LoggerImplProvider;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * Identifies and validates the Logback implementation behind SLF4J.
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class LogbackLoggerImplProvider implements LoggerImplProvider {
-
-    public LogbackLoggerImplProvider() {
-    }
 
     @Override
     public String getName() {

@@ -23,8 +23,8 @@
  */
 package com.godikit.logger;
 
-import com.godikit.logger.impl.NoOperationLoggerImpl;
-import com.godikit.logger.impl.SystemLoggerImpl;
+import com.godikit.logger.spi.provider.impl.NoOperationLoggerImpl;
+import com.godikit.logger.spi.provider.facade.SystemLoggerImpl;
 
 /**
  * Core logger interface that serves as a facade for various logging implementations.

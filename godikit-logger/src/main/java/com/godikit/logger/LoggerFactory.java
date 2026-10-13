@@ -23,10 +23,10 @@
  */
 package com.godikit.logger;
 
-import com.godikit.logger.impl.NoOperationLoggerImpl;
+import com.godikit.logger.spi.provider.impl.NoOperationLoggerImpl;
 import com.godikit.logger.spi.LoggerRegistry;
-import com.godikit.logger.spi.provider.LoggerFacadeProvider;
-import com.godikit.logger.spi.provider.LoggerImplProvider;
+import com.godikit.logger.spi.provider.facade.LoggerFacadeProvider;
+import com.godikit.logger.spi.provider.impl.LoggerImplProvider;
 
 import java.util.List;
 import java.util.Map;

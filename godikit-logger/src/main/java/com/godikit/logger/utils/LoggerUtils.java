@@ -27,8 +27,8 @@ import com.godikit.exception.utils.StackTraceUtils;
 import com.godikit.logger.Logger;
 import com.godikit.logger.LoggerConstants;
 import com.godikit.logger.LoggerFactory;
-import com.godikit.logger.impl.NoOperationLoggerImpl;
-import com.godikit.logger.impl.SystemLoggerImpl;
+import com.godikit.logger.spi.provider.impl.NoOperationLoggerImpl;
+import com.godikit.logger.spi.provider.facade.SystemLoggerImpl;
 import lombok.NoArgsConstructor;
 
 import java.io.BufferedReader;

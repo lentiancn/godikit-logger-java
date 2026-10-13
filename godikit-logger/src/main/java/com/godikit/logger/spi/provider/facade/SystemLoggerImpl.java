@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.godikit.logger.impl;
+package com.godikit.logger.spi.provider.facade;
 
 import com.godikit.exception.utils.StackTraceUtils;
 import com.godikit.logger.Logger;
