@@ -1,17 +1,12 @@
 package com.godikit.logger.spi;
 
+import com.godikit.exception.GlobalRuntimeException;
 import com.godikit.logger.spi.facade.LoggerFacade;
 import com.godikit.logger.spi.provider.LoggerProvider;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.ServiceLoader;
+import java.util.*;
 
 /**
  * Registry for logging facade and implementation providers.
@@ -52,8 +47,8 @@ public class LoggerRegistry {
      * <p>An empty collection is valid. Discovery errors propagate to the
      * caller, and failed initialization may be retried.</p>
      *
-     * @throws IllegalStateException if provider names are invalid or
-     *                               duplicated, or initialization is recursive
+     * @throws IllegalStateException               if provider names are invalid or
+     *                                             duplicated, or initialization is recursive
      * @throws java.util.ServiceConfigurationError if a provider cannot be loaded
      */
     public synchronized void initialize() {
@@ -61,14 +56,14 @@ public class LoggerRegistry {
             return;
         }
         if (initializing) {
-            throw new IllegalStateException(
+            throw new GlobalRuntimeException(
                 "Recursive logger provider initialization is not allowed.");
         }
 
         initializing = true;
         try {
             Map<String, LoggerFacade> loadedFacades = new LinkedHashMap<>();
-            Map<String, LoggerProvider> loadedImpls = new LinkedHashMap<>();
+            Map<String, LoggerProvider> loadedProviders = new LinkedHashMap<>();
 
             ServiceLoader<LoggerFacade> facadeLoader =
                 ServiceLoader.load(LoggerFacade.class);
@@ -79,11 +74,11 @@ public class LoggerRegistry {
             ServiceLoader<LoggerProvider> implLoader =
                 ServiceLoader.load(LoggerProvider.class);
             for (LoggerProvider provider : implLoader) {
-                register(loadedImpls, provider.getName(), provider, "implementation");
+                register(loadedProviders, provider.getName(), provider, "implementation");
             }
 
             facades = Collections.unmodifiableMap(loadedFacades);
-            providers = Collections.unmodifiableMap(loadedImpls);
+            providers = Collections.unmodifiableMap(loadedProviders);
             initialized = true;
         } finally {
             initializing = false;
