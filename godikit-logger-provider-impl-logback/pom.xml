@@ -20,12 +20,6 @@
             <groupId>com.godikit.logger</groupId>
             <artifactId>godikit-logger</artifactId>
         </dependency>
-        <!-- Facade -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
-        <!-- Provider: ch.qos.logback.classic.spi.LogbackServiceProvider -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
