@@ -1,5 +1,7 @@
 package com.godikit.logger.spi.provider.impl;
 
+import com.godikit.logger.spi.provider.facade.LoggerFacadeProvider;
+
 /**
  * SPI contract for logging implementation providers.
  *
@@ -19,11 +21,10 @@ public interface LoggerImplProvider {
      * Checks whether the native facade factory uses this implementation.
      * Implementations must not reconfigure the facade or its global binding.
      *
-     * @param facadeName the facade name
-     * @param factory    the active native factory
+     * @param facadeProvider
      * @return true if the factory belongs to this implementation
      */
-    boolean supportsFactory(String facadeName, Object factory);
+    boolean supportsFactory(LoggerFacadeProvider facadeProvider);
 
     /**
      * Checks whether a native logger belongs to this implementation.

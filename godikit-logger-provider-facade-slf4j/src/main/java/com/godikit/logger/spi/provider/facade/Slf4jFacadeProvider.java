@@ -24,40 +24,45 @@ public final class Slf4jFacadeProvider implements LoggerFacadeProvider {
     }
 
     @Override
-    public Logger getLogger(String name, LoggerImplProvider implementation) {
-        return new Slf4jLoggerImpl(LoggerFactory.getLogger(name), getName());
+    public Logger getLogger(String name, LoggerImplProvider implProvider) {
+        return new Slf4jLoggerImpl(LoggerFactory.getLogger(name), this, implProvider);
     }
 
     @Override
-    public Logger wrapLogger(Object delegate, LoggerImplProvider implementation) {
-        Objects.requireNonNull(delegate, "Delegate logger must not be null.");
-        validateFactory(implementation);
-        return wrapValidated(delegate, implementation);
+    public Logger getLogger(Class<?> clazz, LoggerImplProvider implProvider) {
+        return new Slf4jLoggerImpl(LoggerFactory.getLogger(clazz), this, implProvider);
     }
 
-    private ILoggerFactory validateFactory(LoggerImplProvider implementation) {
+    @Override
+    public Logger wrapLogger(Object delegate, LoggerImplProvider implProvider) {
+        Objects.requireNonNull(delegate, "Delegate logger must not be null.");
+        validateFactory(implProvider);
+        return wrapValidated(delegate, implProvider);
+    }
+
+    private ILoggerFactory validateFactory(LoggerImplProvider implProvider) {
         Objects.requireNonNull(
-            implementation, "Implementation provider must not be null.");
+            implProvider, "Implementation provider must not be null.");
 
         ILoggerFactory factory = getFacadeFactory();
-        if (!implementation.supportsFactory(getName(), factory)) {
+        if (!implProvider.supportsFactory(this)) {
             throw new IllegalStateException(
                 "Active SLF4J factory does not match implementation '"
-                    + implementation.getName() + "': "
+                    + implProvider.getName() + "': "
                     + (factory == null ? "null" : factory.getClass().getName()));
         }
         return factory;
     }
 
-    private Logger wrapValidated(Object delegate, LoggerImplProvider implementation) {
+    private Logger wrapValidated(Object delegate, LoggerImplProvider implProvider) {
         if (!(delegate instanceof org.slf4j.Logger)
-            || !implementation.supportsLogger(getName(), delegate)) {
+            || !implProvider.supportsLogger(getName(), delegate)) {
             throw new IllegalArgumentException(
-                "Native logger does not match slf4j+" + implementation.getName()
+                "Native logger does not match slf4j+" + implProvider.getName()
                     + ": " + (delegate == null ? "null" : delegate.getClass().getName()));
         }
 
         return new Slf4jLoggerImpl(
-            (org.slf4j.Logger) delegate, implementation.getName());
+            (org.slf4j.Logger) delegate, this, implProvider);
     }
 }

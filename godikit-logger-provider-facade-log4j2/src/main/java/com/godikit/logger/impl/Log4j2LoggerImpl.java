@@ -1,41 +1,38 @@
 package com.godikit.logger.impl;
 
 import com.godikit.logger.Logger;
-import com.godikit.logger.enums.LoggerFacadeEnum;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.spi.ExtendedLogger;
-
-import java.util.Objects;
+import com.godikit.logger.spi.provider.facade.LoggerFacadeProvider;
+import com.godikit.logger.spi.provider.impl.LoggerImplProvider;
 
 /**
  * Adapts the GodiKit Logger API to Log4j2 without depending on a backend.
  */
 public final class Log4j2LoggerImpl implements Logger {
 
-    private static final String FQCN = Log4j2LoggerImpl.class.getName();
+    private final org.apache.logging.log4j.Logger delegate;
 
-    private final Logger delegate;
-    private final String providerName;
+    private final LoggerFacadeProvider facadeProvider;
+    private final LoggerImplProvider implProvider;
 
-    public Log4j2LoggerImpl(Logger delegate, String providerName) {
-        this.delegate = Objects.requireNonNull(delegate, "Delegate must not be null.");
-        this.providerName = Objects.requireNonNull(
-            providerName, "Provider name must not be null.");
+    public Log4j2LoggerImpl(org.apache.logging.log4j.Logger delegate, LoggerFacadeProvider facadeProvider, LoggerImplProvider implProvider) {
+        this.delegate = delegate;
+        this.facadeProvider = facadeProvider;
+        this.implProvider = implProvider;
     }
 
     @Override
-    public String getFacadeName() {
-        return LoggerFacadeEnum.LOG4J2.getName();
+    public LoggerFacadeProvider getFacadeProvider() {
+        return facadeProvider;
     }
 
     @Override
-    public Logger getFacadeLogger() {
+    public LoggerImplProvider getImplProvider() {
+        return implProvider;
+    }
+
+    @Override
+    public Object getOriginalLogger() {
         return delegate;
-    }
-
-    @Override
-    public String getProviderName() {
-        return providerName;
     }
 
     @Override
@@ -65,122 +62,76 @@ public final class Log4j2LoggerImpl implements Logger {
 
     @Override
     public void trace(String msg, Object... args) {
-        log(Level.TRACE, null, msg, args);
+        delegate.trace(msg, args);
     }
 
     @Override
     public void trace(Throwable cause) {
-        log(Level.TRACE, cause, cause == null ? null : cause.getMessage(), null);
+        delegate.trace(cause.getMessage(), cause);
     }
 
     @Override
     public void trace(Throwable cause, String msg, Object... args) {
-        log(Level.TRACE, cause, msg, args);
+        delegate.trace(msg, cause);
     }
 
     @Override
     public void debug(String msg, Object... args) {
-        log(Level.DEBUG, null, msg, args);
+        delegate.debug(msg, args);
     }
 
     @Override
     public void debug(Throwable cause) {
-        log(Level.DEBUG, cause, cause == null ? null : cause.getMessage(), null);
+        delegate.debug(cause.getMessage(), cause);
     }
 
     @Override
     public void debug(Throwable cause, String msg, Object... args) {
-        log(Level.DEBUG, cause, msg, args);
+        delegate.debug(msg, cause);
     }
 
     @Override
     public void info(String msg, Object... args) {
-        log(Level.INFO, null, msg, args);
+        delegate.info(msg, args);
     }
 
     @Override
     public void info(Throwable cause) {
-        log(Level.INFO, cause, cause == null ? null : cause.getMessage(), null);
+        delegate.info(cause.getMessage(), cause);
     }
 
     @Override
     public void info(Throwable cause, String msg, Object... args) {
-        log(Level.INFO, cause, msg, args);
+        delegate.info(msg, cause);
     }
 
     @Override
     public void warn(String msg, Object... args) {
-        log(Level.WARN, null, msg, args);
+        delegate.warn(msg, args);
     }
 
     @Override
     public void warn(Throwable cause) {
-        log(Level.WARN, cause, cause == null ? null : cause.getMessage(), null);
+        delegate.warn(cause.getMessage(), cause);
     }
 
     @Override
     public void warn(Throwable cause, String msg, Object... args) {
-        log(Level.WARN, cause, msg, args);
+        delegate.warn(msg, cause);
     }
 
     @Override
     public void error(String msg, Object... args) {
-        log(Level.ERROR, null, msg, args);
+        delegate.error(msg, args);
     }
 
     @Override
     public void error(Throwable cause) {
-        log(Level.ERROR, cause, cause == null ? null : cause.getMessage(), null);
+        delegate.error(cause.getMessage(), cause);
     }
 
     @Override
     public void error(Throwable cause, String msg, Object... args) {
-        log(Level.ERROR, cause, msg, args);
-    }
-
-    private void log(Level level, Throwable cause, String msg, Object[] args) {
-        if (!isEnabled(level)) {
-            return;
-        }
-
-        if (delegate instanceof ExtendedLogger) {
-            ExtendedLogger extLogger = (ExtendedLogger) delegate;
-            if (cause != null && args != null && args.length > 0) {
-                extLogger.logIfEnabled(FQCN, level, null, cause, msg, args);
-            } else if (cause != null) {
-                extLogger.logIfEnabled(FQCN, level, null, cause, msg);
-            } else if (args != null && args.length > 0) {
-                extLogger.logIfEnabled(FQCN, level, null, msg, args);
-            } else {
-                extLogger.logIfEnabled(FQCN, level, null, msg);
-            }
-            return;
-        }
-
-        if (cause != null) {
-            delegate.log(FQCN, level, msg, cause);
-        } else if (args != null && args.length > 0) {
-            delegate.log(FQCN, level, msg, args);
-        } else {
-            delegate.log(FQCN, level, msg);
-        }
-    }
-
-    private boolean isEnabled(Level level) {
-        switch (level) {
-            case TRACE:
-                return delegate.isTraceEnabled();
-            case DEBUG:
-                return delegate.isDebugEnabled();
-            case INFO:
-                return delegate.isInfoEnabled();
-            case WARN:
-                return delegate.isWarnEnabled();
-            case ERROR:
-            case FATAL:
-                return delegate.isErrorEnabled();
-            default:
-                return delegate.isEnabled(level);
-        }
+        delegate.error(msg, cause);
     }
 }

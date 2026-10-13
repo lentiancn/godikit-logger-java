@@ -23,6 +23,11 @@ public class NoOperationLoggerFacadeProvider implements LoggerFacadeProvider {
     }
 
     @Override
+    public Logger getLogger(Class<?> clazz, LoggerImplProvider implProvider) {
+        return new NoOperationLoggerImpl(clazz);
+    }
+
+    @Override
     public Logger wrapLogger(Object delegate, LoggerImplProvider implementation) {
         return null;
     }

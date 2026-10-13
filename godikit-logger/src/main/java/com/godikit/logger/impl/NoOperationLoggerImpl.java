@@ -24,6 +24,10 @@
 package com.godikit.logger.impl;
 
 import com.godikit.logger.Logger;
+import com.godikit.logger.spi.provider.facade.LoggerFacadeProvider;
+import com.godikit.logger.spi.provider.facade.NoOperationLoggerFacadeProvider;
+import com.godikit.logger.spi.provider.impl.LoggerImplProvider;
+import com.godikit.logger.spi.provider.impl.NoOperationLoggerImplProvider;
 
 /**
  * No-operation logger implementation that discards all log messages.
@@ -35,16 +39,6 @@ import com.godikit.logger.Logger;
  * @since 2025-11-07 22:53
  */
 public class NoOperationLoggerImpl implements Logger {
-
-    /**
-     * The facade identifier for this logger implementation.
-     */
-    public static final String FACADE = "godikit";
-
-    /**
-     * The provider identifier for this logger implementation.
-     */
-    public static final String PROVIDER = "no-op";
 
     /**
      * Creates a no-operation logger with the specified name.
@@ -62,42 +56,19 @@ public class NoOperationLoggerImpl implements Logger {
     public NoOperationLoggerImpl(final Class<?> clazz) {
     }
 
-    /**
-     * Creates a no-operation logger wrapping the specified facade logger.
-     *
-     * @param delegateLogger the facade logger to wrap (ignored in this implementation)
-     */
-    public NoOperationLoggerImpl(final Object delegateLogger) {
+    @Override
+    public LoggerFacadeProvider getFacadeProvider() {
+        return new NoOperationLoggerFacadeProvider();
     }
 
-    /**
-     * Returns the facade name identifier.
-     *
-     * @return the facade identifier, always "godikit"
-     */
     @Override
-    public String getFacadeName() {
-        return FACADE;
+    public LoggerImplProvider getImplProvider() {
+        return new NoOperationLoggerImplProvider();
     }
 
-    /**
-     * Returns a reference to this no-operation logger instance.
-     *
-     * @return this instance
-     */
     @Override
-    public Object getFacadeLogger() {
+    public Object getOriginalLogger() {
         return null;
-    }
-
-    /**
-     * Returns the provider name identifier.
-     *
-     * @return the provider identifier, always "no-op"
-     */
-    @Override
-    public String getProviderName() {
-        return PROVIDER;
     }
 
     /**

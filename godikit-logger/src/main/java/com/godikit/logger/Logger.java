@@ -23,17 +23,25 @@
  */
 package com.godikit.logger;
 
-import com.godikit.logger.impl.NoOperationLoggerImpl;
-import com.godikit.logger.impl.SystemLoggerImpl;
+import com.godikit.logger.spi.provider.facade.LoggerFacadeProvider;
+import com.godikit.logger.spi.provider.impl.LoggerImplProvider;
 
 /**
  * Core logger interface that serves as a facade for various logging implementations.
  *
  * <p>GodiKit Logger provides a unified logging API that can delegate to different
- * logging frameworks (Log4j2, Logback, System.out, etc.) based on the configured
- * provider.</p>
+ * logging frameworks (SLF4J, Log4j, Log4j2, etc.) based on the configured
+ * facade and impl providers.</p>
  *
- * <h2>Usage Example:</h2>
+ * <h2>Supported Combinations:</h2>
+ * <ul>
+ *   <li>slf4j + logback</li>
+ *   <li>log4j + log4j</li>
+ *   <li>log4j2 + log4j2</li>
+ *   <li>no-op + no-op</li>
+ * </ul>
+ *
+ * <h2>Usage:</h2>
  * <pre>{@code
  * Logger logger = LoggerFactory.getLogger(MyClass.class);
  * logger.info("Application started at {}", LocalDateTime.now());
@@ -44,30 +52,26 @@ import com.godikit.logger.impl.SystemLoggerImpl;
  */
 public interface Logger {
 
-    Logger NO_OP_LOGGER = new NoOperationLoggerImpl("");
-
-    Logger SYSTEM_LOGGER = new SystemLoggerImpl("");
+    /**
+     * Returns the facade provider instance.
+     *
+     * @return the facade provider (e.g., Slf4jFacadeProvider, Log4j2FacadeProvider)
+     */
+    LoggerFacadeProvider getFacadeProvider();
 
     /**
-     * Returns the facade name.
+     * Returns the implementation provider instance.
      *
-     * @return the facade identifier (e.g., "godikit")
+     * @return the impl provider (e.g., LogbackLoggerImplProvider, Log4j2LoggerImplProvider)
      */
-    String getFacadeName();
+    LoggerImplProvider getImplProvider();
 
     /**
-     * Returns the underlying logger instance.
+     * Returns the original (native) logger instance that this logger delegates to.
      *
-     * @return the native logger object (e.g., org.slf4j.Logger, org.apache.logging.log4j.Logger)
+     * @return the native logger (e.g., org.slf4j.Logger, org.apache.logging.log4j.Logger, java.util.logging.Logger)
      */
-    Object getFacadeLogger();
-
-    /**
-     * Returns the provider name.
-     *
-     * @return the provider identifier (e.g., "log4j2", "logback", "system")
-     */
-    String getProviderName();
+    Object getOriginalLogger();
 
     /**
      * Checks if TRACE level logging is enabled.
@@ -115,14 +119,14 @@ public interface Logger {
     /**
      * Logs an exception at TRACE level.
      *
-     * @param cause the Throwable to log
+     * @param cause the exception to log (message will be extracted from cause.getMessage())
      */
     void trace(final Throwable cause);
 
     /**
-     * Logs a message at TRACE level with an exception and optional arguments.
+     * Logs a message at TRACE level with an exception.
      *
-     * @param cause the Throwable to log
+     * @param cause the exception to log
      * @param msg   the message pattern
      * @param args  the arguments to be substituted into the message pattern
      */
@@ -139,14 +143,14 @@ public interface Logger {
     /**
      * Logs an exception at DEBUG level.
      *
-     * @param cause the Throwable to log
+     * @param cause the exception to log (message will be extracted from cause.getMessage())
      */
     void debug(final Throwable cause);
 
     /**
-     * Logs a message at DEBUG level with an exception and optional arguments.
+     * Logs a message at DEBUG level with an exception.
      *
-     * @param cause the Throwable to log
+     * @param cause the exception to log
      * @param msg   the message pattern
      * @param args  the arguments to be substituted into the message pattern
      */
@@ -163,14 +167,14 @@ public interface Logger {
     /**
      * Logs an exception at INFO level.
      *
-     * @param cause the Throwable to log
+     * @param cause the exception to log (message will be extracted from cause.getMessage())
      */
     void info(final Throwable cause);
 
     /**
-     * Logs a message at INFO level with an exception and optional arguments.
+     * Logs a message at INFO level with an exception.
      *
-     * @param cause the Throwable to log
+     * @param cause the exception to log
      * @param msg   the message pattern
      * @param args  the arguments to be substituted into the message pattern
      */
@@ -187,14 +191,14 @@ public interface Logger {
     /**
      * Logs an exception at WARN level.
      *
-     * @param cause the Throwable to log
+     * @param cause the exception to log (message will be extracted from cause.getMessage())
      */
     void warn(final Throwable cause);
 
     /**
-     * Logs a message at WARN level with an exception and optional arguments.
+     * Logs a message at WARN level with an exception.
      *
-     * @param cause the Throwable to log
+     * @param cause the exception to log
      * @param msg   the message pattern
      * @param args  the arguments to be substituted into the message pattern
      */
@@ -211,14 +215,14 @@ public interface Logger {
     /**
      * Logs an exception at ERROR level.
      *
-     * @param cause the Throwable to log
+     * @param cause the exception to log (message will be extracted from cause.getMessage())
      */
     void error(final Throwable cause);
 
     /**
-     * Logs a message at ERROR level with an exception and optional arguments.
+     * Logs a message at ERROR level with an exception.
      *
-     * @param cause the Throwable to log
+     * @param cause the exception to log
      * @param msg   the message pattern
      * @param args  the arguments to be substituted into the message pattern
      */

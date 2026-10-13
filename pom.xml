@@ -57,6 +57,7 @@
     </properties>
 
     <modules>
+        <module>godikit-logger-demo</module>
         <module>godikit-logger</module>
         <module>godikit-logger-jdk17</module>
         <module>godikit-logger-provider-facade-slf4j</module>

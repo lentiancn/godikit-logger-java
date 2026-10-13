@@ -25,6 +25,10 @@ package com.godikit.logger.impl;
 
 import com.godikit.exception.utils.StackTraceUtils;
 import com.godikit.logger.Logger;
+import com.godikit.logger.spi.provider.facade.LoggerFacadeProvider;
+import com.godikit.logger.spi.provider.facade.SystemLoggerFacadeProvider;
+import com.godikit.logger.spi.provider.impl.LoggerImplProvider;
+import com.godikit.logger.spi.provider.impl.SystemLoggerImplProvider;
 
 /**
  * Logger implementation that outputs to System.out and System.err.
@@ -46,24 +50,11 @@ import com.godikit.logger.Logger;
 public class SystemLoggerImpl implements Logger {
 
     /**
-     * The facade identifier for this logger implementation.
-     */
-    public static final String FACADE = "godikit";
-
-    /**
-     * The provider identifier for this logger implementation.
-     */
-    public static final String PROVIDER = "system";
-
-    private final Object DELEGATE_LOGGER;
-
-    /**
      * Creates a system logger with the specified name.
      *
      * @param name the logger name (currently unused)
      */
     public SystemLoggerImpl(final String name) {
-        DELEGATE_LOGGER = "system";
     }
 
     /**
@@ -72,46 +63,21 @@ public class SystemLoggerImpl implements Logger {
      * @param clazz the class for the logger (currently unused)
      */
     public SystemLoggerImpl(final Class<?> clazz) {
-        DELEGATE_LOGGER = "system";
     }
 
-    /**
-     * Creates a system logger wrapping the specified facade logger.
-     *
-     * @param delegateLogger the facade logger to wrap (ignored in this implementation)
-     */
-    public SystemLoggerImpl(final Object delegateLogger) {
-        DELEGATE_LOGGER = delegateLogger;
-    }
-
-    /**
-     * Returns the facade name identifier.
-     *
-     * @return the facade identifier, always "godikit"
-     */
     @Override
-    public String getFacadeName() {
-        return FACADE;
+    public LoggerFacadeProvider getFacadeProvider() {
+        return new SystemLoggerFacadeProvider();
     }
 
-    /**
-     * Returns a reference to this logger instance.
-     *
-     * @return this instance
-     */
     @Override
-    public Object getFacadeLogger() {
-        return DELEGATE_LOGGER;
+    public LoggerImplProvider getImplProvider() {
+        return new SystemLoggerImplProvider();
     }
 
-    /**
-     * Returns the provider name identifier.
-     *
-     * @return the provider identifier, always "system"
-     */
     @Override
-    public String getProviderName() {
-        return PROVIDER;
+    public Object getOriginalLogger() {
+        return null;
     }
 
     /**

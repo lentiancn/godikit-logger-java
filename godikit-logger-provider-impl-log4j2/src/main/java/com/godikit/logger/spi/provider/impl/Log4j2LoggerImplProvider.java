@@ -2,6 +2,7 @@ package com.godikit.logger.spi.provider.impl;
 
 import com.godikit.logger.enums.LoggerFacadeEnum;
 import com.godikit.logger.enums.LoggerImplEnum;
+import com.godikit.logger.spi.provider.facade.LoggerFacadeProvider;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.core.Logger;
@@ -17,10 +18,12 @@ public final class Log4j2LoggerImplProvider implements LoggerImplProvider {
     }
 
     @Override
-    public boolean supportsFactory(String facadeName, Object factory) {
-        if (!LoggerFacadeEnum.LOG4J2.getName().equals(facadeName)) {
+    public boolean supportsFactory(LoggerFacadeProvider facadeProvider) {
+        if (!LoggerFacadeEnum.LOG4J2.getName().equals(facadeProvider.getName())) {
             return false;
         }
+        Object factory = facadeProvider.getFacadeFactory();
+
         return factory instanceof LoggerContext
             || factory instanceof LoggerContextFactory
             || factory instanceof org.apache.logging.log4j.spi.LoggerContext;

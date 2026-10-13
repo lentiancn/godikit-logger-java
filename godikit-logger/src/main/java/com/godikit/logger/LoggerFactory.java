@@ -78,24 +78,35 @@ public final class LoggerFactory {
             LoggerImplEnum implEnum = LoggerProviderConfig.getImpl();
 
             LoggerRegistry registry = LoggerRegistry.getInstance();
-            LoggerFacadeProvider facade = registry.getFacadeProvider(facadeEnum.getName());
-            LoggerImplProvider impl = registry.getImplProvider(implEnum.getName());
+            LoggerFacadeProvider facadeProvider = registry.getFacadeProvider(facadeEnum.getName());
+            LoggerImplProvider implProvider = registry.getImplProvider(implEnum.getName());
 
-            if (facade == null) {
-                facade = new NoOperationLoggerFacadeProvider();
+            boolean facadeMissing = facadeProvider == null;
+            boolean implMissing = implProvider == null;
+
+            if (facadeMissing) {
+                System.err.println("[GodiKit Logger] WARNING: Facade provider '" + facadeEnum.getName()
+                    + "' not found. Please ensure you have added the corresponding facade jar, "
+                    + "such as 'godikit-logger-provider-facade-slf4j'.");
+                facadeProvider = new NoOperationLoggerFacadeProvider();
             }
-            if (impl == null) {
-                impl = new NoOperationLoggerImplProvider();
+            if (implMissing) {
+                System.err.println("[GodiKit Logger] WARNING: Impl provider '" + implEnum.getName()
+                    + "' not found. Please ensure you have added the corresponding impl jar, "
+                    + "such as 'godikit-logger-provider-impl-logback'.");
+                implProvider = new NoOperationLoggerImplProvider();
             }
 
-            Object factory = facade.getFacadeFactory();
-            if (!impl.supportsFactory(facadeEnum.getName(), factory)) {
-                throw new IllegalStateException("Active logging factory does not match "
-                    + facadeEnum.getName() + "+" + implEnum.getName() + ": "
-                    + (factory == null ? "null" : factory.getClass().getName()));
+            if (!facadeMissing && !implMissing) {
+                Object factory = facadeProvider.getFacadeFactory();
+                if (!implProvider.supportsFactory(facadeProvider)) {
+                    throw new IllegalStateException("Active logging factory does not match "
+                        + facadeEnum.getName() + "+" + implEnum.getName() + ": "
+                        + (factory == null ? "null" : factory.getClass().getName()));
+                }
             }
-            providers = new Providers(facade, impl);
 
+            providers = new Providers(facadeProvider, implProvider);
             return providers;
         } finally {
             initializing = false;
@@ -103,36 +114,14 @@ public final class LoggerFactory {
     }
 
     private static final class Providers {
-        private final LoggerFacadeProvider facade;
-        private final LoggerImplProvider implementation;
+        private final LoggerFacadeProvider facadeProvider;
+        private final LoggerImplProvider implProvider;
 
-        private Providers(LoggerFacadeProvider facade, LoggerImplProvider implementation) {
-            this.facade = facade;
-            this.implementation = implementation;
+        private Providers(LoggerFacadeProvider facadeProvider, LoggerImplProvider implProvider) {
+            this.facadeProvider = facadeProvider;
+            this.implProvider = implProvider;
         }
     }
-
-//    /**
-//     * Gets the current facade name.
-//     *
-//     * @return the current facade name
-//     */
-//    public static String getCurrentFacade() {
-//        Providers selected = getProviders();
-//        return selected.facade == null ? NoOperationLoggerImpl.FACADE : selected.facade.getName();
-//    }
-//
-//    /**
-//     * Gets the current provider in format "facade+provider".
-//     *
-//     * @return the current provider string (e.g., "slf4j+log4j2")
-//     */
-//    public static String getCurrentProvider() {
-//        Providers selected = getProviders();
-//        return selected.facade == null
-//            ? NoOperationLoggerImpl.FACADE + "+" + NoOperationLoggerImpl.PROVIDER
-//            : selected.facade.getName() + "+" + selected.implementation.getName();
-//    }
 
     /**
      * Gets a Logger instance by name.
@@ -142,8 +131,8 @@ public final class LoggerFactory {
      */
     public static Logger getLogger(final String name) {
         Objects.requireNonNull(name, "Logger name must not be null.");
-        Providers currentProvider = getProviders();
-        return LOGGER_CACHE.computeIfAbsent(name, key -> currentProvider.facade.getLogger(key, currentProvider.implementation));
+        Providers currentProviders = getProviders();
+        return LOGGER_CACHE.computeIfAbsent(name, key -> currentProviders.facadeProvider.getLogger(key, currentProviders.implProvider));
     }
 
     /**
@@ -153,7 +142,9 @@ public final class LoggerFactory {
      * @return Logger instance (cached by class name)
      */
     public static Logger getLogger(final Class<?> clazz) {
-        return getLogger(clazz.getName());
+        Objects.requireNonNull(clazz, "Logger name must not be null.");
+        Providers currentProviders = getProviders();
+        return LOGGER_CACHE.computeIfAbsent(clazz.getName(), key -> currentProviders.facadeProvider.getLogger(clazz, currentProviders.implProvider));
     }
 
 //    /**

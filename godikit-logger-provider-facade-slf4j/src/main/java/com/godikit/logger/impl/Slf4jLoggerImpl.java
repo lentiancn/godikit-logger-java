@@ -1,7 +1,8 @@
 package com.godikit.logger.impl;
 
 import com.godikit.logger.Logger;
-import com.godikit.logger.enums.LoggerFacadeEnum;
+import com.godikit.logger.spi.provider.facade.LoggerFacadeProvider;
+import com.godikit.logger.spi.provider.impl.LoggerImplProvider;
 import org.slf4j.helpers.FormattingTuple;
 import org.slf4j.helpers.MessageFormatter;
 import org.slf4j.spi.LocationAwareLogger;
@@ -23,30 +24,31 @@ public final class Slf4jLoggerImpl implements Logger {
     private static final Object[] NO_ARGUMENTS = new Object[0];
 
     private final org.slf4j.Logger delegate;
-    private final String providerName;
+    private final LoggerFacadeProvider facadeProvider;
+    private final LoggerImplProvider implProvider;
 
     /**
      * Called by the facade provider after implementation validation.
      */
-    public Slf4jLoggerImpl(org.slf4j.Logger delegate, String providerName) {
+    public Slf4jLoggerImpl(org.slf4j.Logger delegate, LoggerFacadeProvider facadeProvider, LoggerImplProvider implProvider) {
         this.delegate = Objects.requireNonNull(delegate, "Delegate must not be null.");
-        this.providerName = Objects.requireNonNull(
-            providerName, "Provider name must not be null.");
+        this.facadeProvider = facadeProvider;
+        this.implProvider = implProvider;
     }
 
     @Override
-    public String getFacadeName() {
-        return LoggerFacadeEnum.SLF4J.getName();
+    public LoggerFacadeProvider getFacadeProvider() {
+        return facadeProvider;
     }
 
     @Override
-    public org.slf4j.Logger getFacadeLogger() {
+    public LoggerImplProvider getImplProvider() {
+        return implProvider;
+    }
+
+    @Override
+    public Object getOriginalLogger() {
         return delegate;
-    }
-
-    @Override
-    public String getProviderName() {
-        return providerName;
     }
 
     @Override
