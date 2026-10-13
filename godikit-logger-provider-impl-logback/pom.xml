@@ -9,7 +9,7 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>godikit-logger-provider-slf4j-logback</artifactId>
+    <artifactId>godikit-logger-provider-impl-logback</artifactId>
     <version>${revision}</version>
     <name>GodiKit Logger Provider for SLF4J and Logback</name>
     <description>GodiKit Logger SPI provider using the SLF4J facade with the Logback backend.</description>

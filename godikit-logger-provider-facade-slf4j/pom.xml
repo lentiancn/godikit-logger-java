@@ -9,7 +9,7 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>godikit-logger-provider-slf4j-logback</artifactId>
+    <artifactId>godikit-logger-provider-facade-slf4j</artifactId>
     <version>${revision}</version>
     <name>GodiKit Logger Provider for SLF4J and Logback</name>
     <description>GodiKit Logger SPI provider using the SLF4J facade with the Logback backend.</description>
@@ -20,15 +20,9 @@
             <groupId>com.godikit.logger</groupId>
             <artifactId>godikit-logger</artifactId>
         </dependency>
-        <!-- Facade -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-        </dependency>
-        <!-- Provider: ch.qos.logback.classic.spi.LogbackServiceProvider -->
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
         </dependency>
     </dependencies>
 
