@@ -1,7 +1,7 @@
 package com.godikit.logger.spi.provider.impl;
 
 import com.godikit.logger.enums.LoggerFacadeEnum;
-import com.godikit.logger.enums.LoggerImplEnum;
+import com.godikit.logger.enums.LoggerProviderEnum;
 import com.godikit.logger.spi.provider.facade.LoggerFacadeProvider;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -14,7 +14,7 @@ public final class Log4j2LoggerImplProvider implements LoggerImplProvider {
 
     @Override
     public String getName() {
-        return LoggerImplEnum.LOG4J2.getName();
+        return LoggerProviderEnum.LOG4J2.getName();
     }
 
     @Override

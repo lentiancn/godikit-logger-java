@@ -3,7 +3,7 @@ package com.godikit.logger.enums;
 import lombok.Getter;
 
 @Getter
-public enum LoggerImplEnum {
+public enum LoggerProviderEnum {
     NO_OP("no-op"),
     SYSTEM("system"),
     LOGBACK("logback"),
@@ -12,7 +12,7 @@ public enum LoggerImplEnum {
 
     private final String name;
 
-    LoggerImplEnum(String name) {
+    LoggerProviderEnum(String name) {
         this.name = name;
     }
 }

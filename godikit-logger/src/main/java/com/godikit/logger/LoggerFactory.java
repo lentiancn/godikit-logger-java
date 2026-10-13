@@ -24,7 +24,7 @@
 package com.godikit.logger;
 
 import com.godikit.logger.enums.LoggerFacadeEnum;
-import com.godikit.logger.enums.LoggerImplEnum;
+import com.godikit.logger.enums.LoggerProviderEnum;
 import com.godikit.logger.spi.LoggerRegistry;
 import com.godikit.logger.spi.provider.facade.LoggerFacadeProvider;
 import com.godikit.logger.spi.provider.facade.NoOperationLoggerFacadeProvider;
@@ -75,7 +75,7 @@ public final class LoggerFactory {
         initializing = true;
         try {
             LoggerFacadeEnum facadeEnum = LoggerProviderConfig.getFacade();
-            LoggerImplEnum implEnum = LoggerProviderConfig.getImpl();
+            LoggerProviderEnum implEnum = LoggerProviderConfig.getImpl();
 
             LoggerRegistry registry = LoggerRegistry.getInstance();
             LoggerFacadeProvider facadeProvider = registry.getFacadeProvider(facadeEnum.getName());

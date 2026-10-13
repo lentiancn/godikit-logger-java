@@ -3,7 +3,7 @@ package com.godikit.logger.spi.provider.impl;
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
 import com.godikit.logger.enums.LoggerFacadeEnum;
-import com.godikit.logger.enums.LoggerImplEnum;
+import com.godikit.logger.enums.LoggerProviderEnum;
 import com.godikit.logger.spi.provider.facade.LoggerFacadeProvider;
 
 /**
@@ -13,7 +13,7 @@ public final class LogbackLoggerImplProvider implements LoggerImplProvider {
 
     @Override
     public String getName() {
-        return LoggerImplEnum.LOGBACK.getName();
+        return LoggerProviderEnum.LOGBACK.getName();
     }
 
     @Override

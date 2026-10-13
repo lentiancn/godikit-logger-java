@@ -1,13 +1,13 @@
 package com.godikit.logger.spi.provider.impl;
 
-import com.godikit.logger.enums.LoggerImplEnum;
+import com.godikit.logger.enums.LoggerProviderEnum;
 import com.godikit.logger.spi.provider.facade.LoggerFacadeProvider;
 
 public class SystemLoggerImplProvider implements LoggerImplProvider {
 
     @Override
     public String getName() {
-        return LoggerImplEnum.SYSTEM.getName();
+        return LoggerProviderEnum.SYSTEM.getName();
     }
 
     @Override
