@@ -23,7 +23,7 @@
  */
 package com.godikit.logger.impl;
 
-import com.godikit.error.utils.ThrowableUtils;
+import com.godikit.exception.utils.StackTraceUtils;
 import com.godikit.logger.Logger;
 
 /**
@@ -343,7 +343,7 @@ public class SystemLoggerImpl implements Logger {
             sb.append(formatMessage(msg, args));
         }
         if (cause != null) {
-            sb.append(ThrowableUtils.toString(cause));
+            sb.append(StackTraceUtils.toString(cause));
         }
         if (isErr) {
             System.err.println(sb);

@@ -23,7 +23,7 @@
  */
 package com.godikit.logger;
 
-import com.godikit.error.utils.ThrowableUtils;
+import com.godikit.exception.utils.StackTraceUtils;
 import com.godikit.logger.impl.NoOperationLoggerImpl;
 import com.godikit.logger.utils.LoggerUtils;
 
@@ -86,7 +86,7 @@ public final class LoggerFactory {
             constructor.setAccessible(true);
             currentConstructor = constructor;
         } catch (Throwable e) {
-            System.err.println("[GodiKit Logger] Failed to load Logger implementation: " + ThrowableUtils.toString(e));
+            System.err.println("[GodiKit Logger] Failed to load Logger implementation: " + StackTraceUtils.toString(e));
         }
     }
 
@@ -127,7 +127,7 @@ public final class LoggerFactory {
             try {
                 logger = currentConstructor.newInstance(name);
             } catch (Throwable e) {
-                System.err.println("[GodiKit Logger] Failed to create Logger: " + ThrowableUtils.toString(e));
+                System.err.println("[GodiKit Logger] Failed to create Logger: " + StackTraceUtils.toString(e));
                 logger = new NoOperationLoggerImpl(name);
             }
         }
@@ -178,7 +178,7 @@ public final class LoggerFactory {
                 return Logger.SYSTEM_LOGGER;
             }
 
-            System.err.println("[GodiKit Logger] Failed to create Logger: " + ThrowableUtils.toString(e));
+            System.err.println("[GodiKit Logger] Failed to create Logger: " + StackTraceUtils.toString(e));
             return Logger.NO_OP_LOGGER;
         } catch (Throwable e) {
             if (e instanceof ClassCastException) {
@@ -186,7 +186,7 @@ public final class LoggerFactory {
                 return Logger.SYSTEM_LOGGER;
             }
 
-            System.err.println("[GodiKit Logger] Failed to create Logger: " + ThrowableUtils.toString(e));
+            System.err.println("[GodiKit Logger] Failed to create Logger: " + StackTraceUtils.toString(e));
             return Logger.NO_OP_LOGGER;
         }
     }

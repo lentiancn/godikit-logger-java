@@ -23,7 +23,7 @@
  */
 package com.godikit.logger.bridge.osgi;
 
-import com.godikit.error.utils.ThrowableUtils;
+import com.godikit.exception.utils.StackTraceUtils;
 import com.godikit.logger.Logger;
 import org.osgi.service.log.LoggerFactory;
 
@@ -222,7 +222,7 @@ public class Slf4jOsgiLoggerImpl implements Logger {
      */
     @Override
     public void trace(final Throwable cause) {
-        osgiLogger.trace(ThrowableUtils.toString(cause));
+        osgiLogger.trace(StackTraceUtils.toString(cause));
     }
 
     /**
@@ -255,7 +255,7 @@ public class Slf4jOsgiLoggerImpl implements Logger {
      */
     @Override
     public void debug(final Throwable cause) {
-        osgiLogger.debug(ThrowableUtils.toString(cause));
+        osgiLogger.debug(StackTraceUtils.toString(cause));
     }
 
     /**
@@ -288,7 +288,7 @@ public class Slf4jOsgiLoggerImpl implements Logger {
      */
     @Override
     public void info(final Throwable cause) {
-        osgiLogger.info(ThrowableUtils.toString(cause));
+        osgiLogger.info(StackTraceUtils.toString(cause));
     }
 
     /**
@@ -321,7 +321,7 @@ public class Slf4jOsgiLoggerImpl implements Logger {
      */
     @Override
     public void warn(final Throwable cause) {
-        osgiLogger.warn(ThrowableUtils.toString(cause));
+        osgiLogger.warn(StackTraceUtils.toString(cause));
     }
 
     /**
@@ -354,7 +354,7 @@ public class Slf4jOsgiLoggerImpl implements Logger {
      */
     @Override
     public void error(final Throwable cause) {
-        osgiLogger.error(ThrowableUtils.toString(cause));
+        osgiLogger.error(StackTraceUtils.toString(cause));
     }
 
     /**
