@@ -14,8 +14,8 @@ public class NoOperationLoggerFacadeImpl implements LoggerFacade {
     }
 
     @Override
-    public Object getFacadeFactory() {
-        return null;
+    public void checkCompatibilityWith(LoggerProvider provider) {
+        // TODO 这里按需实现，当provider与当前facade不兼容时，抛出异常（告知用户需要引用哪个jar包）
     }
 
     @Override
@@ -26,10 +26,5 @@ public class NoOperationLoggerFacadeImpl implements LoggerFacade {
     @Override
     public Logger getLogger(Class<?> clazz, LoggerProvider provider) {
         return new NoOperationLoggerImpl(clazz);
-    }
-
-    @Override
-    public Logger wrapLogger(Object delegate, LoggerProvider implementation) {
-        return null;
     }
 }

@@ -9,11 +9,7 @@ import org.slf4j.spi.LocationAwareLogger;
 
 import java.util.Objects;
 
-import static org.slf4j.spi.LocationAwareLogger.DEBUG_INT;
-import static org.slf4j.spi.LocationAwareLogger.ERROR_INT;
-import static org.slf4j.spi.LocationAwareLogger.INFO_INT;
-import static org.slf4j.spi.LocationAwareLogger.TRACE_INT;
-import static org.slf4j.spi.LocationAwareLogger.WARN_INT;
+import static org.slf4j.spi.LocationAwareLogger.*;
 
 /**
  * Adapts the GodiKit Logger API to SLF4J without depending on a backend.

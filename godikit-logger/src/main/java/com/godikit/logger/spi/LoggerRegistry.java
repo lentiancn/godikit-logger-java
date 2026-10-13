@@ -41,6 +41,24 @@ public class LoggerRegistry {
         return INSTANCE;
     }
 
+    private static <T> void register(
+        Map<String, T> providers, String name, T provider, String category) {
+
+        if (name == null || name.trim().isEmpty() || !name.equals(name.trim())) {
+            throw new IllegalStateException(
+                "Invalid " + category + " provider name '" + name
+                    + "' declared by " + provider.getClass().getName());
+        }
+
+        T existing = providers.putIfAbsent(name, provider);
+        if (existing != null) {
+            throw new IllegalStateException(
+                "Duplicate " + category + " provider name '" + name + "': "
+                    + existing.getClass().getName() + " and "
+                    + provider.getClass().getName());
+        }
+    }
+
     /**
      * Discovers facade and implementation providers independently.
      *
@@ -132,24 +150,6 @@ public class LoggerRegistry {
     private void ensureInitialized() {
         if (!initialized) {
             initialize();
-        }
-    }
-
-    private static <T> void register(
-        Map<String, T> providers, String name, T provider, String category) {
-
-        if (name == null || name.trim().isEmpty() || !name.equals(name.trim())) {
-            throw new IllegalStateException(
-                "Invalid " + category + " provider name '" + name
-                    + "' declared by " + provider.getClass().getName());
-        }
-
-        T existing = providers.putIfAbsent(name, provider);
-        if (existing != null) {
-            throw new IllegalStateException(
-                "Duplicate " + category + " provider name '" + name + "': "
-                    + existing.getClass().getName() + " and "
-                    + provider.getClass().getName());
         }
     }
 }

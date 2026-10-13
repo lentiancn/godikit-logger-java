@@ -12,12 +12,7 @@ public class SystemLoggerProviderImpl implements LoggerProvider {
     }
 
     @Override
-    public boolean supportsFactory(LoggerFacade facade) {
-        return true;
-    }
-
-    @Override
-    public boolean supportsLogger(String facadeName, Object logger) {
-        return true;
+    public void checkCompatibilityWith(LoggerFacade facade) {
+        // TODO 这里按需实现，当facade与当前provider不兼容时，抛出异常（告知用户需要引用哪个jar包）
     }
 }

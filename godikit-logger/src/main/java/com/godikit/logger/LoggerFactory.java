@@ -23,8 +23,7 @@
  */
 package com.godikit.logger;
 
-import com.godikit.logger.enums.LoggerFacadeEnum;
-import com.godikit.logger.enums.LoggerProviderEnum;
+import com.godikit.exception.GlobalRuntimeException;
 import com.godikit.logger.spi.LoggerRegistry;
 import com.godikit.logger.spi.facade.LoggerFacade;
 import com.godikit.logger.spi.facade.impl.NoOperationLoggerFacadeImpl;
@@ -36,8 +35,8 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 /**
  * Factory for creating and managing Logger instances.
@@ -72,7 +71,7 @@ public final class LoggerFactory {
             return providers;
         }
         if (initializing) {
-            throw new IllegalStateException("Recursive LoggerFactory initialization is not allowed.");
+            throw new GlobalRuntimeException("Recursive LoggerFactory initialization is not allowed.");
         }
         initializing = true;
         try {
@@ -81,38 +80,33 @@ public final class LoggerFactory {
             List<LoggerProvider> allProviders = registry.getProviders();
 
             if (allFacades.size() > 1) {
-                throw new IllegalStateException(
+                throw new GlobalRuntimeException(
                     "Multiple facade providers found: [" + joinNames(allFacades) + "]"
                         + ". Only one facade JAR should be present in classpath.");
             }
 
             if (allProviders.size() > 1) {
-                throw new IllegalStateException(
+                throw new GlobalRuntimeException(
                     "Multiple implementation providers found: [" + joinNames(allProviders) + "]"
                         + ". Only one provider JAR should be present in classpath.");
             }
 
             LoggerFacade facade = allFacades.isEmpty() ? new NoOperationLoggerFacadeImpl() : allFacades.get(0);
+            Class<? extends LoggerFacade> facadeClass = facade.getClass();
             LoggerProvider provider = allProviders.isEmpty() ? new NoOperationLoggerProviderImpl() : allProviders.get(0);
+            Class<? extends LoggerProvider> providerClass = provider.getClass();
 
-            if (facade instanceof NoOperationLoggerFacadeImpl) {
+            if (facadeClass == NoOperationLoggerFacadeImpl.class) {
                 System.err.println("[GodiKit Logger] WARNING: No facade found. "
                     + "Please add a facade jar, such as 'godikit-logger-facade-slf4j'.");
             }
-            if (provider instanceof NoOperationLoggerProviderImpl) {
+            if (providerClass == NoOperationLoggerProviderImpl.class) {
                 System.err.println("[GodiKit Logger] WARNING: No provider found. "
                     + "Please add an impl jar, such as 'godikit-logger-provider-logback'.");
             }
 
-            if (!(facade instanceof NoOperationLoggerFacadeImpl) && !(provider instanceof NoOperationLoggerProviderImpl)) {
-                Object factory = facade.getFacadeFactory();
-                if (!provider.supportsFactory(facade)) {
-                    throw new IllegalStateException(
-                        "Facade '" + facade.getName() + "' does not match impl '" + provider.getName() + "': "
-                            + (factory == null ? "null" : factory.getClass().getName()));
-                }
-            }
-
+            facade.checkCompatibilityWith(provider);
+            provider.checkCompatibilityWith(facade);
             providers = new Providers(facade, provider);
             return providers;
         } finally {
@@ -129,16 +123,6 @@ public final class LoggerFactory {
             }
             return p.getClass().getSimpleName();
         }).collect(Collectors.joining(", "));
-    }
-
-    private static final class Providers {
-        private final LoggerFacade facade;
-        private final LoggerProvider provider;
-
-        private Providers(LoggerFacade facade, LoggerProvider provider) {
-            this.facade = facade;
-            this.provider = provider;
-        }
     }
 
     /**
@@ -165,24 +149,13 @@ public final class LoggerFactory {
         return LOGGER_CACHE.computeIfAbsent(clazz.getName(), key -> currentProviders.facade.getLogger(clazz, currentProviders.provider));
     }
 
-//    /**
-//     * Creates a new Logger instance from an existing facade logger.
-//     *
-//     * <p>This method attempts to create a Logger implementation that wraps
-//     * the provided facade logger.</p>
-//     *
-//     * @param delegateLogger the facade logger instance to wrap
-//     * @return a new wrapper, or a no-op logger when no providers are installed
-//     * @throws IllegalArgumentException if the delegate is incompatible
-//     */
-//    public static Logger getLogger(final Object delegateLogger) {
-//        Objects.requireNonNull(delegateLogger, "Delegate logger must not be null.");
-//        Providers selected = getProviders();
-//        if (selected.facade == null) {
-//            return new NoOperationLoggerImpl(delegateLogger);
-//        }
-//        return Objects.requireNonNull(
-//            selected.facade.wrapLogger(delegateLogger, selected.implementation),
-//            "Facade provider returned a null logger.");
-//    }
+    private static final class Providers {
+        private final LoggerFacade facade;
+        private final LoggerProvider provider;
+
+        private Providers(LoggerFacade facade, LoggerProvider provider) {
+            this.facade = facade;
+            this.provider = provider;
+        }
+    }
 }

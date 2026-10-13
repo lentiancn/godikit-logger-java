@@ -12,7 +12,8 @@
     <artifactId>godikit-logger-facade-log4j2</artifactId>
     <version>${revision}</version>
     <name>GodiKit Logger Provider - Log4j2 Facade</name>
-    <description>Adapts the GodiKit Logger API to the Log4j2 facade without selecting a logging implementation.</description>
+    <description>Adapts the GodiKit Logger API to the Log4j2 facade without selecting a logging implementation.
+    </description>
     <url>https://www.godikit.com/logger</url>
 
     <dependencies>

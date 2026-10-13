@@ -12,7 +12,8 @@
     <artifactId>godikit-logger-provider-logback</artifactId>
     <version>${revision}</version>
     <name>GodiKit Logger Provider - Logback Implementation</name>
-    <description>Provides the Logback logging implementation for use with the GodiKit Logger SLF4J facade adapter.</description>
+    <description>Provides the Logback logging implementation for use with the GodiKit Logger SLF4J facade adapter.
+    </description>
     <url>https://www.godikit.com/logger</url>
 
     <dependencies>

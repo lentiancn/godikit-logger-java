@@ -1,8 +1,5 @@
 package com.godikit.logger.spi.provider.impl;
 
-import ch.qos.logback.classic.Logger;
-import ch.qos.logback.classic.LoggerContext;
-import com.godikit.logger.enums.LoggerFacadeEnum;
 import com.godikit.logger.enums.LoggerProviderEnum;
 import com.godikit.logger.spi.facade.LoggerFacade;
 import com.godikit.logger.spi.provider.LoggerProvider;
@@ -18,12 +15,7 @@ public final class LogbackLoggerProviderImpl implements LoggerProvider {
     }
 
     @Override
-    public boolean supportsFactory(LoggerFacade facade) {
-        return LoggerFacadeEnum.SLF4J.getName().equals(facade.getName()) && facade.getFacadeFactory() instanceof LoggerContext;
-    }
-
-    @Override
-    public boolean supportsLogger(String facadeName, Object logger) {
-        return LoggerFacadeEnum.SLF4J.getName().equals(facadeName) && logger instanceof Logger;
+    public void checkCompatibilityWith(LoggerFacade facade) {
+        // TODO 这里按需实现，当facade与当前provider不兼容时，抛出异常（告知用户需要引用哪个jar包）
     }
 }
