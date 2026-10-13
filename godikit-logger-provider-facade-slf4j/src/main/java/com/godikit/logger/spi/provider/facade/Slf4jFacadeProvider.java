@@ -4,6 +4,7 @@ import com.godikit.logger.Logger;
 import com.godikit.logger.impl.Slf4jLoggerImpl;
 import com.godikit.logger.spi.provider.impl.LoggerImplProvider;
 import org.slf4j.ILoggerFactory;
+import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 
@@ -23,10 +24,8 @@ public final class Slf4jFacadeProvider implements LoggerFacadeProvider {
     }
 
     @Override
-    public Logger createLogger(String name, LoggerImplProvider implementation) {
-        Objects.requireNonNull(name, "Logger name must not be null.");
-        ILoggerFactory factory = validateFactory(implementation);
-        return wrapValidated(factory.getLogger(name), implementation);
+    public Logger getLogger(String name, LoggerImplProvider implementation) {
+        return new Slf4jLoggerImpl(LoggerFactory.getLogger(name), getName());
     }
 
     @Override

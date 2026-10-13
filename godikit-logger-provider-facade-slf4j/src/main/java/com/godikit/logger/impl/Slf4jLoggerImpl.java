@@ -1,6 +1,7 @@
 package com.godikit.logger.impl;
 
 import com.godikit.logger.Logger;
+import com.godikit.logger.enums.LoggerFacadeEnum;
 import org.slf4j.helpers.FormattingTuple;
 import org.slf4j.helpers.MessageFormatter;
 import org.slf4j.spi.LocationAwareLogger;
@@ -35,7 +36,7 @@ public final class Slf4jLoggerImpl implements Logger {
 
     @Override
     public String getFacadeName() {
-        return "slf4j";
+        return LoggerFacadeEnum.SLF4J.getName();
     }
 
     @Override

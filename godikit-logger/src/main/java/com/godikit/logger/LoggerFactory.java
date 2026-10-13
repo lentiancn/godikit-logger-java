@@ -143,7 +143,7 @@ public final class LoggerFactory {
     public static Logger getLogger(final String name) {
         Objects.requireNonNull(name, "Logger name must not be null.");
         Providers currentProvider = getProviders();
-        return LOGGER_CACHE.computeIfAbsent(name, key -> currentProvider.facade.createLogger(key, currentProvider.implementation));
+        return LOGGER_CACHE.computeIfAbsent(name, key -> currentProvider.facade.getLogger(key, currentProvider.implementation));
     }
 
     /**

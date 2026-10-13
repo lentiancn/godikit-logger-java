@@ -29,11 +29,11 @@ public interface LoggerFacadeProvider {
     /**
      * Creates a logger after verifying the active implementation.
      *
-     * @param name the logger name
+     * @param name           the logger name
      * @param implementation the selected implementation provider
      * @return a non-null, thread-safe logger
      */
-    Logger createLogger(String name, LoggerImplProvider implementation);
+    Logger getLogger(String name, LoggerImplProvider implementation);
 
     /**
      * Wraps a native logger after verifying its implementation.

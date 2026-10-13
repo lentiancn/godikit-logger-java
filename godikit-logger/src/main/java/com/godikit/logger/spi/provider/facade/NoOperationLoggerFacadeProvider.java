@@ -18,7 +18,7 @@ public class NoOperationLoggerFacadeProvider implements LoggerFacadeProvider {
     }
 
     @Override
-    public Logger createLogger(String name, LoggerImplProvider implementation) {
+    public Logger getLogger(String name, LoggerImplProvider implementation) {
         return new NoOperationLoggerImpl(name);
     }
 
