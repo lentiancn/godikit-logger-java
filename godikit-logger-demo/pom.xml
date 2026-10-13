@@ -27,12 +27,12 @@
         </dependency>
         <dependency>
             <groupId>com.godikit.logger</groupId>
-            <artifactId>godikit-logger-provider-facade-slf4j</artifactId>
+            <artifactId>godikit-logger-facade-slf4j</artifactId>
             <version>1.0.1</version>
         </dependency>
         <dependency>
             <groupId>com.godikit.logger</groupId>
-            <artifactId>godikit-logger-provider-impl-logback</artifactId>
+            <artifactId>godikit-logger-provider-logback</artifactId>
             <version>1.0.1</version>
         </dependency>
         <dependency>

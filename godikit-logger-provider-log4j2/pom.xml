@@ -9,7 +9,7 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>godikit-logger-provider-impl-log4j2</artifactId>
+    <artifactId>godikit-logger-provider-log4j2</artifactId>
     <version>${revision}</version>
     <name>GodiKit Logger Provider - Log4j2 Implementation</name>
     <description>Provides the Log4j2 logging implementation for use with the GodiKit Logger API.</description>

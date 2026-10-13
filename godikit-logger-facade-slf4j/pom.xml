@@ -9,10 +9,10 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>godikit-logger-provider-facade-log4j2</artifactId>
+    <artifactId>godikit-logger-facade-slf4j</artifactId>
     <version>${revision}</version>
-    <name>GodiKit Logger Provider - Log4j2 Facade</name>
-    <description>Adapts the GodiKit Logger API to the Log4j2 facade without selecting a logging implementation.</description>
+    <name>GodiKit Logger Provider - SLF4J Facade</name>
+    <description>Adapts the GodiKit Logger API to the SLF4J facade without selecting a logging implementation.</description>
     <url>https://www.godikit.com/logger</url>
 
     <dependencies>
@@ -21,9 +21,8 @@
             <artifactId>godikit-logger</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>${log4j2.version}</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
     </dependencies>
 

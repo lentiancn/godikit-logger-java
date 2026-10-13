@@ -9,7 +9,7 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>godikit-logger-provider-impl-logback</artifactId>
+    <artifactId>godikit-logger-provider-logback</artifactId>
     <version>${revision}</version>
     <name>GodiKit Logger Provider - Logback Implementation</name>
     <description>Provides the Logback logging implementation for use with the GodiKit Logger SLF4J facade adapter.</description>
