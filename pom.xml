@@ -77,8 +77,13 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.godikit.error</groupId>
-                <artifactId>godikit-error</artifactId>
+                <groupId>com.godikit.exception</groupId>
+                <artifactId>godikit-exception</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.godikit.exception</groupId>
+                <artifactId>godikit-exception-jdk17</artifactId>
                 <version>1.0.0</version>
             </dependency>
             <dependency>
@@ -186,8 +191,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.godikit.error</groupId>
-            <artifactId>godikit-error</artifactId>
+            <groupId>com.godikit.exception</groupId>
+            <artifactId>godikit-exception</artifactId>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>

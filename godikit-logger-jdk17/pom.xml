@@ -28,6 +28,10 @@
             <groupId>com.godikit.logger</groupId>
             <artifactId>godikit-logger</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.godikit.exception</groupId>
+            <artifactId>godikit-exception-jdk17</artifactId>
+        </dependency>
     </dependencies>
 
     <developers>
