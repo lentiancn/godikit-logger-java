@@ -2,7 +2,7 @@ package com.godikit.logger.spi.provider.impl;
 
 import com.godikit.logger.enums.LoggerFacadeEnum;
 import com.godikit.logger.enums.LoggerProviderEnum;
-import com.godikit.logger.spi.facade.LoggerFacadeProvider;
+import com.godikit.logger.spi.facade.LoggerFacade;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.core.Logger;
@@ -10,7 +10,7 @@ import org.apache.logging.log4j.spi.LoggerContext;
 import org.apache.logging.log4j.spi.LoggerContextFactory;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class Log4j2LoggerImplProvider implements LoggerImplProvider {
+public final class Log4j2LoggerImplProvider implements LoggerProvider {
 
     @Override
     public String getName() {
@@ -18,7 +18,7 @@ public final class Log4j2LoggerImplProvider implements LoggerImplProvider {
     }
 
     @Override
-    public boolean supportsFactory(LoggerFacadeProvider facadeProvider) {
+    public boolean supportsFactory(LoggerFacade facadeProvider) {
         if (!LoggerFacadeEnum.LOG4J2.getName().equals(facadeProvider.getName())) {
             return false;
         }

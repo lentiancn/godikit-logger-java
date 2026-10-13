@@ -1,8 +1,8 @@
 package com.godikit.logger.impl;
 
 import com.godikit.logger.Logger;
-import com.godikit.logger.spi.facade.LoggerFacadeProvider;
-import com.godikit.logger.spi.provider.impl.LoggerImplProvider;
+import com.godikit.logger.spi.facade.LoggerFacade;
+import com.godikit.logger.spi.provider.LoggerProvider;
 
 /**
  * Adapts the GodiKit Logger API to Log4j2 without depending on a backend.
@@ -11,23 +11,23 @@ public final class Log4j2LoggerImpl implements Logger {
 
     private final org.apache.logging.log4j.Logger delegate;
 
-    private final LoggerFacadeProvider facadeProvider;
-    private final LoggerImplProvider implProvider;
+    private final LoggerFacade facadeProvider;
+    private final LoggerProvider provider;
 
-    public Log4j2LoggerImpl(org.apache.logging.log4j.Logger delegate, LoggerFacadeProvider facadeProvider, LoggerImplProvider implProvider) {
+    public Log4j2LoggerImpl(org.apache.logging.log4j.Logger delegate, LoggerFacade facadeProvider, LoggerProvider provider) {
         this.delegate = delegate;
         this.facadeProvider = facadeProvider;
-        this.implProvider = implProvider;
+        this.provider = provider;
     }
 
     @Override
-    public LoggerFacadeProvider getFacadeProvider() {
+    public LoggerFacade getFacade() {
         return facadeProvider;
     }
 
     @Override
-    public LoggerImplProvider getImplProvider() {
-        return implProvider;
+    public LoggerProvider getProvider() {
+        return provider;
     }
 
     @Override

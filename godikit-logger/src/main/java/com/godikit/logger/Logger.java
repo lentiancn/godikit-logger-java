@@ -23,8 +23,8 @@
  */
 package com.godikit.logger;
 
-import com.godikit.logger.spi.facade.LoggerFacadeProvider;
-import com.godikit.logger.spi.provider.impl.LoggerImplProvider;
+import com.godikit.logger.spi.facade.LoggerFacade;
+import com.godikit.logger.spi.provider.LoggerProvider;
 
 /**
  * Core logger interface that serves as a facade for various logging implementations.
@@ -57,14 +57,14 @@ public interface Logger {
      *
      * @return the facade provider (e.g., Slf4jFacadeProvider, Log4j2FacadeProvider)
      */
-    LoggerFacadeProvider getFacadeProvider();
+    LoggerFacade getFacade();
 
     /**
      * Returns the implementation provider instance.
      *
      * @return the impl provider (e.g., LogbackLoggerImplProvider, Log4j2LoggerImplProvider)
      */
-    LoggerImplProvider getImplProvider();
+    LoggerProvider getProvider();
 
     /**
      * Returns the original (native) logger instance that this logger delegates to.

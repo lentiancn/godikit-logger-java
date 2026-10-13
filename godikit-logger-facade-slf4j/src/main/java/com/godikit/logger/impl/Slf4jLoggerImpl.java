@@ -1,8 +1,8 @@
 package com.godikit.logger.impl;
 
 import com.godikit.logger.Logger;
-import com.godikit.logger.spi.facade.LoggerFacadeProvider;
-import com.godikit.logger.spi.provider.impl.LoggerImplProvider;
+import com.godikit.logger.spi.facade.LoggerFacade;
+import com.godikit.logger.spi.provider.impl.LoggerProvider;
 import org.slf4j.helpers.FormattingTuple;
 import org.slf4j.helpers.MessageFormatter;
 import org.slf4j.spi.LocationAwareLogger;
@@ -24,26 +24,26 @@ public final class Slf4jLoggerImpl implements Logger {
     private static final Object[] NO_ARGUMENTS = new Object[0];
 
     private final org.slf4j.Logger delegate;
-    private final LoggerFacadeProvider facadeProvider;
-    private final LoggerImplProvider implProvider;
+    private final LoggerFacade facadeProvider;
+    private final LoggerProvider provider;
 
     /**
      * Called by the facade provider after implementation validation.
      */
-    public Slf4jLoggerImpl(org.slf4j.Logger delegate, LoggerFacadeProvider facadeProvider, LoggerImplProvider implProvider) {
+    public Slf4jLoggerImpl(org.slf4j.Logger delegate, LoggerFacade facadeProvider, LoggerProvider provider) {
         this.delegate = Objects.requireNonNull(delegate, "Delegate must not be null.");
         this.facadeProvider = facadeProvider;
-        this.implProvider = implProvider;
+        this.provider = provider;
     }
 
     @Override
-    public LoggerFacadeProvider getFacadeProvider() {
+    public LoggerFacade getFacade() {
         return facadeProvider;
     }
 
     @Override
-    public LoggerImplProvider getImplProvider() {
-        return implProvider;
+    public LoggerProvider getProvider() {
+        return provider;
     }
 
     @Override

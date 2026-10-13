@@ -1,7 +1,7 @@
 package com.godikit.logger.spi;
 
-import com.godikit.logger.spi.facade.LoggerFacadeProvider;
-import com.godikit.logger.spi.provider.impl.LoggerImplProvider;
+import com.godikit.logger.spi.facade.LoggerFacade;
+import com.godikit.logger.spi.provider.LoggerProvider;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -31,8 +31,8 @@ public class LoggerRegistry {
 
     private static final LoggerRegistry INSTANCE = new LoggerRegistry();
 
-    private Map<String, LoggerFacadeProvider> facadeProviders = Collections.emptyMap();
-    private Map<String, LoggerImplProvider> implProviders = Collections.emptyMap();
+    private Map<String, LoggerFacade> facades = Collections.emptyMap();
+    private Map<String, LoggerProvider> providers = Collections.emptyMap();
 
     private volatile boolean initialized;
     private boolean initializing;
@@ -67,23 +67,23 @@ public class LoggerRegistry {
 
         initializing = true;
         try {
-            Map<String, LoggerFacadeProvider> loadedFacades = new LinkedHashMap<>();
-            Map<String, LoggerImplProvider> loadedImpls = new LinkedHashMap<>();
+            Map<String, LoggerFacade> loadedFacades = new LinkedHashMap<>();
+            Map<String, LoggerProvider> loadedImpls = new LinkedHashMap<>();
 
-            ServiceLoader<LoggerFacadeProvider> facadeLoader =
-                ServiceLoader.load(LoggerFacadeProvider.class);
-            for (LoggerFacadeProvider provider : facadeLoader) {
+            ServiceLoader<LoggerFacade> facadeLoader =
+                ServiceLoader.load(LoggerFacade.class);
+            for (LoggerFacade provider : facadeLoader) {
                 register(loadedFacades, provider.getName(), provider, "facade");
             }
 
-            ServiceLoader<LoggerImplProvider> implLoader =
-                ServiceLoader.load(LoggerImplProvider.class);
-            for (LoggerImplProvider provider : implLoader) {
+            ServiceLoader<LoggerProvider> implLoader =
+                ServiceLoader.load(LoggerProvider.class);
+            for (LoggerProvider provider : implLoader) {
                 register(loadedImpls, provider.getName(), provider, "implementation");
             }
 
-            facadeProviders = Collections.unmodifiableMap(loadedFacades);
-            implProviders = Collections.unmodifiableMap(loadedImpls);
+            facades = Collections.unmodifiableMap(loadedFacades);
+            providers = Collections.unmodifiableMap(loadedImpls);
             initialized = true;
         } finally {
             initializing = false;
@@ -96,10 +96,10 @@ public class LoggerRegistry {
      * @param name the facade name
      * @return the provider, or null if not registered
      */
-    public LoggerFacadeProvider getFacadeProvider(String name) {
+    public LoggerFacade getFacade(String name) {
         Objects.requireNonNull(name, "Facade name must not be null.");
         ensureInitialized();
-        return facadeProviders.get(name);
+        return facades.get(name);
     }
 
     /**
@@ -108,10 +108,10 @@ public class LoggerRegistry {
      * @param name the implementation name
      * @return the provider, or null if not registered
      */
-    public LoggerImplProvider getImplProvider(String name) {
+    public LoggerProvider getProvider(String name) {
         Objects.requireNonNull(name, "Implementation name must not be null.");
         ensureInitialized();
-        return implProviders.get(name);
+        return providers.get(name);
     }
 
     /**
@@ -119,9 +119,9 @@ public class LoggerRegistry {
      *
      * @return the facade providers; iteration order is not a selection priority
      */
-    public List<LoggerFacadeProvider> getFacadeProviders() {
+    public List<LoggerFacade> getFacades() {
         ensureInitialized();
-        return new ArrayList<>(facadeProviders.values());
+        return new ArrayList<>(facades.values());
     }
 
     /**
@@ -129,9 +129,9 @@ public class LoggerRegistry {
      *
      * @return the implementation providers; iteration order is not a selection priority
      */
-    public List<LoggerImplProvider> getImplProviders() {
+    public List<LoggerProvider> getProviders() {
         ensureInitialized();
-        return new ArrayList<>(implProviders.values());
+        return new ArrayList<>(providers.values());
     }
 
     private void ensureInitialized() {

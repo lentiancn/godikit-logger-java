@@ -1,7 +1,7 @@
 package com.godikit.logger.spi.facade;
 
 import com.godikit.logger.Logger;
-import com.godikit.logger.spi.provider.LoggerImplProvider;
+import com.godikit.logger.spi.provider.LoggerProvider;
 
 /**
  * SPI contract for logging facade providers.
@@ -9,7 +9,7 @@ import com.godikit.logger.spi.provider.LoggerImplProvider;
  * <p>Implementations must provide a public no-argument constructor and
  * register in META-INF/services using this interface's fully qualified name.</p>
  */
-public interface LoggerFacadeProvider {
+public interface LoggerFacade {
 
     /**
      * Returns the unique facade name, such as "slf4j" or "log4j2".
@@ -30,12 +30,12 @@ public interface LoggerFacadeProvider {
      * Creates a logger after verifying the active implementation.
      *
      * @param name           the logger name
-     * @param implProvider the selected implementation provider
+     * @param provider the selected implementation provider
      * @return a non-null, thread-safe logger
      */
-    Logger getLogger(String name, LoggerImplProvider implProvider);
+    Logger getLogger(String name, LoggerProvider provider);
 
-    Logger getLogger(Class<?> clazz, LoggerImplProvider implProvider);
+    Logger getLogger(Class<?> clazz, LoggerProvider provider);
 
     /**
      * Wraps a native logger after verifying its implementation.
@@ -45,5 +45,5 @@ public interface LoggerFacadeProvider {
      * @return a non-null logger
      * @throws IllegalArgumentException if the native logger is incompatible
      */
-    Logger wrapLogger(Object delegate, LoggerImplProvider implementation);
+    Logger wrapLogger(Object delegate, LoggerProvider implementation);
 }

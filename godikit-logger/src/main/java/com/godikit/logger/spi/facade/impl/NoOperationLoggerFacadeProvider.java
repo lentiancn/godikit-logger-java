@@ -3,10 +3,10 @@ package com.godikit.logger.spi.facade.impl;
 import com.godikit.logger.Logger;
 import com.godikit.logger.enums.LoggerFacadeEnum;
 import com.godikit.logger.impl.NoOperationLoggerImpl;
-import com.godikit.logger.spi.facade.LoggerFacadeProvider;
-import com.godikit.logger.spi.provider.LoggerImplProvider;
+import com.godikit.logger.spi.facade.LoggerFacade;
+import com.godikit.logger.spi.provider.LoggerProvider;
 
-public class NoOperationLoggerFacadeProvider implements LoggerFacadeProvider {
+public class NoOperationLoggerFacadeProvider implements LoggerFacade {
 
     @Override
     public String getName() {
@@ -19,17 +19,17 @@ public class NoOperationLoggerFacadeProvider implements LoggerFacadeProvider {
     }
 
     @Override
-    public Logger getLogger(String name, LoggerImplProvider implementation) {
+    public Logger getLogger(String name, LoggerProvider provider) {
         return new NoOperationLoggerImpl(name);
     }
 
     @Override
-    public Logger getLogger(Class<?> clazz, LoggerImplProvider implProvider) {
+    public Logger getLogger(Class<?> clazz, LoggerProvider provider) {
         return new NoOperationLoggerImpl(clazz);
     }
 
     @Override
-    public Logger wrapLogger(Object delegate, LoggerImplProvider implementation) {
+    public Logger wrapLogger(Object delegate, LoggerProvider implementation) {
         return null;
     }
 }

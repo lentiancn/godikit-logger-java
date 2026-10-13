@@ -1,6 +1,7 @@
 package com.godikit.logger.spi.provider;
 
-import com.godikit.logger.spi.facade.LoggerFacadeProvider;
+import com.godikit.logger.spi.facade.LoggerFacade;
+import com.godikit.logger.spi.facade.LoggerFacade;
 
 /**
  * SPI contract for logging implementation providers.
@@ -8,7 +9,7 @@ import com.godikit.logger.spi.facade.LoggerFacadeProvider;
  * <p>Implementations must provide a public no-argument constructor and
  * register in META-INF/services using this interface's fully qualified name.</p>
  */
-public interface LoggerImplProvider {
+public interface LoggerProvider {
 
     /**
      * Returns the unique implementation name, such as "logback" or "log4j2".
@@ -21,10 +22,10 @@ public interface LoggerImplProvider {
      * Checks whether the native facade factory uses this implementation.
      * Implementations must not reconfigure the facade or its global binding.
      *
-     * @param facadeProvider
+     * @param facade
      * @return true if the factory belongs to this implementation
      */
-    boolean supportsFactory(LoggerFacadeProvider facadeProvider);
+    boolean supportsFactory(LoggerFacade facade);
 
     /**
      * Checks whether a native logger belongs to this implementation.

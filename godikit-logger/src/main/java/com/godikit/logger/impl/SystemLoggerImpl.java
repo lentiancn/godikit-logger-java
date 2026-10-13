@@ -25,9 +25,9 @@ package com.godikit.logger.impl;
 
 import com.godikit.exception.utils.StackTraceUtils;
 import com.godikit.logger.Logger;
-import com.godikit.logger.spi.facade.LoggerFacadeProvider;
+import com.godikit.logger.spi.facade.LoggerFacade;
 import com.godikit.logger.spi.facade.impl.SystemLoggerFacadeProvider;
-import com.godikit.logger.spi.provider.impl.LoggerImplProvider;
+import com.godikit.logger.spi.provider.impl.LoggerProvider;
 import com.godikit.logger.spi.provider.impl.SystemLoggerImplProvider;
 
 /**
@@ -66,12 +66,12 @@ public class SystemLoggerImpl implements Logger {
     }
 
     @Override
-    public LoggerFacadeProvider getFacadeProvider() {
+    public LoggerFacade getFacade() {
         return new SystemLoggerFacadeProvider();
     }
 
     @Override
-    public LoggerImplProvider getImplProvider() {
+    public LoggerProvider getProvider() {
         return new SystemLoggerImplProvider();
     }
 

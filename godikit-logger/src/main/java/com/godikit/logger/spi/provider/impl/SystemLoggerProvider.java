@@ -1,9 +1,10 @@
 package com.godikit.logger.spi.provider.impl;
 
 import com.godikit.logger.enums.LoggerProviderEnum;
-import com.godikit.logger.spi.facade.LoggerFacadeProvider;
+import com.godikit.logger.spi.facade.LoggerFacade;
+import com.godikit.logger.spi.provider.LoggerProvider;
 
-public class SystemLoggerImplProvider implements LoggerImplProvider {
+public class SystemLoggerProvider implements LoggerProvider {
 
     @Override
     public String getName() {
@@ -11,7 +12,7 @@ public class SystemLoggerImplProvider implements LoggerImplProvider {
     }
 
     @Override
-    public boolean supportsFactory(LoggerFacadeProvider facadeProvider) {
+    public boolean supportsFactory(LoggerFacade facade) {
         return true;
     }
 
