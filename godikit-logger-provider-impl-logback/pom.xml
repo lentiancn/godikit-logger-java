@@ -11,8 +11,8 @@
 
     <artifactId>godikit-logger-provider-impl-logback</artifactId>
     <version>${revision}</version>
-    <name>GodiKit Logger Provider for SLF4J and Logback</name>
-    <description>GodiKit Logger SPI provider using the SLF4J facade with the Logback backend.</description>
+    <name>GodiKit Logger Provider - Logback Implementation</name>
+    <description>Provides the Logback logging implementation for use with the GodiKit Logger SLF4J facade adapter.</description>
     <url>https://www.godikit.com/logger</url>
 
     <dependencies>

@@ -23,14 +23,14 @@
  */
 package com.godikit.logger;
 
-import com.godikit.exception.utils.StackTraceUtils;
 import com.godikit.logger.impl.NoOperationLoggerImpl;
-import com.godikit.logger.utils.LoggerUtils;
+import com.godikit.logger.spi.LoggerRegistry;
+import com.godikit.logger.spi.provider.LoggerFacadeProvider;
+import com.godikit.logger.spi.provider.LoggerImplProvider;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -52,41 +52,61 @@ public final class LoggerFactory {
 
     private static final Map<String, Logger> LOGGER_CACHE = new ConcurrentHashMap<>();
 
-    private static volatile String currentFacade = NoOperationLoggerImpl.FACADE;
-    private static volatile String currentProvider = NoOperationLoggerImpl.PROVIDER;
-    private static volatile Constructor<? extends Logger> currentConstructor;
+    private static volatile Providers providers;
+    private static boolean initializing;
 
-    static {
-        loadLoggerImplementation();
+    private LoggerFactory() {
     }
 
-    /**
-     * Loads the first available Logger implementation via SPI.
-     */
-    private static void loadLoggerImplementation() {
+    private static Providers getProviders() {
+        Providers current = providers;
+        return current != null ? current : initializeProviders();
+    }
+
+    private static synchronized Providers initializeProviders() {
+        if (providers != null) {
+            return providers;
+        }
+        if (initializing) {
+            throw new IllegalStateException("Recursive LoggerFactory initialization is not allowed.");
+        }
+        initializing = true;
         try {
-            List<Class<? extends Logger>> loggerImplClasses = LoggerUtils.loadLoggerImplClasses(Logger.class);
-            if (loggerImplClasses.isEmpty()) {
-                System.err.println("[GodiKit Logger] No Logger provider found on classpath. Please add one of: " +
-                    "godikit-logger-with-slf4j-log4j2, godikit-logger-with-slf4j-logback, etc.");
-                return;
+            LoggerRegistry registry = LoggerRegistry.getInstance();
+            List<LoggerFacadeProvider> facades = registry.getFacadeProviders();
+            List<LoggerImplProvider> implementations = registry.getImplProviders();
+            if (facades.isEmpty() && implementations.isEmpty()) {
+                System.err.println("[GodiKit Logger] No providers found. Using no-op logging.");
+                providers = new Providers(null, null);
+            } else {
+                if (facades.size() != 1 || implementations.size() != 1) {
+                    throw new IllegalStateException(
+                        "Expected exactly one facade provider and one implementation provider, but found "
+                            + facades.size() + " and " + implementations.size() + ".");
+                }
+                LoggerFacadeProvider facade = facades.get(0);
+                LoggerImplProvider implementation = implementations.get(0);
+                Object factory = facade.getFacadeFactory();
+                if (!implementation.supportsFactory(facade.getName(), factory)) {
+                    throw new IllegalStateException("Active logging factory does not match "
+                        + facade.getName() + "+" + implementation.getName() + ": "
+                        + (factory == null ? "null" : factory.getClass().getName()));
+                }
+                providers = new Providers(facade, implementation);
             }
+            return providers;
+        } finally {
+            initializing = false;
+        }
+    }
 
-            if (loggerImplClasses.size() > 1) {
-                System.err.println("[GodiKit Logger] Multiple Logger providers detected. Using the first one: " +
-                    loggerImplClasses.get(0).getName());
-                return;
-            }
+    private static final class Providers {
+        private final LoggerFacadeProvider facade;
+        private final LoggerImplProvider implementation;
 
-            Class<? extends Logger> loggerImplClass = loggerImplClasses.get(0);
-            currentFacade = (String) loggerImplClass.getDeclaredField("FACADE").get(null);
-            currentProvider = (String) loggerImplClass.getDeclaredField("PROVIDER").get(null);
-
-            Constructor<? extends Logger> constructor = loggerImplClass.getDeclaredConstructor(String.class);
-            constructor.setAccessible(true);
-            currentConstructor = constructor;
-        } catch (Throwable e) {
-            System.err.println("[GodiKit Logger] Failed to load Logger implementation: " + StackTraceUtils.toString(e));
+        private Providers(LoggerFacadeProvider facade, LoggerImplProvider implementation) {
+            this.facade = facade;
+            this.implementation = implementation;
         }
     }
 
@@ -96,7 +116,8 @@ public final class LoggerFactory {
      * @return the current facade name
      */
     public static String getCurrentFacade() {
-        return currentFacade;
+        Providers selected = getProviders();
+        return selected.facade == null ? NoOperationLoggerImpl.FACADE : selected.facade.getName();
     }
 
     /**
@@ -105,7 +126,10 @@ public final class LoggerFactory {
      * @return the current provider string (e.g., "slf4j+log4j2")
      */
     public static String getCurrentProvider() {
-        return currentFacade + "+" + currentProvider;
+        Providers selected = getProviders();
+        return selected.facade == null
+            ? NoOperationLoggerImpl.FACADE + "+" + NoOperationLoggerImpl.PROVIDER
+            : selected.facade.getName() + "+" + selected.implementation.getName();
     }
 
     /**
@@ -115,25 +139,12 @@ public final class LoggerFactory {
      * @return Logger instance (cached by name)
      */
     public static Logger getLogger(final String name) {
-        Logger cached = LOGGER_CACHE.get(name);
-        if (cached != null) {
-            return cached;
-        }
-
-        Logger logger;
-        if (currentConstructor == null) {
-            logger = new NoOperationLoggerImpl(name);
-        } else {
-            try {
-                logger = currentConstructor.newInstance(name);
-            } catch (Throwable e) {
-                System.err.println("[GodiKit Logger] Failed to create Logger: " + StackTraceUtils.toString(e));
-                logger = new NoOperationLoggerImpl(name);
-            }
-        }
-
-        LOGGER_CACHE.put(name, logger);
-        return logger;
+        Objects.requireNonNull(name, "Logger name must not be null.");
+        Providers selected = getProviders();
+        return LOGGER_CACHE.computeIfAbsent(name, key -> selected.facade == null
+            ? new NoOperationLoggerImpl(key)
+            : Objects.requireNonNull(selected.facade.createLogger(key, selected.implementation),
+                "Facade provider returned a null logger."));
     }
 
     /**
@@ -153,41 +164,17 @@ public final class LoggerFactory {
      * the provided facade logger.</p>
      *
      * @param delegateLogger the facade logger instance to wrap
-     * @return a new Logger instance wrapping the facade logger, or NoOperationLoggerImpl if creation fails
+     * @return a new wrapper, or a no-op logger when no providers are installed
+     * @throws IllegalArgumentException if the delegate is incompatible
      */
     public static Logger getLogger(final Object delegateLogger) {
-        if (delegateLogger == null) {
-            return new NoOperationLoggerImpl((Object) null);
+        Objects.requireNonNull(delegateLogger, "Delegate logger must not be null.");
+        Providers selected = getProviders();
+        if (selected.facade == null) {
+            return new NoOperationLoggerImpl(delegateLogger);
         }
-
-        try {
-            if (currentConstructor == null) {
-                return new NoOperationLoggerImpl(delegateLogger);
-            }
-
-            Constructor<? extends Logger> constructor = currentConstructor.getDeclaringClass()
-                .getDeclaredConstructor(Object.class);
-            constructor.setAccessible(true);
-            return constructor.newInstance(delegateLogger);
-        } catch (NoSuchMethodException e) {
-            System.err.println("[GodiKit Logger] No matching constructor found for: " + delegateLogger.getClass().getName());
-            return Logger.NO_OP_LOGGER;
-        } catch (InvocationTargetException e) {
-            if (e.getTargetException() instanceof ClassCastException) {
-                System.err.println("[GodiKit Logger] No Logger implementation found for: " + delegateLogger.getClass().getName() + ". Using stdout as fallback.");
-                return Logger.SYSTEM_LOGGER;
-            }
-
-            System.err.println("[GodiKit Logger] Failed to create Logger: " + StackTraceUtils.toString(e));
-            return Logger.NO_OP_LOGGER;
-        } catch (Throwable e) {
-            if (e instanceof ClassCastException) {
-                System.err.println("[GodiKit Logger] No Logger implementation found for: " + delegateLogger.getClass().getName() + ". Using stdout as fallback.");
-                return Logger.SYSTEM_LOGGER;
-            }
-
-            System.err.println("[GodiKit Logger] Failed to create Logger: " + StackTraceUtils.toString(e));
-            return Logger.NO_OP_LOGGER;
-        }
+        return Objects.requireNonNull(
+            selected.facade.wrapLogger(delegateLogger, selected.implementation),
+            "Facade provider returned a null logger.");
     }
 }
