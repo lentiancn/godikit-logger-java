@@ -40,7 +40,7 @@ import com.godikit.logger.Logger;
  * logger.error("Message to stderr");
  * }</pre>
  *
- * @author Len (len782768@gmail.com)
+ * @author Len (len@godikit.com)
  * @since 2025-11-22 09:19
  */
 public class SystemLoggerImpl implements Logger {

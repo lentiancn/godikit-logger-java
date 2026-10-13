@@ -29,7 +29,7 @@ import org.slf4j.bridge.SLF4JBridgeHandler;
 /**
  * Utility class for SLF4J operations.
  *
- * @author Len (len782768@gmail.com)
+ * @author Len (len@godikit.com)
  * @since 2025-11-09 17:51
  */
 @NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)

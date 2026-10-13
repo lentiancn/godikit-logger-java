@@ -31,7 +31,7 @@ import com.godikit.logger.Logger;
  * <p>This implementation is used as a fallback when no other Logger provider
  * is available on the classpath.</p>
  *
- * @author Len (len782768@gmail.com)
+ * @author Len (len@godikit.com)
  * @since 2025-11-07 22:53
  */
 public class NoOperationLoggerImpl implements Logger {

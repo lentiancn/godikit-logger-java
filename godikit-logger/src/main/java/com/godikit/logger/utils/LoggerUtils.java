@@ -45,7 +45,7 @@ import java.util.List;
  *
  * <p>Provides convenient static methods for logging and SPI service loading.</p>
  *
- * @author Len (len782768@gmail.com)
+ * @author Len (len@godikit.com)
  * @since 2025-11-08 16:36
  */
 @NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)

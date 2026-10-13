@@ -45,7 +45,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Logger log = LoggerFactory.getLogger(MyClass.class);
  * }</pre>
  *
- * @author Len (len782768@gmail.com)
+ * @author Len (len@godikit.com)
  * @since 2025-11-07 22:53
  */
 public final class LoggerFactory {

@@ -46,7 +46,7 @@ import static com.godikit.logger.utils.LoggerUtils.mergeMsgAndThrowable;
  * logger.info("Message in OSGi environment");
  * }</pre>
  *
- * @author Len (len782768@gmail.com)
+ * @author Len (len@godikit.com)
  * @since 2026-07-01
  */
 public class Slf4jOsgiLoggerImpl implements Logger {

@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
  *
  * <p>This implementation uses slf4j-jboss-logging as the underlying logging framework.</p>
  *
- * @author Len (len782768@gmail.com)
+ * @author Len (len@godikit.com)
  * @since 2025-11-09
  */
 public class Slf4jJBossLoggerImpl implements Logger {

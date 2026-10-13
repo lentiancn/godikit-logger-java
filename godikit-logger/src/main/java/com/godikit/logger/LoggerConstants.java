@@ -26,7 +26,7 @@ package com.godikit.logger;
 /**
  * Constants used by GodiKit Logger.
  *
- * @author Len (len782768@gmail.com)
+ * @author Len (len@godikit.com)
  * @since 2025-11-09 10:15
  */
 public final class LoggerConstants {
