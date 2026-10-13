@@ -1,7 +1,7 @@
 package com.godikit.logger.impl;
 
 import com.godikit.logger.Logger;
-import com.godikit.logger.spi.provider.facade.LoggerFacadeProvider;
+import com.godikit.logger.spi.facade.LoggerFacadeProvider;
 import com.godikit.logger.spi.provider.impl.LoggerImplProvider;
 import org.slf4j.helpers.FormattingTuple;
 import org.slf4j.helpers.MessageFormatter;

@@ -3,6 +3,7 @@ package com.godikit.logger.spi.provider.facade;
 import com.godikit.logger.Logger;
 import com.godikit.logger.enums.LoggerFacadeEnum;
 import com.godikit.logger.impl.Log4j2LoggerImpl;
+import com.godikit.logger.spi.facade.LoggerFacadeProvider;
 import com.godikit.logger.spi.provider.impl.LoggerImplProvider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.spi.LoggerContext;

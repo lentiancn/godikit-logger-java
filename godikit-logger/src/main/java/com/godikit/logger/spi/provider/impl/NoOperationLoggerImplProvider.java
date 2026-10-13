@@ -1,7 +1,7 @@
 package com.godikit.logger.spi.provider.impl;
 
 import com.godikit.logger.enums.LoggerProviderEnum;
-import com.godikit.logger.spi.provider.facade.LoggerFacadeProvider;
+import com.godikit.logger.spi.facade.LoggerFacadeProvider;
 
 public class NoOperationLoggerImplProvider implements LoggerImplProvider {
 

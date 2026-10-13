@@ -4,7 +4,7 @@ import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
 import com.godikit.logger.enums.LoggerFacadeEnum;
 import com.godikit.logger.enums.LoggerProviderEnum;
-import com.godikit.logger.spi.provider.facade.LoggerFacadeProvider;
+import com.godikit.logger.spi.facade.LoggerFacadeProvider;
 
 /**
  * Identifies and validates the Logback implementation behind SLF4J.

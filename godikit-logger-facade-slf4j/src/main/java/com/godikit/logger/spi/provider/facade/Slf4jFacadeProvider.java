@@ -2,6 +2,7 @@ package com.godikit.logger.spi.provider.facade;
 
 import com.godikit.logger.Logger;
 import com.godikit.logger.impl.Slf4jLoggerImpl;
+import com.godikit.logger.spi.facade.LoggerFacadeProvider;
 import com.godikit.logger.spi.provider.impl.LoggerImplProvider;
 import org.slf4j.ILoggerFactory;
 import org.slf4j.LoggerFactory;

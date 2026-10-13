@@ -25,8 +25,8 @@ package com.godikit.logger.impl;
 
 import com.godikit.exception.utils.StackTraceUtils;
 import com.godikit.logger.Logger;
-import com.godikit.logger.spi.provider.facade.LoggerFacadeProvider;
-import com.godikit.logger.spi.provider.facade.SystemLoggerFacadeProvider;
+import com.godikit.logger.spi.facade.LoggerFacadeProvider;
+import com.godikit.logger.spi.facade.impl.SystemLoggerFacadeProvider;
 import com.godikit.logger.spi.provider.impl.LoggerImplProvider;
 import com.godikit.logger.spi.provider.impl.SystemLoggerImplProvider;
 

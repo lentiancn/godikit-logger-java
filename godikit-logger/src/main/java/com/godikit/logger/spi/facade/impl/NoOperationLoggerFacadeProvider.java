@@ -1,9 +1,10 @@
-package com.godikit.logger.spi.provider.facade;
+package com.godikit.logger.spi.facade.impl;
 
 import com.godikit.logger.Logger;
 import com.godikit.logger.enums.LoggerFacadeEnum;
 import com.godikit.logger.impl.NoOperationLoggerImpl;
-import com.godikit.logger.spi.provider.impl.LoggerImplProvider;
+import com.godikit.logger.spi.facade.LoggerFacadeProvider;
+import com.godikit.logger.spi.provider.LoggerImplProvider;
 
 public class NoOperationLoggerFacadeProvider implements LoggerFacadeProvider {
 

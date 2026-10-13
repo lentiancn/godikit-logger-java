@@ -23,7 +23,7 @@
  */
 package com.godikit.logger;
 
-import com.godikit.logger.spi.provider.facade.LoggerFacadeProvider;
+import com.godikit.logger.spi.facade.LoggerFacadeProvider;
 import com.godikit.logger.spi.provider.impl.LoggerImplProvider;
 
 /**

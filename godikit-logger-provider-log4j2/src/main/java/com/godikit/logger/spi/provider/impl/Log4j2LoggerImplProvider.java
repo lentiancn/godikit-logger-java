@@ -2,7 +2,7 @@ package com.godikit.logger.spi.provider.impl;
 
 import com.godikit.logger.enums.LoggerFacadeEnum;
 import com.godikit.logger.enums.LoggerProviderEnum;
-import com.godikit.logger.spi.provider.facade.LoggerFacadeProvider;
+import com.godikit.logger.spi.facade.LoggerFacadeProvider;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.core.Logger;
