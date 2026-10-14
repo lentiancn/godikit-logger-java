@@ -11,22 +11,16 @@ import java.util.Objects;
 
 import static org.slf4j.spi.LocationAwareLogger.*;
 
-/**
- * Adapts the GodiKit Logger API to SLF4J without depending on a backend.
- */
-public final class Slf4jLoggerImpl implements Logger {
+public final class Slf4jLogbackLoggerImpl implements Logger {
 
-    private static final String FQCN = Slf4jLoggerImpl.class.getName();
+    private static final String FQCN = Slf4jLogbackLoggerImpl.class.getName();
     private static final Object[] NO_ARGUMENTS = new Object[0];
 
     private final org.slf4j.Logger delegate;
     private final LoggerFacade facade;
     private final LoggerProvider provider;
 
-    /**
-     * Called by the facade provider after implementation validation.
-     */
-    public Slf4jLoggerImpl(org.slf4j.Logger delegate, LoggerFacade facade, LoggerProvider provider) {
+    public Slf4jLogbackLoggerImpl(org.slf4j.Logger delegate, LoggerFacade facade, LoggerProvider provider) {
         this.delegate = Objects.requireNonNull(delegate, "Delegate must not be null.");
         this.facade = facade;
         this.provider = provider;
@@ -147,49 +141,46 @@ public final class Slf4jLoggerImpl implements Logger {
         log(ERROR_INT, cause, msg, args);
     }
 
-    private void logCause(int level, Throwable cause) {
-        log(level, cause, cause == null ? null : cause.getMessage(), NO_ARGUMENTS);
-    }
-
-    private void log(int level, Throwable cause, String msg, Object[] args) {
+    private void log(int level, Throwable cause, String message, Object[] args) {
         if (!isEnabled(level)) {
             return;
         }
 
-        // Preserve SLF4J's trailing-Throwable convention unless an explicit
-        // cause is provided. The explicit cause always takes precedence.
         FormattingTuple formatted = cause == null
-            ? MessageFormatter.arrayFormat(msg, args)
-            : MessageFormatter.arrayFormat(msg, args, cause);
+            ? MessageFormatter.arrayFormat(message, args)
+            : MessageFormatter.arrayFormat(message, args, cause);
 
-        String message = formatted.getMessage();
+        String msg = formatted.getMessage();
         Throwable throwable = formatted.getThrowable();
 
         if (delegate instanceof LocationAwareLogger) {
-            ((LocationAwareLogger) delegate).log(
-                null, FQCN, level, message, null, throwable);
+            ((LocationAwareLogger) delegate).log(null, FQCN, level, msg, null, throwable);
             return;
         }
 
         switch (level) {
             case TRACE_INT:
-                delegate.trace(message, throwable);
+                delegate.trace(msg, throwable);
                 break;
             case DEBUG_INT:
-                delegate.debug(message, throwable);
+                delegate.debug(msg, throwable);
                 break;
             case INFO_INT:
-                delegate.info(message, throwable);
+                delegate.info(msg, throwable);
                 break;
             case WARN_INT:
-                delegate.warn(message, throwable);
+                delegate.warn(msg, throwable);
                 break;
             case ERROR_INT:
-                delegate.error(message, throwable);
+                delegate.error(msg, throwable);
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported log level: " + level);
         }
+    }
+
+    private void logCause(int level, Throwable cause) {
+        log(level, cause, cause == null ? null : cause.getMessage(), NO_ARGUMENTS);
     }
 
     private boolean isEnabled(int level) {
@@ -207,5 +198,10 @@ public final class Slf4jLoggerImpl implements Logger {
             default:
                 throw new IllegalArgumentException("Unsupported log level: " + level);
         }
+    }
+
+    @Override
+    public String toString() {
+        return delegate.toString();
     }
 }

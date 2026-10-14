@@ -9,11 +9,10 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>godikit-logger-facade-slf4j</artifactId>
+    <artifactId>godikit-logger-provider-slf4j-logback</artifactId>
     <version>${revision}</version>
-    <name>GodiKit Logger Provider - SLF4J Facade</name>
-    <description>Adapts the GodiKit Logger API to the SLF4J facade without selecting a logging implementation.
-    </description>
+    <name>GodiKit Logger Provider - SLF4J + Logback</name>
+    <description>Adapts the GodiKit Logger API to SLF4J facade with Logback implementation.</description>
     <url>https://www.godikit.com/logger</url>
 
     <dependencies>
@@ -24,6 +23,10 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
         </dependency>
     </dependencies>
 
