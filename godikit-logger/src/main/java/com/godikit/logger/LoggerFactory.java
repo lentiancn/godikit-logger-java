@@ -86,7 +86,7 @@ public final class LoggerFactory {
 
     private static LoggerProvider selectProvider(List<LoggerProvider> allProviders) {
         if (allProviders.isEmpty()) {
-            System.err.println( "[GodiKit Logger] WARNING: No provider found. " + "Please add a provider jar, such as 'godikit-logger-provider-slf4j-logback'." );
+            System.err.println("[GodiKit Logger] WARNING: No provider found. " + "Please add a provider jar, such as 'godikit-logger-provider-slf4j-logback'.");
             return new NoOperationLoggerProviderImpl();
         }
         if (allProviders.size() == 1) {
@@ -115,12 +115,6 @@ public final class LoggerFactory {
     private static String joinNames(List<LoggerProvider> providers) {
         return providers.stream().map(LoggerProvider::getName)
             .collect(java.util.stream.Collectors.joining(", "));
-    }
-
-    public static Logger getLogger(final Object obj) {
-        // 这里需要在已经注册的列表里找到对应的logger，即必须LoggerFactory.getOriginalLogger() 返回的==obj;
-
-        return null;
     }
 
     public static Logger getLogger(final String name) {

@@ -114,8 +114,8 @@ public class Slf4jOsgiLoggerImpl implements Logger {
                         loggerFactory = iterator.next();
                     } else {
                         throw new IllegalStateException(
-                                "No OSGi LoggerFactory implementation found. " +
-                                        "Ensure 'osgi-over-slf4j' is on the classpath to enable OSGi logging."
+                            "No OSGi LoggerFactory implementation found. " +
+                                "Ensure 'osgi-over-slf4j' is on the classpath to enable OSGi logging."
                         );
                     }
                 }

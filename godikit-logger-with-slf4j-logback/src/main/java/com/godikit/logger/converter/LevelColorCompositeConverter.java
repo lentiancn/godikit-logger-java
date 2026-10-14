@@ -64,8 +64,8 @@ public class LevelColorCompositeConverter extends ForegroundCompositeConverterBa
         // 2. simple format
         if (hex01.length() == 3) {
             hex01 = String.valueOf(hex01.charAt(0)) + hex01.charAt(0) +
-                    hex01.charAt(1) + hex01.charAt(1) +
-                    hex01.charAt(2) + hex01.charAt(2);
+                hex01.charAt(1) + hex01.charAt(1) +
+                hex01.charAt(2) + hex01.charAt(2);
         }
 
         return (bold ? BOLD : "") + FE_PREFIX + Integer.parseInt(hex01.substring(0, 2), 16) + ";" + Integer.parseInt(hex01.substring(2, 4), 16) + ";" + Integer.parseInt(hex01.substring(4, 6), 16);
