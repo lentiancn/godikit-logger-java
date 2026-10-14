@@ -15,10 +15,6 @@ public final class Slf4jLogbackLoggerProviderImpl implements LoggerFacade, Logge
     }
 
     @Override
-    public void checkCompatibilityWith(LoggerProvider provider) {
-    }
-
-    @Override
     public void checkCompatibilityWith(LoggerFacade facade) {
     }
 
