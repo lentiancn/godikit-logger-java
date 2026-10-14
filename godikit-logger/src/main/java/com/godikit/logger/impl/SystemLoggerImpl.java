@@ -70,7 +70,7 @@ public class SystemLoggerImpl implements Logger {
 
     @Override
     public Object getOriginalLogger() {
-        return null;
+        return this;
     }
 
     /**
