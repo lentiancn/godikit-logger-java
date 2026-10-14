@@ -1,4 +1,4 @@
-package com.godikit.logger.converter;
+package com.godikit.logger.spi.provider.converter;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.spi.ILoggingEvent;
@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 
 import static ch.qos.logback.core.pattern.color.ANSIConstants.DEFAULT_FG;
 
-public class LevelColorCompositeConverter extends ForegroundCompositeConverterBase<ILoggingEvent> {
+public class LevelBasedColorCompositeConverter extends ForegroundCompositeConverterBase<ILoggingEvent> {
 
     private static final String BOLD = "1;";
     private static final String FE_PREFIX = "38;2;";
@@ -22,7 +22,7 @@ public class LevelColorCompositeConverter extends ForegroundCompositeConverterBa
     static {
         ResourceBundle bundle = null;
         try {
-            bundle = ResourceBundle.getBundle("godikit-logger-level-color");
+            bundle = ResourceBundle.getBundle("gt-level-based-color");
         } catch (Throwable ignored) {
         }
         try {
