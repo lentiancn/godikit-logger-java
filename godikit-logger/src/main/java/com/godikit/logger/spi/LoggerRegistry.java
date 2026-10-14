@@ -88,19 +88,9 @@ public class LoggerRegistry {
     }
 
     /**
-     * Returns a copy of all registered facade providers.
+     * Returns a copy of all registered providers.
      *
-     * @return the facade providers; iteration order is not a selection priority
-     */
-    public List<LoggerFacade> getFacades() {
-        ensureInitialized();
-        return new ArrayList<>(facades.values());
-    }
-
-    /**
-     * Returns a copy of all registered implementation providers.
-     *
-     * @return the implementation providers; iteration order is not a selection priority
+     * @return the providers; iteration order is not a selection priority
      */
     public List<LoggerProvider> getProviders() {
         ensureInitialized();
