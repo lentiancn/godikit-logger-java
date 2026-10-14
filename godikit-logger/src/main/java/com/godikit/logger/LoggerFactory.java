@@ -24,6 +24,7 @@
 package com.godikit.logger;
 
 import com.godikit.exception.GlobalRuntimeException;
+import com.godikit.logger.enums.LoggerProviderNameEnum;
 import com.godikit.logger.spi.LoggerRegistry;
 import com.godikit.logger.spi.provider.LoggerProvider;
 import com.godikit.logger.spi.provider.impl.NoOperationLoggerProviderImpl;
@@ -31,10 +32,10 @@ import com.godikit.logger.utils.StringUtils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 /**
  * Factory for creating and managing Logger instances.
@@ -76,29 +77,44 @@ public final class LoggerFactory {
             LoggerRegistry registry = LoggerRegistry.getInstance();
             List<LoggerProvider> allProviders = registry.getProviders();
 
-            if (allProviders.size() > 1) {
-                throw new GlobalRuntimeException(
-                    "Multiple providers found: [" + joinNames(allProviders) + "]"
-                        + ". Only one provider JAR should be present in classpath.");
-            }
-
-            provider = allProviders.isEmpty() ? new NoOperationLoggerProviderImpl() : allProviders.get(0);
-            Class<? extends LoggerProvider> providerClass = provider.getClass();
-
-            if (providerClass == NoOperationLoggerProviderImpl.class) {
-                System.err.println("[GodiKit Logger] WARNING: No provider found. "
-                    + "Please add a provider jar, such as 'godikit-logger-provider-slf4j-logback'.");
-            }
-
+            provider = selectProvider(allProviders);
             return provider;
         } finally {
             initializing = false;
         }
     }
 
-    private static String joinNames(List<?> providers) {
-        return providers.stream().map(p -> ((LoggerProvider) p).getName())
-            .collect(Collectors.joining(", "));
+    private static LoggerProvider selectProvider(List<LoggerProvider> allProviders) {
+        if (allProviders.isEmpty()) {
+            System.err.println( "[GodiKit Logger] WARNING: No provider found. " + "Please add a provider jar, such as 'godikit-logger-provider-slf4j-logback'." );
+            return new NoOperationLoggerProviderImpl();
+        }
+        if (allProviders.size() == 1) {
+            return allProviders.get(0);
+        }
+
+        LoggerProvider selectedProvider = allProviders.stream()
+            .min(Comparator.comparingInt(p -> getPriority(p.getName()))).get();
+
+        System.err.println("[GodiKit Logger] WARNING: Multiple providers found: [" + joinNames(allProviders) + "]. "
+            + "Using the recommended one: [" + selectedProvider.getName() + "]. "
+            + "Having multiple provider jars may cause dependency conflicts. "
+            + "Please keep only one provider jar in your classpath.");
+        return selectedProvider;
+    }
+
+    private static int getPriority(String name) {
+        for (LoggerProviderNameEnum e : LoggerProviderNameEnum.values()) {
+            if (e.getName().equals(name)) {
+                return e.getPriority();
+            }
+        }
+        return Integer.MAX_VALUE;
+    }
+
+    private static String joinNames(List<LoggerProvider> providers) {
+        return providers.stream().map(LoggerProvider::getName)
+            .collect(java.util.stream.Collectors.joining(", "));
     }
 
     public static Logger getLogger(final String name) {
