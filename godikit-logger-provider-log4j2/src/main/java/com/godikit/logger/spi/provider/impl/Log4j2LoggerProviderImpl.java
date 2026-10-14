@@ -1,10 +1,12 @@
 package com.godikit.logger.spi.provider.impl;
 
+import com.godikit.logger.Logger;
+import com.godikit.logger.impl.Log4j2LoggerImpl;
 import com.godikit.logger.enums.LoggerProviderEnum;
-import com.godikit.logger.spi.facade.LoggerFacade;
 import com.godikit.logger.spi.provider.LoggerProvider;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.apache.logging.log4j.LogManager;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class Log4j2LoggerProviderImpl implements LoggerProvider {
@@ -15,7 +17,12 @@ public final class Log4j2LoggerProviderImpl implements LoggerProvider {
     }
 
     @Override
-    public void checkCompatibilityWith(LoggerFacade facade) {
-        // TODO 这里按需实现，当facade与当前provider不兼容时，抛出异常（告知用户需要引用哪个jar包）
+    public Logger getLogger(String name) {
+        return new Log4j2LoggerImpl(LogManager.getLogger(name), this);
+    }
+
+    @Override
+    public Logger getLogger(Class<?> clazz) {
+        return new Log4j2LoggerImpl(LogManager.getLogger(clazz), this);
     }
 }

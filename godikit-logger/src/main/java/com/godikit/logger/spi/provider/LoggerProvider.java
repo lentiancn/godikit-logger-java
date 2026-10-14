@@ -1,5 +1,7 @@
 package com.godikit.logger.spi.provider;
 
+import com.godikit.logger.Logger;
+
 /**
  * SPI contract for logging implementation providers.
  *
@@ -14,4 +16,20 @@ public interface LoggerProvider {
      * @return a non-blank, stable name without surrounding whitespace
      */
     String getName();
+
+    /**
+     * Creates a logger with the specified name.
+     *
+     * @param name the logger name
+     * @return a non-null, thread-safe logger
+     */
+    Logger getLogger(String name);
+
+    /**
+     * Creates a logger based on the specified class.
+     *
+     * @param clazz the class for the logger
+     * @return a non-null, thread-safe logger
+     */
+    Logger getLogger(Class<?> clazz);
 }

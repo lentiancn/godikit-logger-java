@@ -23,7 +23,6 @@
  */
 package com.godikit.logger;
 
-import com.godikit.logger.spi.facade.LoggerFacade;
 import com.godikit.logger.spi.provider.LoggerProvider;
 
 /**
@@ -31,14 +30,14 @@ import com.godikit.logger.spi.provider.LoggerProvider;
  *
  * <p>GodiKit Logger provides a unified logging API that can delegate to different
  * logging frameworks (SLF4J, Log4j, Log4j2, etc.) based on the configured
- * facade and impl providers.</p>
+ * implementation providers.</p>
  *
- * <h2>Supported Combinations:</h2>
+ * <h2>Supported Providers:</h2>
  * <ul>
  *   <li>slf4j + logback</li>
  *   <li>log4j + log4j</li>
  *   <li>log4j2 + log4j2</li>
- *   <li>no-op + no-op</li>
+ *   <li>no-op</li>
  * </ul>
  *
  * <h2>Usage:</h2>
@@ -51,13 +50,6 @@ import com.godikit.logger.spi.provider.LoggerProvider;
  * @since 2025-11-07 22:53
  */
 public interface Logger {
-
-    /**
-     * Returns the facade provider instance.
-     *
-     * @return the facade provider (e.g., Slf4jFacadeProvider, Log4j2FacadeProvider)
-     */
-    LoggerFacade getFacade();
 
     /**
      * Returns the implementation provider instance.

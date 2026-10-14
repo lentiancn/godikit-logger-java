@@ -1,7 +1,6 @@
 package com.godikit.logger.impl;
 
 import com.godikit.logger.Logger;
-import com.godikit.logger.spi.facade.LoggerFacade;
 import com.godikit.logger.spi.provider.LoggerProvider;
 import org.slf4j.helpers.FormattingTuple;
 import org.slf4j.helpers.MessageFormatter;
@@ -17,18 +16,11 @@ public final class Slf4jLogbackLoggerImpl implements Logger {
     private static final Object[] NO_ARGUMENTS = new Object[0];
 
     private final org.slf4j.Logger delegate;
-    private final LoggerFacade facade;
     private final LoggerProvider provider;
 
-    public Slf4jLogbackLoggerImpl(org.slf4j.Logger delegate, LoggerFacade facade, LoggerProvider provider) {
+    public Slf4jLogbackLoggerImpl(org.slf4j.Logger delegate, LoggerProvider provider) {
         this.delegate = Objects.requireNonNull(delegate, "Delegate must not be null.");
-        this.facade = facade;
         this.provider = provider;
-    }
-
-    @Override
-    public LoggerFacade getFacade() {
-        return facade;
     }
 
     @Override

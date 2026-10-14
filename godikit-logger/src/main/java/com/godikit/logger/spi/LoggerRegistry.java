@@ -1,7 +1,6 @@
 package com.godikit.logger.spi;
 
 import com.godikit.exception.GlobalRuntimeException;
-import com.godikit.logger.spi.facade.LoggerFacade;
 import com.godikit.logger.spi.provider.LoggerProvider;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -9,24 +8,20 @@ import lombok.NoArgsConstructor;
 import java.util.*;
 
 /**
- * Registry for logging facade and implementation providers.
+ * Registry for logging implementation providers.
  *
- * <p>Providers are discovered independently through {@link ServiceLoader}
+ * <p>Providers are discovered through {@link ServiceLoader}
  * and indexed by their names. Initialization is lazy and thread-safe.
- * Both provider collections are published only after discovery succeeds.</p>
+ * Provider collection is published only after discovery succeeds.</p>
  *
  * <p>Discovery uses the context class loader of the initializing thread.
  * Provider constructors must not call back into this registry.</p>
- *
- * <p>This registry does not select providers, configure logging backends,
- * or establish bridges between facades and implementations.</p>
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LoggerRegistry {
 
     private static final LoggerRegistry INSTANCE = new LoggerRegistry();
 
-    private Map<String, LoggerFacade> facades = Collections.emptyMap();
     private Map<String, LoggerProvider> providers = Collections.emptyMap();
 
     private volatile boolean initialized;
@@ -41,26 +36,24 @@ public class LoggerRegistry {
         return INSTANCE;
     }
 
-    private static <T> void register(
-        Map<String, T> providers, String name, T provider, String category) {
-
+    private static void register(Map<String, LoggerProvider> providers, String name, LoggerProvider provider) {
         if (name == null || name.trim().isEmpty() || !name.equals(name.trim())) {
             throw new IllegalStateException(
-                "Invalid " + category + " provider name '" + name
+                "Invalid provider name '" + name
                     + "' declared by " + provider.getClass().getName());
         }
 
-        T existing = providers.putIfAbsent(name, provider);
+        LoggerProvider existing = providers.putIfAbsent(name, provider);
         if (existing != null) {
             throw new IllegalStateException(
-                "Duplicate " + category + " provider name '" + name + "': "
+                "Duplicate provider name '" + name + "': "
                     + existing.getClass().getName() + " and "
                     + provider.getClass().getName());
         }
     }
 
     /**
-     * Discovers facade and implementation providers independently.
+     * Discovers implementation providers.
      *
      * <p>An empty collection is valid. Discovery errors propagate to the
      * caller, and failed initialization may be retried.</p>
@@ -80,22 +73,13 @@ public class LoggerRegistry {
 
         initializing = true;
         try {
-            Map<String, LoggerFacade> loadedFacades = new LinkedHashMap<>();
             Map<String, LoggerProvider> loadedProviders = new LinkedHashMap<>();
 
-            ServiceLoader<LoggerFacade> facadeLoader =
-                ServiceLoader.load(LoggerFacade.class);
-            for (LoggerFacade provider : facadeLoader) {
-                register(loadedFacades, provider.getName(), provider, "facade");
+            ServiceLoader<LoggerProvider> loader = ServiceLoader.load(LoggerProvider.class);
+            for (LoggerProvider provider : loader) {
+                register(loadedProviders, provider.getName(), provider);
             }
 
-            ServiceLoader<LoggerProvider> implLoader =
-                ServiceLoader.load(LoggerProvider.class);
-            for (LoggerProvider provider : implLoader) {
-                register(loadedProviders, provider.getName(), provider, "implementation");
-            }
-
-            facades = Collections.unmodifiableMap(loadedFacades);
             providers = Collections.unmodifiableMap(loadedProviders);
             initialized = true;
         } finally {

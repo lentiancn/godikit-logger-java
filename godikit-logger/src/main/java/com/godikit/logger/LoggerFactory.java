@@ -25,8 +25,6 @@ package com.godikit.logger;
 
 import com.godikit.exception.GlobalRuntimeException;
 import com.godikit.logger.spi.LoggerRegistry;
-import com.godikit.logger.spi.facade.LoggerFacade;
-import com.godikit.logger.spi.facade.impl.NoOperationLoggerFacadeImpl;
 import com.godikit.logger.spi.provider.LoggerProvider;
 import com.godikit.logger.spi.provider.impl.NoOperationLoggerProviderImpl;
 import lombok.AccessLevel;
@@ -76,14 +74,7 @@ public final class LoggerFactory {
         initializing = true;
         try {
             LoggerRegistry registry = LoggerRegistry.getInstance();
-            List<LoggerFacade> allFacades = registry.getFacades();
             List<LoggerProvider> allProviders = registry.getProviders();
-
-            if (allFacades.size() > 1) {
-                throw new GlobalRuntimeException(
-                    "Multiple facade providers found: [" + joinNames(allFacades) + "]"
-                        + ". Only one facade JAR should be present in classpath.");
-            }
 
             if (allProviders.size() > 1) {
                 throw new GlobalRuntimeException(
@@ -91,23 +82,15 @@ public final class LoggerFactory {
                         + ". Only one provider JAR should be present in classpath.");
             }
 
-            LoggerFacade facade = allFacades.isEmpty() ? new NoOperationLoggerFacadeImpl() : allFacades.get(0);
-            Class<? extends LoggerFacade> facadeClass = facade.getClass();
             LoggerProvider provider = allProviders.isEmpty() ? new NoOperationLoggerProviderImpl() : allProviders.get(0);
             Class<? extends LoggerProvider> providerClass = provider.getClass();
 
-            if (facadeClass == NoOperationLoggerFacadeImpl.class) {
-                System.err.println("[GodiKit Logger] WARNING: No facade found. "
-                    + "Please add a facade jar, such as 'godikit-logger-facade-slf4j'.");
-            }
             if (providerClass == NoOperationLoggerProviderImpl.class) {
                 System.err.println("[GodiKit Logger] WARNING: No provider found. "
-                    + "Please add an impl jar, such as 'godikit-logger-provider-logback'.");
+                    + "Please add a provider jar, such as 'godikit-logger-provider-slf4j-logback'.");
             }
 
-            facade.checkCompatibilityWith(provider);
-            provider.checkCompatibilityWith(facade);
-            providers = new Providers(facade, provider);
+            providers = new Providers(provider);
             return providers;
         } finally {
             initializing = false;
@@ -115,14 +98,8 @@ public final class LoggerFactory {
     }
 
     private static String joinNames(List<?> providers) {
-        return providers.stream().map(p -> {
-            if (p instanceof LoggerFacade) {
-                return ((LoggerFacade) p).getName();
-            } else if (p instanceof LoggerProvider) {
-                return ((LoggerProvider) p).getName();
-            }
-            return p.getClass().getSimpleName();
-        }).collect(Collectors.joining(", "));
+        return providers.stream().map(p -> ((LoggerProvider) p).getName())
+            .collect(Collectors.joining(", "));
     }
 
     /**
@@ -134,7 +111,7 @@ public final class LoggerFactory {
     public static Logger getLogger(final String name) {
         Objects.requireNonNull(name, "Logger name must not be null.");
         Providers currentProviders = getProviders();
-        return LOGGER_CACHE.computeIfAbsent(name, key -> currentProviders.facade.getLogger(key, currentProviders.provider));
+        return LOGGER_CACHE.computeIfAbsent(name, key -> currentProviders.provider.getLogger(key));
     }
 
     /**
@@ -146,15 +123,13 @@ public final class LoggerFactory {
     public static Logger getLogger(final Class<?> clazz) {
         Objects.requireNonNull(clazz, "Logger name must not be null.");
         Providers currentProviders = getProviders();
-        return LOGGER_CACHE.computeIfAbsent(clazz.getName(), key -> currentProviders.facade.getLogger(clazz, currentProviders.provider));
+        return LOGGER_CACHE.computeIfAbsent(clazz.getName(), key -> currentProviders.provider.getLogger(clazz));
     }
 
     private static final class Providers {
-        private final LoggerFacade facade;
         private final LoggerProvider provider;
 
-        private Providers(LoggerFacade facade, LoggerProvider provider) {
-            this.facade = facade;
+        private Providers(LoggerProvider provider) {
             this.provider = provider;
         }
     }

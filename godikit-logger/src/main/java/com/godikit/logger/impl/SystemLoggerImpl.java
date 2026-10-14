@@ -25,8 +25,6 @@ package com.godikit.logger.impl;
 
 import com.godikit.exception.utils.StackTraceUtils;
 import com.godikit.logger.Logger;
-import com.godikit.logger.spi.facade.LoggerFacade;
-import com.godikit.logger.spi.facade.impl.SystemLoggerFacadeImpl;
 import com.godikit.logger.spi.provider.LoggerProvider;
 import com.godikit.logger.spi.provider.impl.SystemLoggerProviderImpl;
 
@@ -63,11 +61,6 @@ public class SystemLoggerImpl implements Logger {
      * @param clazz the class for the logger (currently unused)
      */
     public SystemLoggerImpl(final Class<?> clazz) {
-    }
-
-    @Override
-    public LoggerFacade getFacade() {
-        return new SystemLoggerFacadeImpl();
     }
 
     @Override

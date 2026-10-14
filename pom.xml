@@ -60,7 +60,6 @@
         <module>godikit-logger-demo</module>
         <module>godikit-logger</module>
         <module>godikit-logger-jdk17</module>
-        <module>godikit-logger-facade-log4j2</module>
         <module>godikit-logger-provider-slf4j-logback</module>
         <module>godikit-logger-provider-log4j2</module>
 <!--        <module>godikit-logger-with-slf4j-jboss</module>-->
