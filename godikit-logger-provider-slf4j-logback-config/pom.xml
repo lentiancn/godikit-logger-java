@@ -9,39 +9,19 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>godikit-logger-with-slf4j-logback</artifactId>
+    <artifactId>godikit-logger-provider-slf4j-logback-config</artifactId>
     <version>${revision}</version>
-    <name>GodiKit Logger with SLF4J Logback</name>
+    <name>GodiKit Logger with SLF4J Logback Config</name>
     <description>
-        GodiKit Logger with SLF4J Logback
+        GodiKit Logger with SLF4J Logback Config
     </description>
     <url>https://www.godikit.com/logger</url>
 
     <dependencies>
         <dependency>
-            <groupId>com.godikit.logger</groupId>
-            <artifactId>godikit-logger</artifactId>
-        </dependency>
-        <!-- Facade -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
-        <!-- Provider: ch.qos.logback.classic.spi.LogbackServiceProvider -->
-        <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
         </dependency>
-        <!-- OSGi Bridge -->
-        <!--        <dependency>-->
-        <!--            <groupId>org.slf4j</groupId>-->
-        <!--            <artifactId>osgi-over-slf4j</artifactId>-->
-        <!--        </dependency>-->
-        <!-- OSGi Logger API -->
-        <!--        <dependency>-->
-        <!--            <groupId>org.osgi</groupId>-->
-        <!--            <artifactId>org.osgi.service.log</artifactId>-->
-        <!--        </dependency>-->
     </dependencies>
 
     <developers>
