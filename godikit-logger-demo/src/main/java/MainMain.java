@@ -6,8 +6,8 @@ public class MainMain {
     public static void main(String[] args) {
         Logger logger = LoggerFactory.getLogger("Hello");
 
-        System.out.println(logger.getFacade());
         System.out.println(logger.getProvider());
+        System.out.println(logger.getOriginalLogger() + " " + logger.getOriginalLogger().getClass());
 
         logger.trace("Hello world!");
         logger.debug("Hello world!");
