@@ -5,7 +5,7 @@
     <groupId>com.godikit.logger</groupId>
     <artifactId>godikit-logger-demo</artifactId>
     <version>${revision}</version>
-    <name>GodiKit Logger</name>
+    <name>GodiKit Logger (Demo)</name>
     <description>
         A logging utility package for JDK 8+, designed to unify the management of logging components in Java projects
         and establish a consistent standard.
@@ -25,16 +25,22 @@
             <artifactId>godikit-logger</artifactId>
             <version>1.0.1</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.godikit.logger</groupId>-->
-<!--            <artifactId>godikit-logger-provider-slf4j-logback</artifactId>-->
-<!--            <version>1.0.1</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.godikit.logger</groupId>
+            <artifactId>godikit-logger-provider-slf4j-logback</artifactId>
+            <version>1.0.1</version>
+        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>5.14.4</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.38</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

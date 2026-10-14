@@ -38,12 +38,15 @@ import com.godikit.logger.spi.provider.impl.NoOperationLoggerProviderImpl;
  */
 public class NoOperationLoggerImpl implements Logger {
 
+    private final String name;
+
     /**
      * Creates a no-operation logger with the specified name.
      *
      * @param name the logger name (ignored in this implementation)
      */
     public NoOperationLoggerImpl(final String name) {
+        this.name = name;
     }
 
     /**
@@ -52,6 +55,7 @@ public class NoOperationLoggerImpl implements Logger {
      * @param clazz the class for the logger (ignored in this implementation)
      */
     public NoOperationLoggerImpl(final Class<?> clazz) {
+        this.name = clazz.getName();
     }
 
     @Override
@@ -62,6 +66,11 @@ public class NoOperationLoggerImpl implements Logger {
     @Override
     public Object getOriginalLogger() {
         return this;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     /**

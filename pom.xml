@@ -61,19 +61,6 @@
         <module>godikit-logger</module>
         <module>godikit-logger-jdk17</module>
         <module>godikit-logger-provider-slf4j-logback</module>
-<!--        <module>godikit-logger-with-slf4j-jboss</module>-->
-<!--        <module>godikit-logger-with-slf4j-jboss-config</module>-->
-<!--        <module>godikit-logger-with-slf4j-log4j2</module>-->
-<!--        <module>godikit-logger-with-slf4j-log4j2-config</module>-->
-<!--        <module>godikit-logger-with-slf4j-logback</module>-->
-<!--        <module>godikit-logger-with-slf4j-logback-config</module>-->
-<!--        <module>godikit-logger-with-slf4j-osgi</module>-->
-<!--        <module>bridge/godikit-logger-slf4j-jboss-bridge</module>-->
-<!--        <module>bridge/godikit-logger-slf4j-jcl-bridge</module>-->
-<!--        <module>bridge/godikit-logger-slf4j-jul-bridge</module>-->
-<!--        <module>bridge/godikit-logger-slf4j-log4j1-bridge</module>-->
-<!--        <module>bridge/godikit-logger-slf4j-log4j2-bridge</module>-->
-<!--        <module>bridge/godikit-logger-slf4j-osgi-bridge</module>-->
     </modules>
 
     <dependencyManagement>
@@ -95,69 +82,49 @@
             </dependency>
             <dependency>
                 <groupId>com.godikit.logger</groupId>
-                <artifactId>godikit-logger-with-slf4j-jboss</artifactId>
+                <artifactId>godikit-logger-jdk17</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.godikit.logger</groupId>
-                <artifactId>godikit-logger-with-slf4j-jboss-config</artifactId>
+                <artifactId>godikit-logger-provider-slf4j-logback</artifactId>
                 <version>${revision}</version>
             </dependency>
-            <dependency>
-                <groupId>com.godikit.logger</groupId>
-                <artifactId>godikit-logger-with-slf4j-log4j2</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.godikit.logger</groupId>
-                <artifactId>godikit-logger-with-slf4j-log4j2-config</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.godikit.logger</groupId>
-                <artifactId>godikit-logger-with-slf4j-logback</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.godikit.logger</groupId>
-                <artifactId>godikit-logger-with-slf4j-logback-config</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.logging</groupId>
-                <artifactId>jboss-logging</artifactId>
-                <version>3.4.3.Final</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>jcl-over-slf4j</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>jul-to-slf4j</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.jboss.logging</groupId>-->
+<!--                <artifactId>jboss-logging</artifactId>-->
+<!--                <version>3.4.3.Final</version>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>org.slf4j</groupId>-->
+<!--                <artifactId>jcl-over-slf4j</artifactId>-->
+<!--                <version>${slf4j.version}</version>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>org.slf4j</groupId>-->
+<!--                <artifactId>jul-to-slf4j</artifactId>-->
+<!--                <version>${slf4j.version}</version>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter</artifactId>
                 <version>5.14.4</version>
             </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>log4j-over-slf4j</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-slf4j2-impl</artifactId>
-                <version>${log4j2.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-to-slf4j</artifactId>
-                <version>${log4j2.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.slf4j</groupId>-->
+<!--                <artifactId>log4j-over-slf4j</artifactId>-->
+<!--                <version>${slf4j.version}</version>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>org.apache.logging.log4j</groupId>-->
+<!--                <artifactId>log4j-slf4j2-impl</artifactId>-->
+<!--                <version>${log4j2.version}</version>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>org.apache.logging.log4j</groupId>-->
+<!--                <artifactId>log4j-to-slf4j</artifactId>-->
+<!--                <version>${log4j2.version}</version>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
@@ -168,26 +135,26 @@
                 <artifactId>lombok</artifactId>
                 <version>1.18.46</version>
             </dependency>
-            <dependency>
-                <groupId>org.osgi</groupId>
-                <artifactId>org.osgi.service.log</artifactId>
-                <version>1.5.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>osgi-over-slf4j</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.osgi</groupId>-->
+<!--                <artifactId>org.osgi.service.log</artifactId>-->
+<!--                <version>1.5.0</version>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>org.slf4j</groupId>-->
+<!--                <artifactId>osgi-over-slf4j</artifactId>-->
+<!--                <version>${slf4j.version}</version>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>${slf4j.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.jboss.slf4j</groupId>
-                <artifactId>slf4j-jboss-logging</artifactId>
-                <version>1.2.1.Final</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.jboss.slf4j</groupId>-->
+<!--                <artifactId>slf4j-jboss-logging</artifactId>-->
+<!--                <version>1.2.1.Final</version>-->
+<!--            </dependency>-->
         </dependencies>
     </dependencyManagement>
 

@@ -47,12 +47,15 @@ import com.godikit.logger.spi.provider.impl.SystemLoggerProviderImpl;
  */
 public class SystemLoggerImpl implements Logger {
 
+    private final String name;
+
     /**
      * Creates a system logger with the specified name.
      *
      * @param name the logger name (currently unused)
      */
     public SystemLoggerImpl(final String name) {
+        this.name = name;
     }
 
     /**
@@ -61,6 +64,7 @@ public class SystemLoggerImpl implements Logger {
      * @param clazz the class for the logger (currently unused)
      */
     public SystemLoggerImpl(final Class<?> clazz) {
+        this.name = clazz.getName();
     }
 
     @Override
@@ -71,6 +75,11 @@ public class SystemLoggerImpl implements Logger {
     @Override
     public Object getOriginalLogger() {
         return this;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     /**

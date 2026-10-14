@@ -117,6 +117,12 @@ public final class LoggerFactory {
             .collect(java.util.stream.Collectors.joining(", "));
     }
 
+    public static Logger getLogger(final Object obj) {
+        // 这里需要在已经注册的列表里找到对应的logger，即必须LoggerFactory.getOriginalLogger() 返回的==obj;
+
+        return null;
+    }
+
     public static Logger getLogger(final String name) {
         return LOGGER_CACHE.computeIfAbsent(StringUtils.defaultIfBlank(name, Logger.class.getName()), key -> getProvider().getLogger(key));
     }

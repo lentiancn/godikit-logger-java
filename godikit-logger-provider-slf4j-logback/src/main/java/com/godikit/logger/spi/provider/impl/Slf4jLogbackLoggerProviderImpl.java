@@ -15,11 +15,11 @@ public final class Slf4jLogbackLoggerProviderImpl implements LoggerProvider {
 
     @Override
     public Logger getLogger(String name) {
-        return new Slf4jLogbackLoggerImpl(LoggerFactory.getLogger(name), this);
+        return new Slf4jLogbackLoggerImpl(name, LoggerFactory.getLogger(name), this);
     }
 
     @Override
     public Logger getLogger(Class<?> clazz) {
-        return new Slf4jLogbackLoggerImpl(LoggerFactory.getLogger(clazz), this);
+        return new Slf4jLogbackLoggerImpl(clazz.getName(), LoggerFactory.getLogger(clazz), this);
     }
 }

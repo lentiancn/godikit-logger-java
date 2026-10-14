@@ -14,11 +14,13 @@ public final class Slf4jLogbackLoggerImpl implements Logger {
 
     private static final String FQCN = Slf4jLogbackLoggerImpl.class.getName();
     private static final Object[] NO_ARGUMENTS = new Object[0];
+    private final String name;
 
     private final org.slf4j.Logger delegate;
     private final LoggerProvider provider;
 
-    public Slf4jLogbackLoggerImpl(org.slf4j.Logger delegate, LoggerProvider provider) {
+    public Slf4jLogbackLoggerImpl(String name, org.slf4j.Logger delegate, LoggerProvider provider) {
+        this.name = name;
         this.delegate = Objects.requireNonNull(delegate, "Delegate must not be null.");
         this.provider = provider;
     }
@@ -31,6 +33,11 @@ public final class Slf4jLogbackLoggerImpl implements Logger {
     @Override
     public Object getOriginalLogger() {
         return delegate;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     @Override

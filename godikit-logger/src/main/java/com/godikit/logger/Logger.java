@@ -65,6 +65,8 @@ public interface Logger {
      */
     Object getOriginalLogger();
 
+    String getName();
+
     /**
      * Checks if TRACE level logging is enabled.
      *
