@@ -29,18 +29,42 @@ import com.godikit.logger.impl.Slf4jLogbackLoggerImpl;
 import com.godikit.logger.spi.provider.LoggerProvider;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Provider that creates {@link com.godikit.logger.impl.Slf4jLogbackLoggerImpl} instances
+ * backed by SLF4J (typically bound to Logback).
+ *
+ * <p>Registered via {@code META-INF/services/com.godikit.logger.spi.provider.LoggerProvider}
+ * so it is discovered automatically by {@link com.godikit.logger.spi.LoggerRegistry}.</p>
+ */
 public final class Slf4jLogbackLoggerProviderImpl implements LoggerProvider {
 
+    /**
+     * Returns the stable name of this provider.
+     *
+     * @return {@value com.godikit.logger.enums.LoggerProviderNameEnum#SLF4J_LOGBACK}
+     */
     @Override
     public String getName() {
         return LoggerProviderNameEnum.SLF4J_LOGBACK.getName();
     }
 
+    /**
+     * Creates an SLF4J/Logback-backed logger for the given name.
+     *
+     * @param name the logger name
+     * @return a logger delegating to {@link org.slf4j.LoggerFactory#getLogger(String)}
+     */
     @Override
     public Logger getLogger(String name) {
         return new Slf4jLogbackLoggerImpl(name, LoggerFactory.getLogger(name), this);
     }
 
+    /**
+     * Creates an SLF4J/Logback-backed logger for the given class.
+     *
+     * @param clazz the class whose name identifies the logger
+     * @return a logger delegating to {@link org.slf4j.LoggerFactory#getLogger(Class)}
+     */
     @Override
     public Logger getLogger(Class<?> clazz) {
         return new Slf4jLogbackLoggerImpl(clazz.getName(), LoggerFactory.getLogger(clazz), this);

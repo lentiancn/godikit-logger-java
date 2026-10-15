@@ -29,8 +29,26 @@ import com.godikit.logger.utils.StringUtils;
 
 import java.util.Map;
 
+/**
+ * Logback pattern converter that prefixes the log message with a trace ID from MDC.
+ *
+ * <p>Reads the {@code traceId} entry from the logging event's MDC map. If present
+ * and non-blank, the message is formatted as {@code [traceId] <message>};
+ * otherwise the original message is returned unchanged.</p>
+ *
+ * <p>Registered in logback configuration via:
+ * <pre>{@code <conversionRule conversionWord="gtTraceId"
+ *   converterClass="...TraceIdCompositeConverter"/>}</pre>
+ */
 public class TraceIdCompositeConverter extends CompositeConverter<ILoggingEvent> {
 
+    /**
+     * Prepends the MDC trace ID to the input text.
+     *
+     * @param event the logging event
+     * @param in    the original text produced by the sub-pattern
+     * @return the text prefixed with {@code [traceId]}, or the original text when no trace ID is set
+     */
     @Override
     protected String transform(ILoggingEvent event, String in) {
         Map<String, String> mdcPropertyMap;

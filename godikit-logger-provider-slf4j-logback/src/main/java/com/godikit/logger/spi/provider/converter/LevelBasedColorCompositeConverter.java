@@ -31,21 +31,47 @@ import java.util.ResourceBundle;
 
 import static ch.qos.logback.core.pattern.color.ANSIConstants.DEFAULT_FG;
 
+/**
+ * Logback pattern converter that applies a level-specific ANSI foreground color.
+ *
+ * <p>Colors are configurable through the classpath resource
+ * {@code gt-level-based-color.properties}. Each level supports a hex color
+ * (e.g. {@code #008080}) and a bold flag. If the resource is absent or invalid,
+ * built-in defaults are used.</p>
+ *
+ * <p>Registered in logback configuration via:
+ * <pre>{@code <conversionRule conversionWord="gtLevelBasedColor"
+ *   converterClass="...LevelBasedColorCompositeConverter"/>}</pre>
+ */
 public class LevelBasedColorCompositeConverter extends ForegroundCompositeConverterBase<ILoggingEvent> {
 
+    /** ANSI escape prefix for bold text. */
     private static final String BOLD = "1;";
+
+    /** ANSI escape prefix for 24-bit (truecolor) foreground: {@code 38;2;R;G;B}. */
     private static final String FE_PREFIX = "38;2;";
 
+    /** Default ANSI color code for TRACE level (teal). */
     private static String TRACE_COLOR_CODE = FE_PREFIX + "0;128;128";
+    /** Default ANSI color code for DEBUG level (blue). */
     private static String DEBUG_COLOR_CODE = FE_PREFIX + "0;112;245";
+    /** Default ANSI color code for INFO level (green). */
     private static String INFO_COLOR_CODE = FE_PREFIX + "85;178;70";
+    /** Default ANSI color code for WARN level (bold orange). */
     private static String WARN_COLOR_CODE = BOLD + FE_PREFIX + "255;142;0";
+    /** Default ANSI color code for ERROR level (bold red). */
     private static String ERROR_COLOR_CODE = BOLD + FE_PREFIX + "178;34;52";
 
+    /** Loads optional color overrides from {@code gt-level-based-color.properties}. */
     static {
         init();
     }
 
+    /**
+     * Reads per-level color overrides from the classpath resource bundle.
+     * Failures (missing bundle or malformed values) are silently ignored,
+     * falling back to the built-in defaults.
+     */
     private static void init() {
         ResourceBundle bundle;
         try {
@@ -88,6 +114,16 @@ public class LevelBasedColorCompositeConverter extends ForegroundCompositeConver
         }
     }
 
+    /**
+     * Converts a hex color string to an ANSI 24-bit foreground escape sequence.
+     *
+     * <p>Supports both 3-digit ({@code #RGB}) and 6-digit ({@code #RRGGBB}) hex
+     * notation. The leading {@code #} is optional.</p>
+     *
+     * @param bold whether to enable bold rendering
+     * @param hex  the hex color string (e.g. {@code #008080} or {@code 080})
+     * @return the ANSI escape code (without the surrounding ESC and trailing 'm')
+     */
     static String hexToAnsiColor(final boolean bold, final String hex) {
         // 1. remove #
         String hex01 = hex.startsWith("#") ? hex.substring(1) : hex;
@@ -102,6 +138,12 @@ public class LevelBasedColorCompositeConverter extends ForegroundCompositeConver
         return (bold ? BOLD : "") + FE_PREFIX + Integer.parseInt(hex01.substring(0, 2), 16) + ";" + Integer.parseInt(hex01.substring(2, 4), 16) + ";" + Integer.parseInt(hex01.substring(4, 6), 16);
     }
 
+    /**
+     * Resolves the ANSI foreground color code for the event's log level.
+     *
+     * @param event the logging event
+     * @return the ANSI color code for the level, or {@link #DEFAULT_FG} for unknown levels
+     */
     @Override
     protected String getForegroundColorCode(ILoggingEvent event) {
         Level level = event.getLevel();

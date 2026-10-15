@@ -33,15 +33,39 @@ import java.util.Objects;
 
 import static org.slf4j.spi.LocationAwareLogger.*;
 
+/**
+ * {@link Logger} implementation backed by an SLF4J {@link org.slf4j.Logger} (typically Logback).
+ *
+ * <p>Delegates all log calls to the underlying SLF4J logger. When the delegate
+ * implements {@link LocationAwareLogger}, the fully-qualified caller class name
+ * (FQCN) is supplied so that Logback can report the correct caller location.
+ * Message formatting follows SLF4J's {@code {}} placeholder convention via
+ * {@link MessageFormatter}.</p>
+ */
 public final class Slf4jLogbackLoggerImpl implements Logger {
 
+    /** Fully-qualified class name used for caller-location resolution by LocationAwareLogger. */
     private static final String FQCN = Slf4jLogbackLoggerImpl.class.getName();
+
+    /** Empty argument array reused for throwable-only log calls. */
     private static final Object[] NO_ARGUMENTS = new Object[0];
+
+    /** The logger name. */
     private final String name;
 
+    /** The underlying SLF4J logger that performs the actual logging. */
     private final org.slf4j.Logger delegate;
+
+    /** The provider that created this logger. */
     private final LoggerProvider provider;
 
+    /**
+     * Constructs an SLF4J/Logback logger.
+     *
+     * @param name     the logger name
+     * @param delegate the underlying SLF4J logger; must not be {@code null}
+     * @param provider the provider that created this logger
+     */
     public Slf4jLogbackLoggerImpl(String name, org.slf4j.Logger delegate, LoggerProvider provider) {
         this.name = name;
         this.delegate = Objects.requireNonNull(delegate, "Delegate must not be null.");
@@ -163,6 +187,18 @@ public final class Slf4jLogbackLoggerImpl implements Logger {
         log(ERROR_INT, cause, msg, args);
     }
 
+    /**
+     * Performs the actual logging at the given SLF4J level.
+     *
+     * <p>If the delegate is a {@link LocationAwareLogger}, the FQCN is passed so
+     * that the caller's location is resolved correctly. Otherwise the level is
+     * dispatched through the standard SLF4J API.</p>
+     *
+     * @param level   the SLF4J level integer (e.g. {@link #INFO_INT})
+     * @param cause   the throwable to log (may be {@code null})
+     * @param message the message pattern with {@code {}} placeholders
+     * @param args    the arguments to substitute
+     */
     private void log(int level, Throwable cause, String message, Object[] args) {
         if (!isEnabled(level)) {
             return;
@@ -201,10 +237,23 @@ public final class Slf4jLogbackLoggerImpl implements Logger {
         }
     }
 
+    /**
+     * Logs a throwable-only message by extracting its message as the pattern.
+     *
+     * @param level the SLF4J level integer
+     * @param cause the throwable to log
+     */
     private void logCause(int level, Throwable cause) {
         log(level, cause, cause == null ? null : cause.getMessage(), NO_ARGUMENTS);
     }
 
+    /**
+     * Checks whether the given level is enabled on the underlying logger.
+     *
+     * @param level the SLF4J level integer
+     * @return {@code true} if the level is enabled
+     * @throws IllegalArgumentException if the level is not one of the SLF4J level constants
+     */
     private boolean isEnabled(int level) {
         switch (level) {
             case TRACE_INT:

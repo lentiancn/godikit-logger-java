@@ -59,6 +59,14 @@ public class LoggerRegistry {
         return INSTANCE;
     }
 
+    /**
+     * Registers a provider by name, validating name format and uniqueness.
+     *
+     * @param providers the map to register into
+     * @param name      the provider name; must be non-blank and equal to its trimmed form
+     * @param provider  the provider instance
+     * @throws IllegalStateException if the name is invalid or already registered
+     */
     private static void register(Map<String, LoggerProvider> providers, String name, LoggerProvider provider) {
         if (name == null || name.trim().isEmpty() || !name.equals(name.trim())) {
             throw new IllegalStateException(

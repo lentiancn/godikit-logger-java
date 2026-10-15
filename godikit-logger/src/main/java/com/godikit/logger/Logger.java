@@ -65,6 +65,11 @@ public interface Logger {
      */
     Object getOriginalLogger();
 
+    /**
+     * Returns the name of this logger.
+     *
+     * @return the logger name (typically a class or category name)
+     */
     String getName();
 
     /**

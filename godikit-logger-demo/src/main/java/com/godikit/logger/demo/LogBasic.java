@@ -2,12 +2,20 @@ package com.godikit.logger.demo;
 
 import com.godikit.logger.Logger;
 import com.godikit.logger.LoggerFactory;
-import org.slf4j.MDC;
 
-import java.util.UUID;
-
+/**
+ * Minimal demo that obtains a {@link Logger} and logs a message at every level.
+ *
+ * <p>Intended to verify that a provider is discovered and basic logging works
+ * without any trace ID context.</p>
+ */
 public class LogBasic {
 
+    /**
+     * Entry point: creates a logger and emits one message per log level.
+     *
+     * @param args command-line arguments (ignored)
+     */
     public static void main(String[] args) {
         Logger logger = LoggerFactory.getLogger(LogBasic.class);
 

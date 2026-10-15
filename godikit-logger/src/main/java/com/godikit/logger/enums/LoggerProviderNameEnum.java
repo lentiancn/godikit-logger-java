@@ -25,15 +25,37 @@ package com.godikit.logger.enums;
 
 import lombok.Getter;
 
+/**
+ * Enumeration of built-in logger provider names and their selection priorities.
+ *
+ * <p>When multiple providers are present on the classpath, the factory selects
+ * the one with the lowest priority value. A lower number means a higher
+ * selection priority.</p>
+ */
 @Getter
 public enum LoggerProviderNameEnum {
+
+    /** No-operation provider that discards all log messages. Lowest selection priority. */
     NO_OP("No-OP", 0),
+
+    /** System-out provider that writes to {@code System.out}/{@code System.err}. */
     SYSTEM("System", 1),
+
+    /** SLF4J + Logback provider. Highest selection priority among built-in providers. */
     SLF4J_LOGBACK("SLF4J+Logback", 100);
 
+    /** The stable, human-readable provider name returned by {@link com.godikit.logger.spi.provider.LoggerProvider#getName()}. */
     private final String name;
+
+    /** Selection priority; providers with smaller values are preferred when multiple are found. */
     private final int priority;
 
+    /**
+     * Constructs a provider name constant.
+     *
+     * @param name     the stable provider name
+     * @param priority the selection priority (lower wins)
+     */
     LoggerProviderNameEnum(String name, int priority) {
         this.name = name;
         this.priority = priority;

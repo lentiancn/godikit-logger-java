@@ -28,18 +28,41 @@ import com.godikit.logger.enums.LoggerProviderNameEnum;
 import com.godikit.logger.impl.NoOperationLoggerImpl;
 import com.godikit.logger.spi.provider.LoggerProvider;
 
+/**
+ * Built-in provider that creates {@link com.godikit.logger.impl.NoOperationLoggerImpl} instances.
+ *
+ * <p>Used as the automatic fallback when no external provider jar is present on
+ * the classpath. All log calls are silently discarded.</p>
+ */
 public class NoOperationLoggerProviderImpl implements LoggerProvider {
 
+    /**
+     * Returns the stable name of this provider.
+     *
+     * @return {@value com.godikit.logger.enums.LoggerProviderNameEnum#NO_OP}
+     */
     @Override
     public String getName() {
         return LoggerProviderNameEnum.NO_OP.getName();
     }
 
+    /**
+     * Creates a no-operation logger for the given name.
+     *
+     * @param name the logger name
+     * @return a no-operation logger instance
+     */
     @Override
     public Logger getLogger(String name) {
         return new NoOperationLoggerImpl(name);
     }
 
+    /**
+     * Creates a no-operation logger for the given class.
+     *
+     * @param clazz the class whose name identifies the logger
+     * @return a no-operation logger instance
+     */
     @Override
     public Logger getLogger(Class<?> clazz) {
         return new NoOperationLoggerImpl(clazz);

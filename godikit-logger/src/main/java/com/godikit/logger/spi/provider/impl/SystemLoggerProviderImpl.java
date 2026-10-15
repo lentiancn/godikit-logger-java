@@ -28,18 +28,42 @@ import com.godikit.logger.enums.LoggerProviderNameEnum;
 import com.godikit.logger.impl.SystemLoggerImpl;
 import com.godikit.logger.spi.provider.LoggerProvider;
 
+/**
+ * Built-in provider that creates {@link com.godikit.logger.impl.SystemLoggerImpl} instances.
+ *
+ * <p>Writes log messages to {@code System.out} (TRACE/DEBUG/INFO) and
+ * {@code System.err} (WARN/ERROR). Intended as a lightweight fallback when no
+ * structured logging provider is available.</p>
+ */
 public class SystemLoggerProviderImpl implements LoggerProvider {
 
+    /**
+     * Returns the stable name of this provider.
+     *
+     * @return {@value com.godikit.logger.enums.LoggerProviderNameEnum#SYSTEM}
+     */
     @Override
     public String getName() {
         return LoggerProviderNameEnum.SYSTEM.getName();
     }
 
+    /**
+     * Creates a system logger for the given name.
+     *
+     * @param name the logger name
+     * @return a system logger instance
+     */
     @Override
     public Logger getLogger(String name) {
         return new SystemLoggerImpl(name);
     }
 
+    /**
+     * Creates a system logger for the given class.
+     *
+     * @param clazz the class whose name identifies the logger
+     * @return a system logger instance
+     */
     @Override
     public Logger getLogger(Class<?> clazz) {
         return new SystemLoggerImpl(clazz);
