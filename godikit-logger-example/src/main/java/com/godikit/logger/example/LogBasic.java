@@ -1,4 +1,4 @@
-package com.godikit.logger.demo;
+package com.godikit.logger.example;
 
 import com.godikit.logger.Logger;
 import com.godikit.logger.LoggerFactory;
