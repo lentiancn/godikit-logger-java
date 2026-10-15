@@ -38,13 +38,13 @@ English
 
 ## Modules
 
-| Module                                         | Purpose                                                           |
-|------------------------------------------------|-------------------------------------------------------------------|
-| `godikit-logger`                               | Core API: `Logger` interface, `LoggerFactory`, SPI registry       |
-| `godikit-logger-jdk17`                         | JDK 17 compilation verification (pattern matching for switch)     |
-| `godikit-logger-provider-slf4j-logback`        | SLF4J + Logback adapter (colorized console, trace ID from MDC)    |
-| `godikit-logger-provider-slf4j-logback-config` | Default Logback configuration (auto-registered via Configurator)  |
-| `godikit-logger-demo`                          | Minimal usage demos (`LogBasic`, `LogWithTraceId`)                |
+| Module                                         | Purpose                                                          |
+|------------------------------------------------|------------------------------------------------------------------|
+| `godikit-logger`                               | Core API: `Logger` interface, `LoggerFactory`, SPI registry      |
+| `godikit-logger-jdk17`                         | JDK 17 compilation verification (pattern matching for switch)    |
+| `godikit-logger-provider-slf4j-logback`        | SLF4J + Logback adapter (colorized console, trace ID from MDC)   |
+| `godikit-logger-provider-slf4j-logback-config` | Default Logback configuration (auto-registered via Configurator) |
+| `godikit-logger-demo`                          | Minimal usage demos (`LogBasic`, `LogWithTraceId`)               |
 
 ## Quick Start
 
@@ -100,10 +100,10 @@ logger.info("Processing"); // → [a1b2c3d4...] Processing
 If only `godikit-logger` is on the classpath, two built-in fallback providers are
 available automatically:
 
-| Provider     | Output target                   | Priority |
-|--------------|---------------------------------|----------|
-| No-Op        | All messages discarded          | 0 (highest) |
-| System-out   | `System.out` / `System.err`     | 1        |
+| Provider   | Output target               | Priority    |
+|------------|-----------------------------|-------------|
+| No-Op      | All messages discarded      | 0 (highest) |
+| System-out | `System.out` / `System.err` | 1           |
 
 ## Requirements
 
@@ -112,13 +112,13 @@ available automatically:
 
 ## Dependencies
 
-| Dependency           | Scope    | Notes                                                |
-|----------------------|----------|------------------------------------------------------|
-| `godikit-exception`  | compile  | Required by `LoggerFactory`                          |
-| `slf4j-api`          | compile  | Only when a provider is present                      |
-| `logback-classic`    | compile  | Only with `godikit-logger-provider-slf4j-logback`    |
-| `lombok`             | provided | Code generation for `@NoArgsConstructor`, etc.       |
-| `junit-jupiter`      | test     | Test framework                                       |
+| Dependency          | Scope    | Notes                                             |
+|---------------------|----------|---------------------------------------------------|
+| `godikit-exception` | compile  | Required by `LoggerFactory`                       |
+| `slf4j-api`         | compile  | Only when a provider is present                   |
+| `logback-classic`   | compile  | Only with `godikit-logger-provider-slf4j-logback` |
+| `lombok`            | provided | Code generation for `@NoArgsConstructor`, etc.    |
+| `junit-jupiter`     | test     | Test framework                                    |
 
 ## License
 
