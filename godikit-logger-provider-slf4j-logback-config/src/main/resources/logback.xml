@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
+
+        <conversionRule conversionWord="gtLevelBasedColor"
+                        converterClass="com.godikit.logger.spi.provider.converter.LevelBasedColorCompositeConverter"
+                        class="com.godikit.logger.spi.provider.converter.LevelBasedColorCompositeConverter"/>
+        <conversionRule conversionWord="gtTraceId"
+                        converterClass="com.godikit.logger.spi.provider.converter.TraceIdCompositeConverter"
+                        class="com.godikit.logger.spi.provider.converter.TraceIdCompositeConverter"/>
+
+    <property name="STDOUT_LOG_PATTERN"
+              value="%gtLevelBasedColor([%d{yyyy-MM-dd HH:mm:ss}]) %gtLevelBasedColor(%level) %gtTraceId(%msg) -- %logger%n"/>
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss} %level %gtTraceId(%msg) -- %logger%n"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${STDOUT_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <root level="ALL">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+    <!--    <logger name="_org.springframework" level="WARN">-->
+    <!--        <appender-ref ref="THIRDPARTY_FILE"/>-->
+    <!--    </logger>-->
+    <!--    <logger name="com.baomidou" level="WARN">-->
+    <!--        <appender-ref ref="THIRDPARTY_FILE"/>-->
+    <!--    </logger>-->
+    <!--    <logger name="com.cedarsoftware" level="WARN">-->
+    <!--        <appender-ref ref="THIRDPARTY_FILE"/>-->
+    <!--    </logger>-->
+    <!--    <logger name="com.godikit.service.GodiKitApplication" level="WARN">-->
+    <!--        <appender-ref ref="THIRDPARTY_FILE"/>-->
+    <!--    </logger>-->
+    <!--    <logger name="com.godikit.service.mapper" level="WARN">-->
+    <!--        <appender-ref ref="THIRDPARTY_FILE"/>-->
+    <!--    </logger>-->
+    <!--    <logger name="com.godikit.service.sdk.printify.api">-->
+    <!--        <appender-ref ref="PRINTIFY_FILE"/>-->
+    <!--    </logger>-->
+    <!--    <logger name="com.godikit.service.security.OpaqueTokenAuthenticationFilter" level="WARN">-->
+    <!--        <appender-ref ref="THIRDPARTY_FILE"/>-->
+    <!--    </logger>-->
+    <!--    <logger name="com.zaxxer" level="WARN">-->
+    <!--        <appender-ref ref="THIRDPARTY_FILE"/>-->
+    <!--    </logger>-->
+    <!--    <logger name="io" level="WARN">-->
+    <!--        <appender-ref ref="THIRDPARTY_FILE"/>-->
+    <!--    </logger>-->
+    <!--    <logger name="java" level="WARN">-->
+    <!--        <appender-ref ref="THIRDPARTY_FILE"/>-->
+    <!--    </logger>-->
+    <!--    <logger name="javax" level="WARN">-->
+    <!--        <appender-ref ref="THIRDPARTY_FILE"/>-->
+    <!--    </logger>-->
+    <!--    <logger name="jdk" level="WARN">-->
+    <!--        <appender-ref ref="THIRDPARTY_FILE"/>-->
+    <!--    </logger>-->
+    <!--    <logger name="okhttp3" level="WARN">-->
+    <!--        <appender-ref ref="THIRDPARTY_FILE"/>-->
+    <!--    </logger>-->
+    <!--    <logger name="org.apache" level="WARN">-->
+    <!--        <appender-ref ref="THIRDPARTY_FILE"/>-->
+    <!--    </logger>-->
+    <!--    <logger name="org.eclipse" level="WARN">-->
+    <!--        <appender-ref ref="THIRDPARTY_FILE"/>-->
+    <!--    </logger>-->
+    <!--    <logger name="org.hibernate" level="WARN">-->
+    <!--        <appender-ref ref="THIRDPARTY_FILE"/>-->
+    <!--    </logger>-->
+    <!--    <logger name="org.jboss" level="WARN">-->
+    <!--        <appender-ref ref="THIRDPARTY_FILE"/>-->
+    <!--    </logger>-->
+    <!--    <logger name="org.mybatis" level="WARN">-->
+    <!--        <appender-ref ref="THIRDPARTY_FILE"/>-->
+    <!--    </logger>-->
+    <!--    <logger name="org.postgresql" level="WARN">-->
+    <!--        <appender-ref ref="THIRDPARTY_FILE"/>-->
+    <!--    </logger>-->
+    <!--    <logger name="org.quartz" level="WARN">-->
+    <!--        <appender-ref ref="THIRDPARTY_FILE"/>-->
+    <!--    </logger>-->
+    <!--    <logger name="org.springframework" level="WARN">-->
+    <!--        <appender-ref ref="THIRDPARTY_FILE"/>-->
+    <!--    </logger>-->
+    <!--    <logger-->
+    <!--        name="org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer"-->
+    <!--        level="ERROR">-->
+    <!--        <appender-ref ref="THIRDPARTY_FILE"/>-->
+    <!--    </logger>-->
+    <!--    <logger name="software.amazon" level="WARN">-->
+    <!--        <appender-ref ref="THIRDPARTY_FILE"/>-->
+    <!--    </logger>-->
+    <!--    <logger name="sun" level="WARN">-->
+    <!--        <appender-ref ref="THIRDPARTY_FILE"/>-->
+    <!--    </logger>-->
+    <!--    <logger name="com.godikit.authtoken" level="INFO">-->
+    <!--        <appender-ref ref="AUTH_TOKEN_FILE"/>-->
+    <!--    </logger>-->
+</configuration>

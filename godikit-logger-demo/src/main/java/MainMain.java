@@ -1,11 +1,12 @@
 import com.godikit.logger.Logger;
 import com.godikit.logger.LoggerFactory;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 
-@Slf4j(topic = "MMM")
 public class MainMain {
 
     public static void main(String[] args) {
+        MDC.put("traceId", "fucker");
+
         Logger logger = LoggerFactory.getLogger("Test");
 
         System.out.println(logger.getName());
