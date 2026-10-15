@@ -9,32 +9,48 @@ English
 ## Features
 
 - Unified Logger facade for Java 8+
-- SPI-based provider discovery (auto-detect backend)
-- Logger instance caching for performance
-- Full log levels support: trace / debug / info / warn / error
-- Supports multiple backends: Log4j2, Logback, JUL, JCL, System.out fallback
+- JDK standard `ServiceLoader` SPI discovery — no manual configuration required
+- Automatic provider selection: when multiple providers are present, the one with the lowest priority wins
+- Built-in No-Op and System-out fallback providers (zero external dependency when only `godikit-logger` is used)
+- Logger instance caching via `ConcurrentHashMap`
+- Full log level support: `trace / debug / info / warn / error`
+- Throwable-only overloads for each level (e.g. `logger.info(cause)`)
+- Colorized console output and MDC-based trace ID injection (via SLF4J+Logback provider)
+
+## Architecture
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│                         godikit-logger                       │
+│  (Core API: Logger interface + LoggerFactory entry)          │
+│  Defines LoggerProvider SPI protocol + LoggerRegistry        │
+│  Built-in providers: No-Op, System-out                       │
+└──────────────────────────────────────────────────────────────┘
+                              ▲
+                      ServiceLoader
+                              │
+┌──────────────────────────────────────────────────────────────┐
+│        godikit-logger-provider-slf4j-logback                 │
+│  Facade adapter: Slf4jLogbackLoggerImpl → SLF4J Logger       │
+│  Provides: colorized levels + MDC trace ID formatting        │
+└──────────────────────────────────────────────────────────────┘
+```
 
 ## Modules
 
-| Module                                     | Purpose                                  |
-|--------------------------------------------|------------------------------------------|
-| `godikit-logger`                           | Core API (Logger + LoggerFactory)        |
-| `godikit-logger-with-slf4j-log4j2`         | Log4j2 backend via SLF4J                 |
-| `godikit-logger-with-slf4j-log4j2-config`  | Log4j2 default config (colored console)  |
-| `godikit-logger-with-slf4j-logback`        | Logback backend via SLF4J                |
-| `godikit-logger-with-slf4j-logback-config` | Logback default config (colored console) |
-
-## Supported Backends
-
-- Log4j2
-- Logback
-- Java Util Logging (via jul-to-slf4j)
-- Commons Logging (via jcl-over-slf4j)
-- System.out (fallback / no-op mode)
+| Module                                         | Purpose                                                           |
+|------------------------------------------------|-------------------------------------------------------------------|
+| `godikit-logger`                               | Core API: `Logger` interface, `LoggerFactory`, SPI registry       |
+| `godikit-logger-jdk17`                         | JDK 17 compilation verification (pattern matching for switch)     |
+| `godikit-logger-provider-slf4j-logback`        | SLF4J + Logback adapter (colorized console, trace ID from MDC)    |
+| `godikit-logger-provider-slf4j-logback-config` | Default Logback configuration (auto-registered via Configurator)  |
+| `godikit-logger-demo`                          | Minimal usage demos (`LogBasic`, `LogWithTraceId`)                |
 
 ## Quick Start
 
-### Maven (Core)
+### Maven
+
+**Step 1 — Core API (always required)**
 
 ```xml
 <dependency>
@@ -44,36 +60,50 @@ English
 </dependency>
 ```
 
-### With Log4j2
+**Step 2 — Provider (choose one)**
 
 ```xml
+<!-- SLF4J + Logback with colorized console and MDC trace ID support -->
 <dependency>
   <groupId>com.godikit.logger</groupId>
-  <artifactId>godikit-logger-with-slf4j-log4j2</artifactId>
+  <artifactId>godikit-logger-provider-slf4j-logback</artifactId>
   <version>1.0.1</version>
 </dependency>
 ```
 
-### With Logback
-
-```xml
-<dependency>
-  <groupId>com.godikit.logger</groupId>
-  <artifactId>godikit-logger-with-slf4j-logback</artifactId>
-  <version>1.0.1</version>
-</dependency>
-```
-
-## Usage
+### Usage
 
 ```java
 Logger logger = LoggerFactory.getLogger(MyClass.class);
 
-logger.info("Started at {}",LocalDateTime.now());
-logger.debug("Request: {}",requestId);
-logger.warn("Usage high: {}%",usage);
-logger.error(cause, "Failed: {}",requestId);
+logger.info("Application started at {}", LocalDateTime.now());
+logger.debug("Processing request: {}", requestId);
+logger.warn("Usage high: {}%", usage);
+logger.error(cause, "Request {} failed", requestId);
 ```
+
+### MDC Trace ID
+
+Set a `traceId` in SLF4J's MDC and it is automatically prepended to every log line
+(when using the SLF4J+Logback provider):
+
+```java
+import org.slf4j.MDC;
+
+MDC.put("traceId", UUID.randomUUID().toString());
+Logger logger = LoggerFactory.getLogger(MyClass.class);
+logger.info("Processing"); // → [a1b2c3d4...] Processing
+```
+
+### Without Any Provider
+
+If only `godikit-logger` is on the classpath, two built-in fallback providers are
+available automatically:
+
+| Provider     | Output target                   | Priority |
+|--------------|---------------------------------|----------|
+| No-Op        | All messages discarded          | 0 (highest) |
+| System-out   | `System.out` / `System.err`     | 1        |
 
 ## Requirements
 
@@ -82,9 +112,13 @@ logger.error(cause, "Failed: {}",requestId);
 
 ## Dependencies
 
-- SLF4J 1.7.36
-- Log4j2 2.26.0 (optional, supports JDK 8)
-- Logback 1.2.12 (optional)
+| Dependency           | Scope    | Notes                                                |
+|----------------------|----------|------------------------------------------------------|
+| `godikit-exception`  | compile  | Required by `LoggerFactory`                          |
+| `slf4j-api`          | compile  | Only when a provider is present                      |
+| `logback-classic`    | compile  | Only with `godikit-logger-provider-slf4j-logback`    |
+| `lombok`             | provided | Code generation for `@NoArgsConstructor`, etc.       |
+| `junit-jupiter`      | test     | Test framework                                       |
 
 ## License
 
