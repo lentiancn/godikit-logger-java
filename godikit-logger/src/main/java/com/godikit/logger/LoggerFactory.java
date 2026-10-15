@@ -77,7 +77,7 @@ public final class LoggerFactory {
      */
     private static LoggerProvider getProvider() {
         LoggerProvider current = provider;
-        return current != null ? current : initializeProvider();
+        return (current != null) ? current : initializeProvider();
     }
 
     /**
