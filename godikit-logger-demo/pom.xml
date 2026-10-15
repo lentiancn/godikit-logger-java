@@ -22,12 +22,7 @@
     <dependencies>
         <dependency>
             <groupId>com.godikit.logger</groupId>
-            <artifactId>godikit-logger</artifactId>
-            <version>1.0.2</version>
-        </dependency>
-        <dependency>
-            <groupId>com.godikit.logger</groupId>
-            <artifactId>godikit-logger-provider-slf4j-logback</artifactId>
+            <artifactId>godikit-logger-provider-slf4j-logback-jdk17</artifactId>
             <version>1.0.2</version>
         </dependency>
         <dependency>

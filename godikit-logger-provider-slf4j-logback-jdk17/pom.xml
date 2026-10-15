@@ -28,8 +28,12 @@
             <artifactId>godikit-logger-provider-slf4j-logback</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.godikit.exception</groupId>
-            <artifactId>godikit-exception-jdk17</artifactId>
+            <groupId>com.godikit.logger</groupId>
+            <artifactId>godikit-logger-provider-slf4j-logback-config-jdk17</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.godikit.logger</groupId>
+            <artifactId>godikit-logger-jdk17</artifactId>
         </dependency>
     </dependencies>
 
