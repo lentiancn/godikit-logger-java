@@ -56,7 +56,7 @@ English
 <dependency>
   <groupId>com.godikit.logger</groupId>
   <artifactId>godikit-logger</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
 </dependency>
 ```
 
@@ -67,7 +67,7 @@ English
 <dependency>
   <groupId>com.godikit.logger</groupId>
   <artifactId>godikit-logger-provider-slf4j-logback</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
 </dependency>
 ```
 
