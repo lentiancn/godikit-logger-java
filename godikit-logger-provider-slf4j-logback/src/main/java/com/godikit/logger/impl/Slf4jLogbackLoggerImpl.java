@@ -44,19 +44,29 @@ import static org.slf4j.spi.LocationAwareLogger.*;
  */
 public final class Slf4jLogbackLoggerImpl implements Logger {
 
-    /** Fully-qualified class name used for caller-location resolution by LocationAwareLogger. */
+    /**
+     * Fully-qualified class name used for caller-location resolution by LocationAwareLogger.
+     */
     private static final String FQCN = Slf4jLogbackLoggerImpl.class.getName();
 
-    /** Empty argument array reused for throwable-only log calls. */
+    /**
+     * Empty argument array reused for throwable-only log calls.
+     */
     private static final Object[] NO_ARGUMENTS = new Object[0];
 
-    /** The logger name. */
+    /**
+     * The logger name.
+     */
     private final String name;
 
-    /** The underlying SLF4J logger that performs the actual logging. */
+    /**
+     * The underlying SLF4J logger that performs the actual logging.
+     */
     private final org.slf4j.Logger delegate;
 
-    /** The provider that created this logger. */
+    /**
+     * The provider that created this logger.
+     */
     private final LoggerProvider provider;
 
     /**

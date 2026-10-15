@@ -55,13 +55,19 @@ import java.util.concurrent.ConcurrentHashMap;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class LoggerFactory {
 
-    /** Cache of {@link Logger} instances keyed by logger name. */
+    /**
+     * Cache of {@link Logger} instances keyed by logger name.
+     */
     private static final Map<String, Logger> LOGGER_CACHE = new ConcurrentHashMap<>();
 
-    /** The resolved provider; lazily initialized under synchronization. */
+    /**
+     * The resolved provider; lazily initialized under synchronization.
+     */
     private static volatile LoggerProvider provider;
 
-    /** Guards against recursive initialization triggered from within a provider constructor. */
+    /**
+     * Guards against recursive initialization triggered from within a provider constructor.
+     */
     private static boolean initializing;
 
     /**

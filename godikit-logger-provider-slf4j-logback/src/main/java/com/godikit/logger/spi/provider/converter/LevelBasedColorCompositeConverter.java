@@ -45,21 +45,35 @@ import static ch.qos.logback.core.pattern.color.ANSIConstants.DEFAULT_FG;
  */
 public class LevelBasedColorCompositeConverter extends ForegroundCompositeConverterBase<ILoggingEvent> {
 
-    /** ANSI escape prefix for bold text. */
+    /**
+     * ANSI escape prefix for bold text.
+     */
     private static final String BOLD = "1;";
 
-    /** ANSI escape prefix for 24-bit (truecolor) foreground: {@code 38;2;R;G;B}. */
+    /**
+     * ANSI escape prefix for 24-bit (truecolor) foreground: {@code 38;2;R;G;B}.
+     */
     private static final String FE_PREFIX = "38;2;";
 
-    /** Default ANSI color code for TRACE level (teal). */
+    /**
+     * Default ANSI color code for TRACE level (teal).
+     */
     private static String TRACE_COLOR_CODE = FE_PREFIX + "0;128;128";
-    /** Default ANSI color code for DEBUG level (blue). */
+    /**
+     * Default ANSI color code for DEBUG level (blue).
+     */
     private static String DEBUG_COLOR_CODE = FE_PREFIX + "0;112;245";
-    /** Default ANSI color code for INFO level (green). */
+    /**
+     * Default ANSI color code for INFO level (green).
+     */
     private static String INFO_COLOR_CODE = FE_PREFIX + "85;178;70";
-    /** Default ANSI color code for WARN level (bold orange). */
+    /**
+     * Default ANSI color code for WARN level (bold orange).
+     */
     private static String WARN_COLOR_CODE = BOLD + FE_PREFIX + "255;142;0";
-    /** Default ANSI color code for ERROR level (bold red). */
+    /**
+     * Default ANSI color code for ERROR level (bold red).
+     */
     private static String ERROR_COLOR_CODE = BOLD + FE_PREFIX + "178;34;52";
 
     /** Loads optional color overrides from {@code gt-level-based-color.properties}. */
