@@ -20,38 +20,46 @@ public class LevelBasedColorCompositeConverter extends ForegroundCompositeConver
     private static String ERROR_COLOR_CODE = BOLD + FE_PREFIX + "178;34;52";
 
     static {
-        ResourceBundle bundle = null;
+        init();
+    }
+
+    private static void init() {
+        ResourceBundle bundle;
         try {
             bundle = ResourceBundle.getBundle("gt-level-based-color");
-        } catch (Throwable ignored) {
+        } catch (Throwable e) {
+            bundle = null;
+        }
+        if (bundle == null) {
+            return;
         }
         try {
-            if (bundle.containsKey("level.color.TRACE.bold") && bundle.containsKey("level.color.TRACE")) {
-                TRACE_COLOR_CODE = hexToAnsiColor(Boolean.parseBoolean(bundle.getString("level.color.TRACE.bold")), bundle.getString("level.color.TRACE"));
+            if (bundle.containsKey("trace.color.bold") && bundle.containsKey("trace.color")) {
+                TRACE_COLOR_CODE = hexToAnsiColor(Boolean.parseBoolean(bundle.getString("trace.color.bold")), bundle.getString("trace.color"));
             }
         } catch (Throwable ignored) {
         }
         try {
-            if (bundle.containsKey("level.color.DEBUG.bold") && bundle.containsKey("level.color.DEBUG")) {
-                DEBUG_COLOR_CODE = hexToAnsiColor(Boolean.parseBoolean(bundle.getString("level.color.DEBUG.bold")), bundle.getString("level.color.DEBUG"));
+            if (bundle.containsKey("debug.color.bold") && bundle.containsKey("debug.color")) {
+                DEBUG_COLOR_CODE = hexToAnsiColor(Boolean.parseBoolean(bundle.getString("debug.color.bold")), bundle.getString("debug.color"));
             }
         } catch (Throwable ignored) {
         }
         try {
-            if (bundle.containsKey("level.color.INFO.bold") && bundle.containsKey("level.color.INFO")) {
-                INFO_COLOR_CODE = hexToAnsiColor(Boolean.parseBoolean(bundle.getString("level.color.INFO.bold")), bundle.getString("level.color.INFO"));
+            if (bundle.containsKey("info.color.bold") && bundle.containsKey("info.color")) {
+                INFO_COLOR_CODE = hexToAnsiColor(Boolean.parseBoolean(bundle.getString("info.color.bold")), bundle.getString("info.color"));
             }
         } catch (Throwable ignored) {
         }
         try {
-            if (bundle.containsKey("level.color.WARN.bold") && bundle.containsKey("level.color.WARN")) {
-                WARN_COLOR_CODE = hexToAnsiColor(Boolean.parseBoolean(bundle.getString("level.color.WARN.bold")), bundle.getString("level.color.WARN"));
+            if (bundle.containsKey("warn.color.bold") && bundle.containsKey("warn.color")) {
+                WARN_COLOR_CODE = hexToAnsiColor(Boolean.parseBoolean(bundle.getString("warn.color.bold")), bundle.getString("warn.color"));
             }
         } catch (Throwable ignored) {
         }
         try {
-            if (bundle.containsKey("level.color.ERROR.bold") && bundle.containsKey("level.color.ERROR")) {
-                ERROR_COLOR_CODE = hexToAnsiColor(Boolean.parseBoolean(bundle.getString("level.color.ERROR.bold")), bundle.getString("level.color.ERROR"));
+            if (bundle.containsKey("error.color.bold") && bundle.containsKey("error.color")) {
+                ERROR_COLOR_CODE = hexToAnsiColor(Boolean.parseBoolean(bundle.getString("error.color.bold")), bundle.getString("error.color"));
             }
         } catch (Throwable ignored) {
         }

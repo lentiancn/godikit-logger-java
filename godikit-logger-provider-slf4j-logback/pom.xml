@@ -18,6 +18,10 @@
     <dependencies>
         <dependency>
             <groupId>com.godikit.logger</groupId>
+            <artifactId>godikit-logger-provider-slf4j-logback-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.godikit.logger</groupId>
             <artifactId>godikit-logger</artifactId>
         </dependency>
         <dependency>

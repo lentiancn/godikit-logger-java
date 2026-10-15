@@ -91,6 +91,11 @@
                 <artifactId>godikit-logger-provider-slf4j-logback</artifactId>
                 <version>${revision}</version>
             </dependency>
+            <dependency>
+                <groupId>com.godikit.logger</groupId>
+                <artifactId>godikit-logger-provider-slf4j-logback-config</artifactId>
+                <version>${revision}</version>
+            </dependency>
             <!--            <dependency>-->
             <!--                <groupId>org.jboss.logging</groupId>-->
             <!--                <artifactId>jboss-logging</artifactId>-->
