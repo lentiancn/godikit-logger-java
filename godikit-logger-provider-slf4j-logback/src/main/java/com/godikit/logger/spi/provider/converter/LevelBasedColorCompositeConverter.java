@@ -156,7 +156,7 @@ public class LevelBasedColorCompositeConverter extends ForegroundCompositeConver
      * Resolves the ANSI foreground color code for the event's log level.
      *
      * @param event the logging event
-     * @return the ANSI color code for the level, or {@link #DEFAULT_FG} for unknown levels
+     * @return the ANSI color code for the level, or {@code DEFAULT_FG} (from ANSIConstants) for unknown levels
      */
     @Override
     protected String getForegroundColorCode(ILoggingEvent event) {

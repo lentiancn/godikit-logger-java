@@ -40,7 +40,7 @@ public class SystemLoggerProviderImpl implements LoggerProvider {
     /**
      * Returns the stable name of this provider.
      *
-     * @return {@value com.godikit.logger.enums.LoggerProviderNameEnum#SYSTEM}
+     * @return {@link LoggerProviderNameEnum#SYSTEM}
      */
     @Override
     public String getName() {

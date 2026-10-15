@@ -41,7 +41,7 @@ public final class Slf4jLogbackLoggerProviderImpl implements LoggerProvider {
     /**
      * Returns the stable name of this provider.
      *
-     * @return {@value com.godikit.logger.enums.LoggerProviderNameEnum#SLF4J_LOGBACK}
+     * @return {@link LoggerProviderNameEnum#SLF4J_LOGBACK}
      */
     @Override
     public String getName() {

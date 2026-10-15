@@ -39,7 +39,7 @@ public class NoOperationLoggerProviderImpl implements LoggerProvider {
     /**
      * Returns the stable name of this provider.
      *
-     * @return {@value com.godikit.logger.enums.LoggerProviderNameEnum#NO_OP}
+     * @return {@link LoggerProviderNameEnum#NO_OP}
      */
     @Override
     public String getName() {
