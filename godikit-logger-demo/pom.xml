@@ -5,12 +5,6 @@
     <groupId>com.godikit.logger</groupId>
     <artifactId>godikit-logger-demo</artifactId>
     <version>${revision}</version>
-    <name>GodiKit Logger (Demo)</name>
-    <description>
-        A logging utility package for JDK 8+, designed to unify the management of logging components in Java projects
-        and establish a consistent standard.
-    </description>
-    <url>https://www.godikit.com/logger</url>
 
     <properties>
         <java.version>21</java.version>
@@ -22,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>com.godikit.logger</groupId>
-            <artifactId>godikit-logger-provider-slf4j-logback-jdk17</artifactId>
+            <artifactId>godikit-logger-provider-slf4j-logback</artifactId>
             <version>1.0.2</version>
         </dependency>
         <dependency>
