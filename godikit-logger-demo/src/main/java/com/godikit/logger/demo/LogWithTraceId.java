@@ -1,13 +1,17 @@
+package com.godikit.logger.demo;
+
 import com.godikit.logger.Logger;
 import com.godikit.logger.LoggerFactory;
 import org.slf4j.MDC;
 
-public class MainMain {
+import java.util.UUID;
+
+public class LogWithTraceId {
 
     public static void main(String[] args) {
-        MDC.put("traceId", "fucker");
+        MDC.put("traceId", UUID.randomUUID().toString());
 
-        Logger logger = LoggerFactory.getLogger("Test");
+        Logger logger = LoggerFactory.getLogger(LogWithTraceId.class);
 
         System.out.println(logger.getName());
         System.out.println(logger.getProvider());
