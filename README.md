@@ -38,14 +38,14 @@ English
 
 ## Modules
 
-| Module                                             | Purpose                                                                          |
-|---------------------------------------------------|----------------------------------------------------------------------------------|
-| `godikit-logger`                                   | Core API: `Logger` interface, `LoggerFactory`, SPI registry                       |
-| `godikit-logger-jdk17`                             | JDK 17 build of core API (enables JDK 17 preview features)                        |
-| `godikit-logger-provider-slf4j-logback`            | SLF4J + Logback adapter — JDK 8 compatible (colorized console, trace ID from MDC) |
-| `godikit-logger-provider-slf4j-logback-config`     | Default Logback configuration (auto-registered via Configurator SPI)              |
-| `godikit-logger-provider-slf4j-logback-jdk17`      | JDK 17 build of the SLF4J + Logback provider (enables JDK 17 preview features)    |
-| `godikit-logger-demo`                              | Minimal usage demos (`LogBasic`, `LogWithTraceId`)                                 |
+| Module                                         | Purpose                                                                           |
+|------------------------------------------------|-----------------------------------------------------------------------------------|
+| `godikit-logger`                               | Core API: `Logger` interface, `LoggerFactory`, SPI registry                       |
+| `godikit-logger-jdk17`                         | JDK 17 build of core API (enables JDK 17 preview features)                        |
+| `godikit-logger-provider-slf4j-logback`        | SLF4J + Logback adapter — JDK 8 compatible (colorized console, trace ID from MDC) |
+| `godikit-logger-provider-slf4j-logback-config` | Default Logback configuration (auto-registered via Configurator SPI)              |
+| `godikit-logger-provider-slf4j-logback-jdk17`  | JDK 17 build of the SLF4J + Logback provider (enables JDK 17 preview features)    |
+| `godikit-logger-demo`                          | Minimal usage demos (`LogBasic`, `LogWithTraceId`)                                |
 
 ## Quick Start
 
@@ -71,7 +71,7 @@ English
   <version>1.0.2</version>
 </dependency>
 
-<!-- SLF4J + Logback — JDK 17 (enables preview features) -->
+  <!-- SLF4J + Logback — JDK 17 (enables preview features) -->
 <dependency>
   <groupId>com.godikit.logger</groupId>
   <artifactId>godikit-logger-provider-slf4j-logback-jdk17</artifactId>
