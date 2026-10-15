@@ -11,10 +11,11 @@
 
     <artifactId>godikit-logger-provider-slf4j-logback-config-jdk17</artifactId>
     <version>${revision}</version>
-    <name>GodiKit Logger Provider - SLF4J + Logback (JDK17)</name>
+    <name>GodiKit Logger Provider - SLF4J + Logback Config (JDK 17)</name>
     <description>
-        JDK 17 build of the SLF4J + Logback provider for GodiKit Logger.
-        Enables JDK 17 preview features (e.g. pattern matching for switch) in this module.
+        JDK 17 build of the default Logback configuration for GodiKit Logger.
+        This module provides the same configuration as godikit-logger-provider-slf4j-logback-config
+        but compiled for JDK 17 to enable preview features.
     </description>
     <url>https://www.godikit.com/logger</url>
 

@@ -11,7 +11,7 @@
 
     <artifactId>godikit-logger-provider-slf4j-logback-config</artifactId>
     <version>${revision}</version>
-    <name>GodiKit Logger Provider - SLF4J + Logback (Default Config)</name>
+    <name>GodiKit Logger Provider - SLF4J + Logback Config</name>
     <description>
         Default Logback configuration and SPI registration for GodiKit Logger.
         This module provides sensible logging defaults and should be used in
