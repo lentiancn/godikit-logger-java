@@ -5,6 +5,11 @@
     <groupId>com.godikit.logger</groupId>
     <artifactId>godikit-logger-example</artifactId>
     <version>${revision}</version>
+    <name>GodiKit Logger Example</name>
+    <description>
+        Minimal usage examples for GodiKit Logger, demonstrating basic logging
+        and MDC-based trace ID injection with SLF4J + Logback.
+    </description>
 
     <properties>
         <java.version>21</java.version>
