@@ -2,12 +2,12 @@
 <configuration debug="false">
     <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
 
-        <conversionRule conversionWord="gtLevelBasedColor"
-                        converterClass="com.godikit.logger.spi.provider.converter.LevelBasedColorCompositeConverter"
-                        class="com.godikit.logger.spi.provider.converter.LevelBasedColorCompositeConverter"/>
-        <conversionRule conversionWord="gtTraceId"
-                        converterClass="com.godikit.logger.spi.provider.converter.TraceIdCompositeConverter"
-                        class="com.godikit.logger.spi.provider.converter.TraceIdCompositeConverter"/>
+    <conversionRule conversionWord="gtLevelBasedColor"
+                    converterClass="com.godikit.logger.spi.provider.converter.LevelBasedColorCompositeConverter"
+                    class="com.godikit.logger.spi.provider.converter.LevelBasedColorCompositeConverter"/>
+    <conversionRule conversionWord="gtTraceId"
+                    converterClass="com.godikit.logger.spi.provider.converter.TraceIdCompositeConverter"
+                    class="com.godikit.logger.spi.provider.converter.TraceIdCompositeConverter"/>
 
     <property name="STDOUT_LOG_PATTERN"
               value="%gtLevelBasedColor([%d{yyyy-MM-dd HH:mm:ss}]) %gtLevelBasedColor(%level) %gtTraceId(%msg) -- %logger%n"/>
