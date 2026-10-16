@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 /**
  * Demo that uses the java.util.logging (JUL) API to verify that it is redirected
- * to SLF4J + Logback via the jul-to-slf4j bridge.
+ * to SLF4J + Logback.
  *
  * <p>Intended to confirm that any library or JDK-internal code that uses JUL
  * can be transparently managed by godikit-logger without changing the library's source code.</p>
@@ -26,7 +26,7 @@ public class LogWithJUL {
         // Once installed, all subsequent java.util.logging.Logger calls are routed to SLF4J.
         Slf4jUtils.redirectJulToSlf4j();
 
-        System.out.println("=== java.util.logging (JUL) API redirected via jul-to-slf4j ===");
+        System.out.println("=== java.util.logging (JUL) API redirected to SLF4J + Logback ===");
         System.out.println("Actual JUL Logger class: " + LOG.getClass().getName());
 
         LOG.setLevel(Level.ALL);

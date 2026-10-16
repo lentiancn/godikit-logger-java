@@ -32,10 +32,10 @@ public class LogWithJBossLogging {
         System.out.println("=== JBoss Logging API redirected to SLF4J + Logback ===");
 //        System.out.println("Actual JBoss Logging delegate class: " + org.jboss.logging.Logger.getLoggerClass());
 
-        LOG.trace("Hello from JBoss Logging TRACE");
-        LOG.debug("Hello from JBoss Logging DEBUG");
-        LOG.info("Hello from JBoss Logging INFO");
-        LOG.warn("Hello from JBoss Logging WARN");
-        LOG.error("Hello from JBoss Logging ERROR");
+        LOG.trace("Hello world! from JBoss Logging TRACE");
+        LOG.debug("Hello world! from JBoss Logging DEBUG");
+        LOG.info("Hello world! from JBoss Logging INFO");
+        LOG.warn("Hello world! from JBoss Logging WARN");
+        LOG.error("Hello world! from JBoss Logging ERROR");
     }
 }

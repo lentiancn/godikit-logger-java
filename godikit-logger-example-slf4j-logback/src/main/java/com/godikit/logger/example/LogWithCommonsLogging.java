@@ -5,7 +5,7 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * Demo that uses the Apache Commons Logging API to verify that it is redirected
- * to SLF4J + Logback via the jcl-over-slf4j bridge.
+ * to SLF4J + Logback.
  *
  * <p>Intended to confirm that any library that internally uses Commons Logging
  * (e.g. Spring Framework, Apache HttpClient) can be transparently managed by
@@ -21,7 +21,7 @@ public class LogWithCommonsLogging {
      * @param args command-line arguments (ignored)
      */
     public static void main(String[] args) {
-        System.out.println("=== Commons Logging API redirected via jcl-over-slf4j ===");
+        System.out.println("=== Commons Logging API redirected to SLF4J + Logback ===");
         System.out.println("Actual Commons Logging implementation class: " + LogFactory.getFactory().getClass());
 
         LOG.trace("Hello world! from Commons Logging TRACE");

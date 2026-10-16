@@ -2,6 +2,7 @@ package com.godikit.logger.example;
 
 import com.godikit.logger.Logger;
 import com.godikit.logger.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
 import org.slf4j.MDC;
 
 import java.util.UUID;
@@ -14,6 +15,8 @@ import java.util.UUID;
  */
 public class LogWithTraceId {
 
+    private static final Logger LOG = LoggerFactory.getLogger(LogWithTraceId.class);
+
     /**
      * Entry point: sets a random trace ID in MDC, then logs one message per level.
      *
@@ -22,16 +25,13 @@ public class LogWithTraceId {
     public static void main(String[] args) {
         MDC.put("traceId", UUID.randomUUID().toString());
 
-        Logger logger = LoggerFactory.getLogger(LogWithTraceId.class);
+        System.out.println("Provider class: " + LOG.getProvider().getClass().getName());
+        System.out.println("OriginalLogger class: " + LOG.getOriginalLogger().getClass().getName());
 
-        System.out.println(logger.getName());
-        System.out.println(logger.getProvider());
-        System.out.println(logger.getOriginalLogger() + " " + logger.getOriginalLogger().getClass());
-
-        logger.trace("Hello world!");
-        logger.debug("Hello world!");
-        logger.info("Hello world!");
-        logger.warn("Hello world!");
-        logger.error("Hello world!");
+        LOG.trace("Hello world!");
+        LOG.debug("Hello world!");
+        LOG.info("Hello world!");
+        LOG.warn("Hello world!");
+        LOG.error("Hello world!");
     }
 }

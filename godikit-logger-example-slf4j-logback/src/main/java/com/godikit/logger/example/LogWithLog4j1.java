@@ -4,7 +4,7 @@ import org.apache.log4j.Logger;
 
 /**
  * Demo that uses the Log4j 1.x API to verify that it is redirected
- * to SLF4J + Logback via the log4j-over-slf4j bridge.
+ * to SLF4J + Logback.
  *
  * <p>Intended to confirm that any legacy library that internally uses Log4j 1.x
  * can be transparently managed by godikit-logger without changing the library's source code.</p>
@@ -19,7 +19,7 @@ public class LogWithLog4j1 {
      * @param args command-line arguments (ignored)
      */
     public static void main(String[] args) {
-        System.out.println("=== Log4j 1.x API redirected via log4j-over-slf4j ===");
+        System.out.println("=== Log4j 1.x API redirected to SLF4J + Logback ===");
         System.out.println("Actual Log4j Logger class: " + LOG.getClass().getName());
 
         LOG.trace("Hello world! from Log4j 1 TRACE");
