@@ -2,7 +2,6 @@ package com.godikit.logger.example;
 
 import com.godikit.logger.Logger;
 import com.godikit.logger.LoggerFactory;
-import org.apache.logging.log4j.LogManager;
 import org.slf4j.MDC;
 
 import java.util.UUID;
