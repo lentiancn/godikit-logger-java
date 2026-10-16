@@ -23,15 +23,14 @@
  */
 package com.godikit.logger.impl;
 
+import com.godikit.exception.utils.StackTraceUtils;
 import com.godikit.logger.Logger;
 import com.godikit.logger.spi.provider.LoggerProvider;
-import org.slf4j.helpers.FormattingTuple;
+import com.godikit.logger.utils.StringUtils;
 import org.slf4j.helpers.MessageFormatter;
 import org.slf4j.spi.LocationAwareLogger;
 
 import java.util.Objects;
-
-import static org.slf4j.spi.LocationAwareLogger.*;
 
 /**
  * {@link Logger} implementation backed by an SLF4J {@link org.slf4j.Logger} (typically Logback).
@@ -76,7 +75,7 @@ public final class Slf4jLogbackLoggerImpl implements Logger {
      * @param delegate the underlying SLF4J logger; must not be {@code null}
      * @param provider the provider that created this logger
      */
-    public Slf4jLogbackLoggerImpl(String name, org.slf4j.Logger delegate, LoggerProvider provider) {
+    public Slf4jLogbackLoggerImpl(final String name, final org.slf4j.Logger delegate, final LoggerProvider provider) {
         this.name = name;
         this.delegate = Objects.requireNonNull(delegate, "Delegate must not be null.");
         this.provider = provider;
@@ -123,166 +122,81 @@ public final class Slf4jLogbackLoggerImpl implements Logger {
     }
 
     @Override
-    public void trace(String msg, Object... args) {
-        log(TRACE_INT, null, msg, args);
+    public void trace(final String msg, final Object... args) {
+        delegate.trace(msg, args);
     }
 
     @Override
-    public void trace(Throwable cause) {
-        logCause(TRACE_INT, cause);
+    public void trace(final Throwable cause) {
+        delegate.trace(StackTraceUtils.toString(cause));
     }
 
     @Override
     public void trace(Throwable cause, String msg, Object... args) {
-        log(TRACE_INT, cause, msg, args);
+        delegate.trace(mergeMsgAndThrowable(msg, cause), args);
     }
 
     @Override
     public void debug(String msg, Object... args) {
-        log(DEBUG_INT, null, msg, args);
+        delegate.debug(msg, args);
     }
 
     @Override
     public void debug(Throwable cause) {
-        logCause(DEBUG_INT, cause);
+        delegate.debug(StackTraceUtils.toString(cause));
     }
 
     @Override
     public void debug(Throwable cause, String msg, Object... args) {
-        log(DEBUG_INT, cause, msg, args);
+        delegate.debug(mergeMsgAndThrowable(msg, cause), args);
     }
 
     @Override
     public void info(String msg, Object... args) {
-        log(INFO_INT, null, msg, args);
+        delegate.info(msg, args);
     }
 
     @Override
     public void info(Throwable cause) {
-        logCause(INFO_INT, cause);
+        delegate.info(StackTraceUtils.toString(cause));
     }
 
     @Override
     public void info(Throwable cause, String msg, Object... args) {
-        log(INFO_INT, cause, msg, args);
+        delegate.info(mergeMsgAndThrowable(msg, cause), args);
     }
 
     @Override
     public void warn(String msg, Object... args) {
-        log(WARN_INT, null, msg, args);
+        delegate.warn(msg, args);
     }
 
     @Override
     public void warn(Throwable cause) {
-        logCause(WARN_INT, cause);
+        delegate.warn(StackTraceUtils.toString(cause));
     }
 
     @Override
     public void warn(Throwable cause, String msg, Object... args) {
-        log(WARN_INT, cause, msg, args);
+        delegate.warn(mergeMsgAndThrowable(msg, cause), args);
     }
 
     @Override
     public void error(String msg, Object... args) {
-        log(ERROR_INT, null, msg, args);
+        delegate.error(msg, args);
     }
 
     @Override
     public void error(Throwable cause) {
-        logCause(ERROR_INT, cause);
+        delegate.error(StackTraceUtils.toString(cause));
     }
 
     @Override
     public void error(Throwable cause, String msg, Object... args) {
-        log(ERROR_INT, cause, msg, args);
+        delegate.error(mergeMsgAndThrowable(msg, cause), args);
     }
 
-    /**
-     * Performs the actual logging at the given SLF4J level.
-     *
-     * <p>If the delegate is a {@link LocationAwareLogger}, the FQCN is passed so
-     * that the caller's location is resolved correctly. Otherwise the level is
-     * dispatched through the standard SLF4J API.</p>
-     *
-     * @param level   the SLF4J level integer (e.g. {@link #INFO_INT})
-     * @param cause   the throwable to log (may be {@code null})
-     * @param message the message pattern with {@code {}} placeholders
-     * @param args    the arguments to substitute
-     */
-    private void log(int level, Throwable cause, String message, Object[] args) {
-        if (!isEnabled(level)) {
-            return;
-        }
-
-        FormattingTuple formatted = cause == null
-            ? MessageFormatter.arrayFormat(message, args)
-            : MessageFormatter.arrayFormat(message, args, cause);
-
-        String msg = formatted.getMessage();
-        Throwable throwable = formatted.getThrowable();
-
-        if (delegate instanceof LocationAwareLogger) {
-            ((LocationAwareLogger) delegate).log(null, FQCN, level, msg, null, throwable);
-            return;
-        }
-
-        switch (level) {
-            case TRACE_INT:
-                delegate.trace(msg, throwable);
-                break;
-            case DEBUG_INT:
-                delegate.debug(msg, throwable);
-                break;
-            case INFO_INT:
-                delegate.info(msg, throwable);
-                break;
-            case WARN_INT:
-                delegate.warn(msg, throwable);
-                break;
-            case ERROR_INT:
-                delegate.error(msg, throwable);
-                break;
-            default:
-                throw new IllegalArgumentException("Unsupported log level: " + level);
-        }
-    }
-
-    /**
-     * Logs a throwable-only message by extracting its message as the pattern.
-     *
-     * @param level the SLF4J level integer
-     * @param cause the throwable to log
-     */
-    private void logCause(int level, Throwable cause) {
-        log(level, cause, cause == null ? null : cause.getMessage(), NO_ARGUMENTS);
-    }
-
-    /**
-     * Checks whether the given level is enabled on the underlying logger.
-     *
-     * @param level the SLF4J level integer
-     * @return {@code true} if the level is enabled
-     * @throws IllegalArgumentException if the level is not one of the SLF4J level constants
-     */
-    private boolean isEnabled(int level) {
-        switch (level) {
-            case TRACE_INT:
-                return delegate.isTraceEnabled();
-            case DEBUG_INT:
-                return delegate.isDebugEnabled();
-            case INFO_INT:
-                return delegate.isInfoEnabled();
-            case WARN_INT:
-                return delegate.isWarnEnabled();
-            case ERROR_INT:
-                return delegate.isErrorEnabled();
-            default:
-                throw new IllegalArgumentException("Unsupported log level: " + level);
-        }
-    }
-
-    @Override
-    public String toString() {
-        return delegate.toString();
+    private String mergeMsgAndThrowable(final String msg, final Throwable cause) {
+        return (StringUtils.isBlank(msg) ? "" : msg) + (cause != null ? StackTraceUtils.toString(cause) : "");
     }
 }

@@ -66,7 +66,7 @@ public enum LoggerProviderNameEnum {
      * @param name     the stable provider name
      * @param priority the selection priority (lower wins)
      */
-    LoggerProviderNameEnum(String name, int priority) {
+    LoggerProviderNameEnum(final String name, final int priority) {
         this.name = name;
         this.priority = priority;
     }

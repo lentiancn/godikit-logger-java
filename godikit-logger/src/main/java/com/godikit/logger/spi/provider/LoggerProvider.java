@@ -46,7 +46,7 @@ public interface LoggerProvider {
      * @param name the logger name
      * @return a non-null, thread-safe logger
      */
-    Logger getLogger(String name);
+    Logger getLogger(final String name);
 
     /**
      * Creates a logger based on the specified class.
@@ -54,5 +54,5 @@ public interface LoggerProvider {
      * @param clazz the class for the logger
      * @return a non-null, thread-safe logger
      */
-    Logger getLogger(Class<?> clazz);
+    Logger getLogger(final Class<?> clazz);
 }

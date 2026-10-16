@@ -121,7 +121,7 @@ public final class LoggerFactory {
      * @param allProviders the providers discovered via SPI
      * @return the selected provider
      */
-    private static LoggerProvider selectProvider(List<LoggerProvider> allProviders) {
+    private static LoggerProvider selectProvider(final List<LoggerProvider> allProviders) {
         if (allProviders.isEmpty()) {
             System.err.println("[GodiKit Logger] WARNING: No provider found. " + "Please add a provider jar, such as 'godikit-logger-provider-slf4j-logback'.");
             return new NoOperationLoggerProviderImpl();
@@ -146,7 +146,7 @@ public final class LoggerFactory {
      * @param name the provider name
      * @return the priority value, or {@link Integer#MAX_VALUE} if the name is unknown
      */
-    private static int getPriority(String name) {
+    private static int getPriority(final String name) {
         for (LoggerProviderNameEnum e : LoggerProviderNameEnum.values()) {
             if (e.getName().equals(name)) {
                 return e.getPriority();
@@ -161,7 +161,7 @@ public final class LoggerFactory {
      * @param providers the providers
      * @return comma-separated provider names
      */
-    private static String joinNames(List<LoggerProvider> providers) {
+    private static String joinNames(final List<LoggerProvider> providers) {
         return providers.stream().map(LoggerProvider::getName)
             .collect(java.util.stream.Collectors.joining(", "));
     }

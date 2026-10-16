@@ -67,7 +67,7 @@ public class LoggerRegistry {
      * @param provider  the provider instance
      * @throws IllegalStateException if the name is invalid or already registered
      */
-    private static void register(Map<String, LoggerProvider> providers, String name, LoggerProvider provider) {
+    private static void register(final Map<String, LoggerProvider> providers, final String name, final LoggerProvider provider) {
         if (name == null || name.trim().isEmpty() || !name.equals(name.trim())) {
             throw new IllegalStateException(
                 "Invalid provider name '" + name

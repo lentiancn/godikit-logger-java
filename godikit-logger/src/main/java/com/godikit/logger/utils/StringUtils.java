@@ -47,7 +47,7 @@ public class StringUtils {
      * @deprecated Use org.apache.commons.lang3.StringUtils.defaultIfBlank() instead.
      */
     @Deprecated
-    public static String defaultIfBlank(String s, String def) {
+    public static String defaultIfBlank(final String s, final String def) {
         return isBlank(s) ? def : s;
     }
 
@@ -61,7 +61,7 @@ public class StringUtils {
      * @deprecated Use org.apache.commons.lang3.StringUtils.isBlank() instead.
      */
     @Deprecated
-    public static boolean isBlank(String s) {
+    public static boolean isBlank(final String s) {
         return (s == null) || s.trim().isEmpty();
     }
 }

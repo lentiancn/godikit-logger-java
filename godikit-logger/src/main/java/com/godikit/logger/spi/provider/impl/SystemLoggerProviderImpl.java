@@ -54,7 +54,7 @@ public class SystemLoggerProviderImpl implements LoggerProvider {
      * @return a system logger instance
      */
     @Override
-    public Logger getLogger(String name) {
+    public Logger getLogger(final String name) {
         return new SystemLoggerImpl(name);
     }
 
@@ -65,7 +65,7 @@ public class SystemLoggerProviderImpl implements LoggerProvider {
      * @return a system logger instance
      */
     @Override
-    public Logger getLogger(Class<?> clazz) {
+    public Logger getLogger(final Class<?> clazz) {
         return new SystemLoggerImpl(clazz);
     }
 }

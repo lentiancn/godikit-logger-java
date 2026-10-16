@@ -53,7 +53,7 @@ public class NoOperationLoggerProviderImpl implements LoggerProvider {
      * @return a no-operation logger instance
      */
     @Override
-    public Logger getLogger(String name) {
+    public Logger getLogger(final String name) {
         return new NoOperationLoggerImpl(name);
     }
 
@@ -64,7 +64,7 @@ public class NoOperationLoggerProviderImpl implements LoggerProvider {
      * @return a no-operation logger instance
      */
     @Override
-    public Logger getLogger(Class<?> clazz) {
+    public Logger getLogger(final Class<?> clazz) {
         return new NoOperationLoggerImpl(clazz);
     }
 }
