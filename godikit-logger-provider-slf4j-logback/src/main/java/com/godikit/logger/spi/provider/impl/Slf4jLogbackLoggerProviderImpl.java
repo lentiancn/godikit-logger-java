@@ -27,6 +27,7 @@ import com.godikit.logger.Logger;
 import com.godikit.logger.enums.LoggerProviderNameEnum;
 import com.godikit.logger.impl.Slf4jLogbackLoggerImpl;
 import com.godikit.logger.spi.provider.LoggerProvider;
+import com.godikit.logger.utils.Slf4jUtils;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -37,6 +38,18 @@ import org.slf4j.LoggerFactory;
  * so it is discovered automatically by {@link com.godikit.logger.spi.LoggerRegistry}.</p>
  */
 public final class Slf4jLogbackLoggerProviderImpl implements LoggerProvider {
+
+    /**
+     * Initializes this provider and automatically bridges JUL to SLF4J.
+     *
+     * <p>Invoked by {@code ServiceLoader} during SPI discovery when
+     * {@link com.godikit.logger.spi.LoggerRegistry} loads this provider from
+     * {@code META-INF/services}. Bridge installation errors are swallowed
+     * silently by {@link Slf4jUtils#redirectJulToSlf4j()}.</p>
+     */
+    public Slf4jLogbackLoggerProviderImpl() {
+        Slf4jUtils.redirectJulToSlf4j();
+    }
 
     /**
      * Returns the stable name of this provider.
