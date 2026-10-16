@@ -22,7 +22,7 @@ public class LogWithCommonsLogging {
      */
     public static void main(String[] args) {
         System.out.println("=== Commons Logging API redirected to SLF4J + Logback ===");
-        System.out.println("Actual Commons Logging implementation class: " + LogFactory.getFactory().getClass());
+        System.out.println("Actual Commons Logging implementation class: " + LOG.getClass().getName());
 
         LOG.trace("Hello world! from Commons Logging TRACE");
         LOG.debug("Hello world! from Commons Logging DEBUG");

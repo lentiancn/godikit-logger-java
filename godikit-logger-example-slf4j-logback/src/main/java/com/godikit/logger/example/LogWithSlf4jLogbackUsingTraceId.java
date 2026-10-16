@@ -12,9 +12,9 @@ import java.util.UUID;
  * <p>Verifies that the {@code gtTraceId} logback converter picks up the
  * {@code traceId} MDC entry and prepends it to each log message.</p>
  */
-public class LogWithTraceId {
+public class LogWithSlf4jLogbackUsingTraceId {
 
-    private static final Logger LOG = LoggerFactory.getLogger(LogWithTraceId.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LogWithSlf4jLogbackUsingTraceId.class);
 
     /**
      * Entry point: sets a random trace ID in MDC, then logs one message per level.
@@ -24,8 +24,11 @@ public class LogWithTraceId {
     public static void main(String[] args) {
         MDC.put("traceId", UUID.randomUUID().toString());
 
+        System.out.println("=== SLF4J + Logback (Include traceId) ===");
+        System.out.println("Actual SLF4J implementation class: " + LOG.getClass().getName());
         System.out.println("Provider class: " + LOG.getProvider().getClass().getName());
-        System.out.println("OriginalLogger class: " + LOG.getOriginalLogger().getClass().getName());
+        System.out.println("Original Logging class: " + LOG.getOriginalLogger().getClass().getName());
+        System.out.println("traceId: " + MDC.get("traceId"));
 
         LOG.trace("Hello world!");
         LOG.debug("Hello world!");

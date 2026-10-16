@@ -30,7 +30,7 @@ public class LogWithJBossLogging {
      */
     public static void main(String[] args) {
         System.out.println("=== JBoss Logging API redirected to SLF4J + Logback ===");
-//        System.out.println("Actual JBoss Logging delegate class: " + org.jboss.logging.Logger.getLoggerClass());
+        System.out.println("Actual JBoss Logging implementation class: " + LOG.getClass().getName());
 
         LOG.trace("Hello world! from JBoss Logging TRACE");
         LOG.debug("Hello world! from JBoss Logging DEBUG");

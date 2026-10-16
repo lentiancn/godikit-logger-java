@@ -27,7 +27,7 @@ public class LogWithJUL {
         Slf4jUtils.redirectJulToSlf4j();
 
         System.out.println("=== java.util.logging (JUL) API redirected to SLF4J + Logback ===");
-        System.out.println("Actual JUL Logger class: " + LOG.getClass().getName());
+        System.out.println("Actual JUL Logger implementation class: " + LOG.getClass().getName());
 
         LOG.setLevel(Level.ALL);
         LOG.finest("Hello world! from JUL FINEST");

@@ -21,7 +21,7 @@ public class LogWithLog4j2 {
      */
     public static void main(String[] args) {
         System.out.println("=== Log4j 2.x API redirected to SLF4J + Logback ===");
-        System.out.println("Actual Log4j 2 Logger class: " + LOG.getClass().getName());
+        System.out.println("Actual Log4j 2 Logger implementation class: " + LOG.getClass().getName());
 
         LOG.trace("Hello world! from Log4j 2 TRACE");
         LOG.debug("Hello world! from Log4j 2 DEBUG");
