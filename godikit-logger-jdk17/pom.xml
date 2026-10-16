@@ -14,8 +14,7 @@
     <name>GodiKit Logger (JDK17)</name>
     <description>
         A logger utility package for JDK 17+, designed to unify the management of logger components in Java
-        projects
-        and establish a consistent standard.
+        projects and establish a consistent standard.
     </description>
     <url>https://www.godikit.com/logger</url>
 
