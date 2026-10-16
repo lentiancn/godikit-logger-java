@@ -9,9 +9,9 @@ import org.apache.log4j.Logger;
  * <p>Intended to confirm that any legacy library that internally uses Log4j 1.x
  * can be transparently managed by godikit-logger without changing the library's source code.</p>
  */
-public class LogWithLog4j {
+public class LogWithLog4j1 {
 
-    private static final Logger LOG = Logger.getLogger(LogWithLog4j.class);
+    private static final Logger LOG = Logger.getLogger(LogWithLog4j1.class);
 
     /**
      * Entry point: logs one message per level using the Log4j 1.x API.
