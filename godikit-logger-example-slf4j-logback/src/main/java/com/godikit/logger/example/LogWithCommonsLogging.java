@@ -24,11 +24,11 @@ public class LogWithCommonsLogging {
         System.out.println("=== Commons Logging API redirected via jcl-over-slf4j ===");
         System.out.println("Actual Commons Logging implementation class: " + LogFactory.getFactory().getClass());
 
-        LOG.trace("Hello from Commons Logging TRACE");
-        LOG.debug("Hello from Commons Logging DEBUG");
-        LOG.info("Hello from Commons Logging INFO");
-        LOG.warn("Hello from Commons Logging WARN");
-        LOG.error("Hello from Commons Logging ERROR");
-        LOG.fatal("Hello from Commons Logging FATAL");
+        LOG.trace("Hello world! from Commons Logging TRACE");
+        LOG.debug("Hello world! from Commons Logging DEBUG");
+        LOG.info("Hello world! from Commons Logging INFO");
+        LOG.warn("Hello world! from Commons Logging WARN");
+        LOG.error("Hello world! from Commons Logging ERROR");
+        LOG.fatal("Hello world! from Commons Logging FATAL");
     }
 }

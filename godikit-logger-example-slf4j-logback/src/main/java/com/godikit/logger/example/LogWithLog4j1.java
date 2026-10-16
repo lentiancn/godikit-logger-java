@@ -22,11 +22,11 @@ public class LogWithLog4j1 {
         System.out.println("=== Log4j 1.x API redirected via log4j-over-slf4j ===");
         System.out.println("Actual Log4j Logger class: " + LOG.getClass().getName());
 
-        LOG.trace("Hello from Log4j 1 TRACE");
-        LOG.debug("Hello from Log4j 1 DEBUG");
-        LOG.info("Hello from Log4j 1 INFO");
-        LOG.warn("Hello from Log4j 1 WARN");
-        LOG.error("Hello from Log4j 1 ERROR");
-        LOG.fatal("Hello from Log4j 1 FATAL");
+        LOG.trace("Hello world! from Log4j 1 TRACE");
+        LOG.debug("Hello world! from Log4j 1 DEBUG");
+        LOG.info("Hello world! from Log4j 1 INFO");
+        LOG.warn("Hello world! from Log4j 1 WARN");
+        LOG.error("Hello world! from Log4j 1 ERROR");
+        LOG.fatal("Hello world! from Log4j 1 FATAL");
     }
 }
