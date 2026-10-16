@@ -130,6 +130,64 @@ available automatically:
 | `lombok`            | provided | Code generation for `@NoArgsConstructor`, etc.    |
 | `junit-jupiter`     | test     | Test framework                                    |
 
+## Third-Party Logging Framework Bridging
+
+When integrating `godikit-logger`, you may need to maintain compatibility with existing logging frameworks used by your dependencies (e.g., Spring Framework uses Commons Logging). Add bridges as needed:
+
+| Legacy Framework | Bridge | Maven Coordinates |
+|------------------|--------|-------------------|
+| Commons Logging | jcl-over-slf4j | `org.slf4j:jcl-over-slf4j` |
+| Log4j 1.x | log4j-over-slf4j | `org.slf4j:log4j-over-slf4j` |
+| Log4j 2.x | log4j-to-slf4j | `org.apache.logging.log4j:log4j-to-slf4j` |
+| java.util.logging | jul-to-slf4j | `org.slf4j:jul-to-slf4j` |
+| Flogger | flogger-slf4j-backend | `com.google.flogger:flogger-slf4j-backend` |
+
+> **Tip:** Use `provided` scope for bridge dependencies to avoid bundling them into your final artifact.
+
+### Example: Integrate with Commons Logging
+
+```xml
+<dependencies>
+    <!-- Core: godikit-logger + Logback -->
+    <dependency>
+        <groupId>com.godikit.logger</groupId>
+        <artifactId>godikit-logger-provider-slf4j-logback</artifactId>
+        <version>1.0.2</version>
+    </dependency>
+
+    <!-- Exclude or set provided for original Commons Logging -->
+    <dependency>
+        <groupId>commons-logging</groupId>
+        <artifactId>commons-logging</artifactId>
+        <version>1.3.4</version>
+        <scope>provided</scope>
+    </dependency>
+
+    <!-- Bridge: redirect Commons Logging to SLF4J -->
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>jcl-over-slf4j</artifactId>
+        <version>2.0.16</version>
+        <scope>provided</scope>
+    </dependency>
+</dependencies>
+```
+
+## Examples
+
+See `godikit-logger-example-slf4j-logback` module for usage examples covering various logging frameworks:
+
+| Example | Demonstrates |
+|---------|--------------|
+| `LogWithSlf4jLogback` | Basic godikit-logger usage |
+| `LogWithSlf4jLogbackUsingTraceId` | MDC-based trace ID injection |
+| `LogWithCommonsLogging` | Commons Logging → SLF4J bridge |
+| `LogWithJBossLogging` | JBoss Logging → SLF4J bridge |
+| `LogWithJUL` | java.util.logging → SLF4J bridge |
+| `LogWithLog4j1` | Log4j 1.x → SLF4J bridge |
+| `LogWithLog4j2` | Log4j 2.x native API |
+| `LogWithFlogger` | Flogger → SLF4J bridge |
+
 ## License
 
 `godikit-logger` is licensed under the [MIT License](LICENSE).
