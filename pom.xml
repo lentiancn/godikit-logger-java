@@ -65,6 +65,7 @@
         <module>godikit-logger-provider-slf4j-logback-jdk17</module>
         <module>godikit-logger-provider-slf4j-logback-config</module>
         <module>godikit-logger-provider-slf4j-logback-config-jdk17</module>
+        <module>godikit-logger-provider-slf4j2-logback</module>
         <module>godikit-logger-example-slf4j-logback</module>
         <module>godikit-logger-example-slf4j-logback-jdk17</module>
     </modules>

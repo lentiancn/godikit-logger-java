@@ -1,0 +1,72 @@
+/*
+ * MIT License
+ *
+ * Copyright (c) 2026 Len (田隆)
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+package com.godikit.logger.spi.provider.converter;
+
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.pattern.CompositeConverter;
+import com.godikit.logger.utils.StringUtils;
+
+import java.util.Map;
+
+/**
+ * Logback pattern converter that prefixes the log message with a trace ID from MDC.
+ *
+ * <p>Reads the {@code traceId} entry from the logging event's MDC map. If present
+ * and non-blank, the message is formatted as {@code [traceId] <message>};
+ * otherwise the original message is returned unchanged.</p>
+ *
+ * <p>Registered in logback configuration via:
+ * <pre>{@code <conversionRule conversionWord="gtTraceId"
+ *   converterClass="...TraceIdCompositeConverter"/>}</pre>
+ */
+public class TraceIdCompositeConverter extends CompositeConverter<ILoggingEvent> {
+
+    /**
+     * Prepends the MDC trace ID to the input text.
+     *
+     * @param event the logging event
+     * @param in    the original text produced by the sub-pattern
+     * @return the text prefixed with {@code [traceId]}, or the original text when no trace ID is set
+     */
+    @Override
+    protected String transform(ILoggingEvent event, String in) {
+        Map<String, String> mdcPropertyMap;
+        try {
+            mdcPropertyMap = event.getMDCPropertyMap();
+        } catch (Throwable e) {
+            mdcPropertyMap = null;
+        }
+
+        if (mdcPropertyMap == null) {
+            return in;
+        }
+
+        String traceId = mdcPropertyMap.get("traceId");
+        if (StringUtils.isBlank(traceId)) {
+            return in;
+        }
+
+        return "[" + traceId + "] " + in;
+    }
+}

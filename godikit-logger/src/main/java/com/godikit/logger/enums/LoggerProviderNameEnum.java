@@ -46,9 +46,14 @@ public enum LoggerProviderNameEnum {
     SYSTEM("System", 1),
 
     /**
-     * SLF4J + Logback provider. Highest selection priority among built-in providers.
+     * SLF4J 1.x + Logback provider.
      */
-    SLF4J_LOGBACK("SLF4J+Logback", 100);
+    SLF4J_LOGBACK("SLF4J+Logback", 100),
+
+    /**
+     * SLF4J 2.x + Logback provider.
+     */
+    SLF4J2_LOGBACK("SLF4J2+Logback", 101);
 
     /**
      * The stable, human-readable provider name returned by {@link com.godikit.logger.spi.provider.LoggerProvider#getName()}.
