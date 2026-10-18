@@ -44,21 +44,14 @@ English
 └──────────────────────────────────────────────────────────────┘
 ```
 
-## Quick Start
+## Requirements
+
+- Java 8+
+- Maven 3.6+
+
+## Usage
 
 ### Maven
-
-**Step 1 — Core API (always required)**
-
-```xml
-<dependency>
-  <groupId>com.godikit.logger</groupId>
-  <artifactId>godikit-logger</artifactId>
-  <version>1.0.2</version>
-</dependency>
-```
-
-**Step 2 — Provider (choose one)**
 
 ```xml
 <!-- SLF4J 2.x + Logback — JDK 8 compatible (Recommended) -->
@@ -76,7 +69,7 @@ English
 </dependency>
 ```
 
-### Usage
+### Code
 
 ```java
 Logger logger = LoggerFactory.getLogger(MyClass.class);
@@ -87,10 +80,39 @@ logger.warn("Usage high: {}%", usage);
 logger.error(cause, "Request {} failed", requestId);
 ```
 
-### MDC Trace ID
+### Custom Configuration (Optional)
 
-Set a `traceId` in SLF4J's MDC and it is automatically prepended to every log line
-(when using the SLF4J+Logback provider):
+The `-config` modules (e.g., `godikit-logger-provider-slf4j2-logback-config`) bundle a default `logback.xml`. To use your own configuration, exclude the config package:
+
+```xml
+<dependency>
+    <groupId>com.godikit.logger</groupId>
+    <artifactId>godikit-logger-provider-slf4j2-logback</artifactId>
+    <version>1.0.2</version>
+    <exclusions>
+        <exclusion>
+            <groupId>com.godikit.logger</groupId>
+            <artifactId>godikit-logger-provider-slf4j2-logback-config</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+```
+
+### Colorized Log Level (Optional)
+
+To colorize log levels in console output (TRACE=teal, DEBUG=blue, INFO=green, WARN=orange, ERROR=red+bold):
+
+```xml
+<conversionRule conversionWord="gtLevelBasedColor"
+                converterClass="com.godikit.logger.spi.provider.converter.LevelBasedColorCompositeConverter"/>
+
+<property name="LOG_PATTERN"
+          value="%gtLevelBasedColor([%d{yyyy-MM-dd HH:mm:ss}]) %gtLevelBasedColor(%level) %gtTraceId(%msg)%n"/>
+```
+
+### Trace ID Configuration (Optional)
+
+Trace ID is optional. To enable it, set `traceId` in MDC:
 
 ```java
 import org.slf4j.MDC;
@@ -100,22 +122,19 @@ Logger logger = LoggerFactory.getLogger(MyClass.class);
 logger.info("Processing"); // → [a1b2c3d4...] Processing
 ```
 
-### Without Any Provider
+In `logback.xml`, add the conversion rule and use `%gtTraceId(...)` in the pattern:
 
-If only `godikit-logger` is on the classpath, two built-in fallback providers are
-available automatically:
+```xml
+<conversionRule conversionWord="gtTraceId"
+                converterClass="com.godikit.logger.spi.provider.converter.TraceIdCompositeConverter"/>
 
-| Provider   | Output target               | Priority    |
-|------------|-----------------------------|-------------|
-| No-Op      | All messages discarded      | 0 (highest) |
-| System-out | `System.out` / `System.err` | 1           |
+<property name="LOG_PATTERN"
+          value="%d{yyyy-MM-dd HH:mm:ss} %level %gtTraceId(%msg)%n"/>
+```
 
-## Requirements
+If `traceId` is not set in MDC, `%gtTraceId(...)` outputs nothing by default.
 
-- Java 8+
-- Maven 3.6+
-
-### Excluding Unused Logging Bridges
+### Excluding Unused Logging Bridges (Optional)
 
 The `godikit-logger-provider-slf4j2-logback` module bundles all major logging bridges by default. Exclude unused ones:
 
