@@ -6,18 +6,24 @@
 
 English
 
+## Why godikit-logger?
+
+| Scenario | Without godikit-logger | With godikit-logger |
+|----------|------------------------|---------------------|
+| Switch logging backend | Modify multiple dependency configs | Swap provider JAR |
+| Multiple logging APIs in dependencies | Configure bridges manually | Bundled bridges, auto-installed |
+| No provider on classpath | `NoClassDefFoundError` | Built-in No-Op/System fallback |
+| MDC trace ID | Manual configuration | Auto-injected in log pattern |
+
 ## Features
 
-- Unified Logger facade for Java 8+
-- JDK standard `ServiceLoader` SPI discovery — no manual configuration required
-- Automatic provider selection: when multiple providers are present, the one with the lowest priority wins
-- Built-in No-Op and System-out fallback providers (zero external dependency when only `godikit-logger` is used)
-- Logger instance caching via `ConcurrentHashMap`
-- Full log level support: `trace / debug / info / warn / error`
-- Throwable-only overloads for each level (e.g. `logger.info(cause)`)
-- Colorized console output and MDC-based trace ID injection (via SLF4J+Logback provider)
-- Automatic `java.util.logging` (JUL) to SLF4J bridge installation (via SLF4J+Logback provider)
-- Built-in tinylog writer integration for seamless log aggregation
+- **Zero-Config Provider Discovery**: JDK `ServiceLoader` auto-discovers providers — just add a JAR
+- **Built-in Fallback**: No provider? No problem — silently falls back to No-Op or System.out
+- **Unified Multi-Framework Bridge**: Redirects Commons Logging, JUL, Log4j, Log4j2, Flogger, and tinylog to your chosen backend
+- **MDC Trace ID Out-of-the-Box**: Auto-injects `traceId` from MDC into every log line
+- **Fluent Throwable Logging**: `logger.info(cause)` — log exceptions without manual message extraction
+- **Logger Instance Caching**: ConcurrentHashMap-based caching for optimal performance
+- **Full Log Level Support**: trace / debug / info / warn / error with colorized console output
 
 ## Architecture
 
@@ -32,34 +38,11 @@ English
                       ServiceLoader
                               │
 ┌──────────────────────────────────────────────────────────────┐
-│        godikit-logger-provider-slf4j-logback                 │
-│  Facade adapter: Slf4jLogbackLoggerImpl → SLF4J Logger       │
+│        godikit-logger-provider-slf4j2-logback                │
+│  Facade adapter: Slf4j2LogbackLoggerImpl → SLF4J 2.x       │
 │  Provides: colorized levels + MDC trace ID formatting        │
 └──────────────────────────────────────────────────────────────┘
 ```
-
-## Modules
-
-| Module                                                  | Purpose                                                                                                          |
-|---------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
-| **Core API**                                            |                                                                                                                  |
-| `godikit-logger`                                        | Core API: `Logger` interface, `LoggerFactory`, SPI registry, built-in No-Op and System providers (JDK 8+)       |
-| `godikit-logger-jdk17`                                  | JDK 17 build of core API (enables JDK 17 preview features)                                                       |
-| **SLF4J 1.x + Logback Provider**                       |                                                                                                                  |
-| `godikit-logger-provider-slf4j-logback`                | SLF4J 1.x + Logback 1.2 adapter — JDK 8 compatible (colorized levels, MDC trace ID, auto JUL bridge)            |
-| `godikit-logger-provider-slf4j-logback-jdk17`          | JDK 17 build of SLF4J 1.x + Logback provider                                                                    |
-| `godikit-logger-provider-slf4j-logback-config`          | Default Logback 1.2 configuration (colorized levels, MDC trace ID, auto-registered via Configurator SPI)        |
-| `godikit-logger-provider-slf4j-logback-config-jdk17`    | JDK 17 build of Logback 1.2 configuration                                                                       |
-| **SLF4J 2.x + Logback Provider**                       |                                                                                                                  |
-| `godikit-logger-provider-slf4j2-logback`               | SLF4J 2.x + Logback 1.3 adapter — JDK 8 compatible (same features as SLF4J 1.x provider)                       |
-| `godikit-logger-provider-slf4j2-logback-jdk17`         | JDK 17 build of SLF4J 2.x + Logback provider                                                                    |
-| `godikit-logger-provider-slf4j2-logback-config`        | Default Logback 1.3 configuration for SLF4J 2.x (colorized levels, MDC trace ID, auto-registered via Configurator SPI) |
-| `godikit-logger-provider-slf4j2-logback-config-jdk17`  | JDK 17 build of Logback 1.3 configuration                                                                       |
-| **Examples**                                            |                                                                                                                  |
-| `godikit-logger-example-slf4j-logback`                 | Usage examples with SLF4J 1.x: Commons Logging, JUL, Log4j, Log4j2, Flogger, tinylog bridges                   |
-| `godikit-logger-example-slf4j-logback-jdk17`           | JDK 17 build of SLF4J 1.x examples                                                                              |
-| `godikit-logger-example-slf4j2-logback`                | Usage examples with SLF4J 2.x (same logging framework bridges)                                                   |
-| `godikit-logger-example-slf4j2-logback-jdk17`          | JDK 17 build of SLF4J 2.x examples                                                                              |
 
 ## Quick Start
 
@@ -78,17 +61,17 @@ English
 **Step 2 — Provider (choose one)**
 
 ```xml
-<!-- SLF4J + Logback — JDK 8 compatible -->
+<!-- SLF4J 2.x + Logback — JDK 8 compatible (Recommended) -->
 <dependency>
   <groupId>com.godikit.logger</groupId>
-  <artifactId>godikit-logger-provider-slf4j-logback</artifactId>
+  <artifactId>godikit-logger-provider-slf4j2-logback</artifactId>
   <version>1.0.2</version>
 </dependency>
 
-  <!-- SLF4J + Logback — JDK 17 (enables preview features) -->
+<!-- SLF4J 2.x + Logback — JDK 17 (enables preview features) -->
 <dependency>
   <groupId>com.godikit.logger</groupId>
-  <artifactId>godikit-logger-provider-slf4j-logback-jdk17</artifactId>
+  <artifactId>godikit-logger-provider-slf4j2-logback-jdk17</artifactId>
   <version>1.0.2</version>
 </dependency>
 ```
@@ -132,74 +115,45 @@ available automatically:
 - Java 8+
 - Maven 3.6+
 
-## Dependencies
+### Excluding Unused Logging Bridges
 
-| Dependency          | Scope    | Notes                                             |
-|---------------------|----------|---------------------------------------------------|
-| `godikit-exception` | compile  | Required by `LoggerFactory`                       |
-| `slf4j-api`         | compile  | Only when a provider is present                   |
-| `logback-classic`   | compile  | Only with `godikit-logger-provider-slf4j-logback` |
-| `lombok`            | provided | Code generation for `@NoArgsConstructor`, etc.    |
-| `junit-jupiter`     | test     | Test framework                                    |
-
-## Third-Party Logging Framework Bridging
-
-When integrating `godikit-logger`, you may need to maintain compatibility with existing logging frameworks used by your dependencies (e.g., Spring Framework uses Commons Logging). Add bridges as needed:
-
-| Legacy Framework | Bridge | Maven Coordinates |
-|------------------|--------|-------------------|
-| Commons Logging | jcl-over-slf4j | `org.slf4j:jcl-over-slf4j` |
-| Log4j 1.x | log4j-over-slf4j | `org.slf4j:log4j-over-slf4j` |
-| Log4j 2.x | log4j-to-slf4j | `org.apache.logging.log4j:log4j-to-slf4j` |
-| java.util.logging | jul-to-slf4j | `org.slf4j:jul-to-slf4j` |
-| Flogger | flogger-slf4j-backend | `com.google.flogger:flogger-slf4j-backend` |
-
-> **Tip:** Use `provided` scope for bridge dependencies to avoid bundling them into your final artifact.
-
-### Example: Integrate with Commons Logging
+The `godikit-logger-provider-slf4j2-logback` module bundles all major logging bridges by default. Exclude unused ones:
 
 ```xml
-<dependencies>
-    <!-- Core: godikit-logger + Logback -->
-    <dependency>
-        <groupId>com.godikit.logger</groupId>
-        <artifactId>godikit-logger-provider-slf4j-logback</artifactId>
-        <version>1.0.2</version>
-    </dependency>
-
-    <!-- Exclude or set provided for original Commons Logging -->
-    <dependency>
-        <groupId>commons-logging</groupId>
-        <artifactId>commons-logging</artifactId>
-        <version>1.3.4</version>
-        <scope>provided</scope>
-    </dependency>
-
-    <!-- Bridge: redirect Commons Logging to SLF4J -->
-    <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>jcl-over-slf4j</artifactId>
-        <version>2.0.16</version>
-        <scope>provided</scope>
-    </dependency>
-</dependencies>
+<dependency>
+    <groupId>com.godikit.logger</groupId>
+    <artifactId>godikit-logger-provider-slf4j2-logback</artifactId>
+    <version>1.0.2</version>
+    <exclusions>
+        <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+        </exclusion>
+        <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jul-to-slf4j</artifactId>
+        </exclusion>
+        <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>log4j-over-slf4j</artifactId>
+        </exclusion>
+        <exclusion>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-to-slf4j</artifactId>
+        </exclusion>
+        <exclusion>
+            <groupId>com.google.flogger</groupId>
+            <artifactId>flogger-slf4j-backend</artifactId>
+        </exclusion>
+        <exclusion>
+            <groupId>org.tinylog</groupId>
+            <artifactId>tinylog-impl</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
 ```
 
-## Examples
-
-See `godikit-logger-example-slf4j-logback` module for usage examples covering various logging frameworks:
-
-| Example | Demonstrates |
-|---------|--------------|
-| `LogWithSlf4jLogback` | Basic godikit-logger usage |
-| `LogWithSlf4jLogbackUsingTraceId` | MDC-based trace ID injection |
-| `LogWithCommonsLogging` | Commons Logging → SLF4J bridge |
-| `LogWithJBossLogging` | JBoss Logging → SLF4J bridge |
-| `LogWithJUL` | java.util.logging (JUL) → SLF4J bridge (auto-installed) |
-| `LogWithLog4j` | Log4j 1.x → SLF4J bridge |
-| `LogWithLog4j2` | Log4j 2.x native API |
-| `LogWithFlogger` | Flogger → SLF4J bridge |
-| `LogWithTinyLog` | tinylog → SLF4J backend |
+**Bundled bridges:** Commons Logging, JUL, Log4j, Log4j2, Flogger, tinylog → SLF4J
 
 ## License
 
