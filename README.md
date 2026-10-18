@@ -75,6 +75,9 @@ This will automatically redirect Commons Logging, JUL, Log4j, Log4j2, Flogger, a
 ### Code
 
 ```java
+import com.godikit.logger.Logger;
+import com.godikit.logger.LoggerFactory;
+
 Logger logger = LoggerFactory.getLogger(MyClass.class);
 
 logger.info("Application started at {}", LocalDateTime.now());
