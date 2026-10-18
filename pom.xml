@@ -66,7 +66,9 @@
         <module>godikit-logger-provider-slf4j-logback-config</module>
         <module>godikit-logger-provider-slf4j-logback-config-jdk17</module>
         <module>godikit-logger-provider-slf4j2-logback</module>
+        <module>godikit-logger-provider-slf4j2-logback-jdk17</module>
         <module>godikit-logger-provider-slf4j2-logback-config</module>
+        <module>godikit-logger-provider-slf4j2-logback-config-jdk17</module>
         <module>godikit-logger-example-slf4j-logback</module>
         <module>godikit-logger-example-slf4j-logback-jdk17</module>
         <module>godikit-logger-example-slf4j2-logback</module>
@@ -121,7 +123,17 @@
             </dependency>
             <dependency>
                 <groupId>com.godikit.logger</groupId>
+                <artifactId>godikit-logger-provider-slf4j2-logback-jdk17</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.godikit.logger</groupId>
                 <artifactId>godikit-logger-provider-slf4j2-logback-config</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.godikit.logger</groupId>
+                <artifactId>godikit-logger-provider-slf4j2-logback-config-jdk17</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>

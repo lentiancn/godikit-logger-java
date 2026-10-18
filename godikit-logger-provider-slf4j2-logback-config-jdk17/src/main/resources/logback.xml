@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Default Logback configuration for GodiKit Logger with SLF4J 2.x.
+
+  This configuration provides console output with colorized log levels
+  and automatic trace ID injection from MDC.
+
+  Note: The <conversionRule> declarations below are optional when using
+  godikit-logger-provider-slf4j2-logback-config, as converters are automatically
+  registered via Configurator SPI. However, keeping them here ensures
+  compatibility when only slf4j2-logback (without -config) is used.
+-->
+<configuration debug="false">
+    <!-- Suppress Logback's internal status messages -->
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
+
+    <!-- Register color converter for log level highlighting -->
+    <!-- Outputs ANSI-colored log levels: TRACE(teal), DEBUG(blue), INFO(green), WARN(orange), ERROR(red+bold) -->
+    <conversionRule conversionWord="gtLevelBasedColor"
+                    converterClass="com.godikit.logger.spi.provider.converter.LevelBasedColorCompositeConverter"
+                    class="com.godikit.logger.spi.provider.converter.LevelBasedColorCompositeConverter"/>
+
+    <!-- Register trace ID converter for MDC value extraction -->
+    <!-- Reads the traceId from MDC and formats it as [traceId] -->
+    <conversionRule conversionWord="gtTraceId"
+                    converterClass="com.godikit.logger.spi.provider.converter.TraceIdCompositeConverter"
+                    class="com.godikit.logger.spi.provider.converter.TraceIdCompositeConverter"/>
+
+    <!--
+      Pattern definitions:
+      %d{...}    - timestamp
+      %level     - log level with color
+      %gtTraceId - trace ID from MDC (outputs empty if not set)
+      %msg       - log message
+      %logger    - logger name
+      %n         - newline
+    -->
+    <property name="STDOUT_LOG_PATTERN"
+              value="%gtLevelBasedColor([%d{yyyy-MM-dd HH:mm:ss}]) %gtLevelBasedColor(%level) %gtTraceId(%msg) -- %logger%n"/>
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss} %level %gtTraceId(%msg) -- %logger%n"/>
+
+    <!-- Console appender with colorized output -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${STDOUT_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- Root logger: captures all log events at ALL levels -->
+    <root level="ALL">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
