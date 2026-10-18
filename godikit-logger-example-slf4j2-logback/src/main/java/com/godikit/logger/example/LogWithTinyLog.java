@@ -28,7 +28,7 @@ public class LogWithTinyLog {
      * @param args command-line arguments (ignored)
      */
     public static void main(String[] args) {
-        System.out.println("=== TinyLog API redirected to SLF4J + Logback ===");
+        System.out.println("=== TinyLog API redirected to SLF4J 2.x + Logback ===");
         System.out.println("Actual TinyLog Logger implementation class: " + Logger.class.getName());
 
         Logger.trace("Hello world! from TinyLog TRACE");
