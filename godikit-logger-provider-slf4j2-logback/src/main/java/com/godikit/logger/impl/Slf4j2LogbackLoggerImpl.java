@@ -23,10 +23,8 @@
  */
 package com.godikit.logger.impl;
 
-import com.godikit.exception.utils.StackTraceUtils;
 import com.godikit.logger.Logger;
 import com.godikit.logger.spi.provider.LoggerProvider;
-import com.godikit.logger.utils.StringUtils;
 import org.slf4j.spi.LoggingEventBuilder;
 
 import java.util.Objects;
