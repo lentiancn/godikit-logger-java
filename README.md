@@ -8,18 +8,19 @@ English
 
 ## Why godikit-logger?
 
-| Scenario | Without godikit-logger | With godikit-logger |
-|----------|------------------------|---------------------|
-| Switch logging backend | Modify multiple dependency configs | Swap provider JAR |
-| Multiple logging APIs in dependencies | Configure bridges manually | Bundled bridges, auto-installed |
-| No provider on classpath | `NoClassDefFoundError` | Built-in No-Op/System fallback |
-| MDC trace ID | Manual configuration | Auto-injected in log pattern |
+| Scenario                              | Without godikit-logger             | With godikit-logger             |
+|---------------------------------------|------------------------------------|---------------------------------|
+| Switch logging backend                | Modify multiple dependency configs | Swap provider JAR               |
+| Multiple logging APIs in dependencies | Configure bridges manually         | Bundled bridges, auto-installed |
+| No provider on classpath              | `NoClassDefFoundError`             | Built-in No-Op/System fallback  |
+| MDC trace ID                          | Manual configuration               | Auto-injected in log pattern    |
 
 ## Features
 
 - **Zero-Config Provider Discovery**: JDK `ServiceLoader` auto-discovers providers — just add a JAR
 - **Built-in Fallback**: No provider? No problem — silently falls back to No-Op or System.out
-- **Unified Multi-Framework Bridge**: Redirects Commons Logging, JUL, Log4j, Log4j2, Flogger, and tinylog to your chosen backend
+- **Unified Multi-Framework Bridge**: Redirects Commons Logging, JUL, Log4j, Log4j2, Flogger, and tinylog to your chosen
+  backend
 - **MDC Trace ID Out-of-the-Box**: Auto-injects `traceId` from MDC into every log line
 - **Fluent Throwable Logging**: `logger.info(cause)` — log exceptions without manual message extraction
 - **Logger Instance Caching**: ConcurrentHashMap-based caching for optimal performance
@@ -63,9 +64,9 @@ English
 
 <!-- SLF4J 2.x + Logback — JDK 17 (enables preview features) -->
 <dependency>
-  <groupId>com.godikit.logger</groupId>
-  <artifactId>godikit-logger-provider-slf4j2-logback-jdk17</artifactId>
-  <version>1.0.2</version>
+<groupId>com.godikit.logger</groupId>
+<artifactId>godikit-logger-provider-slf4j2-logback-jdk17</artifactId>
+<version>1.0.2</version>
 </dependency>
 ```
 
@@ -82,19 +83,20 @@ logger.error(cause, "Request {} failed", requestId);
 
 ### Custom Configuration (Optional)
 
-The `-config` modules (e.g., `godikit-logger-provider-slf4j2-logback-config`) bundle a default `logback.xml`. To use your own configuration, exclude the config package:
+The `-config` modules (e.g., `godikit-logger-provider-slf4j2-logback-config`) bundle a default `logback.xml`. To use
+your own configuration, exclude the config package:
 
 ```xml
 <dependency>
-    <groupId>com.godikit.logger</groupId>
-    <artifactId>godikit-logger-provider-slf4j2-logback</artifactId>
-    <version>1.0.2</version>
-    <exclusions>
-        <exclusion>
-            <groupId>com.godikit.logger</groupId>
-            <artifactId>godikit-logger-provider-slf4j2-logback-config</artifactId>
-        </exclusion>
-    </exclusions>
+  <groupId>com.godikit.logger</groupId>
+  <artifactId>godikit-logger-provider-slf4j2-logback</artifactId>
+  <version>1.0.2</version>
+  <exclusions>
+    <exclusion>
+      <groupId>com.godikit.logger</groupId>
+      <artifactId>godikit-logger-provider-slf4j2-logback-config</artifactId>
+    </exclusion>
+  </exclusions>
 </dependency>
 ```
 
@@ -103,6 +105,7 @@ The `-config` modules (e.g., `godikit-logger-provider-slf4j2-logback-config`) bu
 To colorize log levels in console output (TRACE=teal, DEBUG=blue, INFO=green, WARN=orange, ERROR=red+bold):
 
 ```xml
+
 <conversionRule conversionWord="gtLevelBasedColor"
                 converterClass="com.godikit.logger.spi.provider.converter.LevelBasedColorCompositeConverter"/>
 
@@ -140,35 +143,35 @@ The `godikit-logger-provider-slf4j2-logback` module bundles all major logging br
 
 ```xml
 <dependency>
-    <groupId>com.godikit.logger</groupId>
-    <artifactId>godikit-logger-provider-slf4j2-logback</artifactId>
-    <version>1.0.2</version>
-    <exclusions>
-        <exclusion>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-        </exclusion>
-        <exclusion>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jul-to-slf4j</artifactId>
-        </exclusion>
-        <exclusion>
-            <groupId>org.slf4j</groupId>
-            <artifactId>log4j-over-slf4j</artifactId>
-        </exclusion>
-        <exclusion>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-to-slf4j</artifactId>
-        </exclusion>
-        <exclusion>
-            <groupId>com.google.flogger</groupId>
-            <artifactId>flogger-slf4j-backend</artifactId>
-        </exclusion>
-        <exclusion>
-            <groupId>org.tinylog</groupId>
-            <artifactId>tinylog-impl</artifactId>
-        </exclusion>
-    </exclusions>
+  <groupId>com.godikit.logger</groupId>
+  <artifactId>godikit-logger-provider-slf4j2-logback</artifactId>
+  <version>1.0.2</version>
+  <exclusions>
+    <exclusion>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+    </exclusion>
+    <exclusion>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jul-to-slf4j</artifactId>
+    </exclusion>
+    <exclusion>
+      <groupId>org.slf4j</groupId>
+      <artifactId>log4j-over-slf4j</artifactId>
+    </exclusion>
+    <exclusion>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-to-slf4j</artifactId>
+    </exclusion>
+    <exclusion>
+      <groupId>com.google.flogger</groupId>
+      <artifactId>flogger-slf4j-backend</artifactId>
+    </exclusion>
+    <exclusion>
+      <groupId>org.tinylog</groupId>
+      <artifactId>tinylog-impl</artifactId>
+    </exclusion>
+  </exclusions>
 </dependency>
 ```
 
