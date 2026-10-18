@@ -1,5 +1,7 @@
 package com.godikit.logger.example;
 
+import com.godikit.logger.utils.Slf4jUtils;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,7 +22,7 @@ public class LogWithJUL {
      * @param args command-line arguments (ignored)
      */
     public static void main(String[] args) {
-//        Slf4jUtils.redirectJulToSlf4j();
+        Slf4jUtils.redirectJulToSlf4j();
 
         System.out.println("=== java.util.logging (JUL) API redirected to SLF4J 2.x + Logback ===");
         System.out.println("Actual JUL Logger implementation class: " + LOG.getClass().getName());
