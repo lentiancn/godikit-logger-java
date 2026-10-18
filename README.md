@@ -62,7 +62,7 @@ English
   <version>1.0.2</version>
 </dependency>
 
-<!-- SLF4J 2.x + Logback — JDK 17 (enables preview features) -->
+<!-- SLF4J 2.x + Logback — JDK 17 -->
 <dependency>
 <groupId>com.godikit.logger</groupId>
 <artifactId>godikit-logger-provider-slf4j2-logback-jdk17</artifactId>
@@ -144,7 +144,8 @@ If `traceId` is not set in MDC, `%gtTraceId(...)` outputs nothing by default.
 
 ### Excluding Unused Logging Bridges (Optional)
 
-The `godikit-logger-provider-slf4j2-logback` module bundles all major logging bridges by default. If you don't need certain bridges, exclude them to reduce unnecessary dependencies:
+The `godikit-logger-provider-slf4j2-logback` module bundles all major logging bridges by default. If you don't need
+certain bridges, exclude them to reduce unnecessary dependencies:
 
 ```xml
 <dependency>
