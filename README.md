@@ -70,6 +70,8 @@ English
 </dependency>
 ```
 
+This will automatically redirect Commons Logging, JUL, Log4j, Log4j2, Flogger, and tinylog to SLF4J.
+
 ### Code
 
 ```java
@@ -139,7 +141,7 @@ If `traceId` is not set in MDC, `%gtTraceId(...)` outputs nothing by default.
 
 ### Excluding Unused Logging Bridges (Optional)
 
-The `godikit-logger-provider-slf4j2-logback` module bundles all major logging bridges by default. Exclude unused ones:
+The `godikit-logger-provider-slf4j2-logback` module bundles all major logging bridges by default. If you don't need certain bridges, exclude them to reduce unnecessary dependencies:
 
 ```xml
 <dependency>
