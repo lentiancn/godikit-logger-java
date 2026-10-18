@@ -35,11 +35,11 @@ import java.util.EnumSet;
 import java.util.Map;
 
 /**
- * A TinyLog Writer that bridges log entries to SLF4J (typically backed by Logback).
+ * A TinyLog Writer that bridges log entries to SLF4J 2.x (typically backed by Logback).
  *
  * <p>This writer acts as a TinyLog sink: it receives structured log entries from
  * TinyLog and forwards them to the godikit-logger facade, which in turn delegates
- * to the configured SLF4J provider.</p>
+ * to the configured SLF4J 2.x provider.</p>
  *
  * <p>Configuration:</p>
  * <pre>
@@ -76,7 +76,7 @@ public class Slf4jWriter implements Writer {
     }
 
     /**
-     * Writes a log entry to SLF4J, bridging from TinyLog's internal representation.
+     * Writes a log entry to SLF4J 2.x, bridging from TinyLog's internal representation.
      *
      * <p>This method:</p>
      * <ol>
