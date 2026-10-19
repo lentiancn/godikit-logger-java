@@ -8,12 +8,12 @@
 
 ## 為什麼選擇 godikit-logger？
 
-| 場景 | 不使用 godikit-logger | 使用 godikit-logger |
-|---------------------------------------|------------------------------------|---------------------------------|
-| 切換日誌後端 | 修改多個依賴配置 | 更換 Provider JAR 套件 |
-| 依賴中存在多個日誌 API | 手動配置橋接器 | 橋接器已內建，自動安裝 |
+| 場景                     | 不使用 godikit-logger     | 使用 godikit-logger    |
+|------------------------|------------------------|----------------------|
+| 切換日誌後端                 | 修改多個依賴配置               | 更換 Provider JAR 套件   |
+| 依賴中存在多個日誌 API          | 手動配置橋接器                | 橋接器已內建，自動安裝          |
 | classpath 中沒有 Provider | `NoClassDefFoundError` | 內建 No-Op/System 降級方案 |
-| MDC 鏈路追蹤 ID | 手動配置 | 日誌模式中自動注入 |
+| MDC 鏈路追蹤 ID            | 手動配置                   | 日誌模式中自動注入            |
 
 ## 功能特性
 
@@ -93,7 +93,8 @@ logger.error(cause, "Request {} failed", requestId);
 
 ### 自訂配置（可選）
 
-`-config` 模組（如 `godikit-logger-provider-slf4j2-logback-config`）綁定了預設的 `logback.xml`。要使用您自己的配置，請排除 config 套件：
+`-config` 模組（如 `godikit-logger-provider-slf4j2-logback-config`）綁定了預設的 `logback.xml`。要使用您自己的配置，請排除
+config 套件：
 
 ```xml
 <dependency>

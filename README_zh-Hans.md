@@ -1,4 +1,3 @@
-
 # godikit-logger
 
 [![License](https://img.shields.io/github/license/lentiancn/godikit-logger-java.svg)](https://github.com/lentiancn/godikit-logger-java/blob/main/LICENSE)
@@ -9,12 +8,12 @@
 
 ## 为什么选择 godikit-logger？
 
-| 场景 | 不使用 godikit-logger | 使用 godikit-logger |
-|---------------------------------------|------------------------------------|---------------------------------|
-| 切换日志后端 | 修改多个依赖配置 | 更换 Provider JAR 包 |
-| 依赖中存在多个日志 API | 手动配置桥接器 | 桥接器已内置，自动安装 |
+| 场景                     | 不使用 godikit-logger     | 使用 godikit-logger    |
+|------------------------|------------------------|----------------------|
+| 切换日志后端                 | 修改多个依赖配置               | 更换 Provider JAR 包    |
+| 依赖中存在多个日志 API          | 手动配置桥接器                | 桥接器已内置，自动安装          |
 | classpath 中没有 Provider | `NoClassDefFoundError` | 内置 No-Op/System 回退方案 |
-| MDC 链路追踪 ID | 手动配置 | 日志模式中自动注入 |
+| MDC 链路追踪 ID            | 手动配置                   | 日志模式中自动注入            |
 
 ## 功能特性
 
@@ -94,7 +93,8 @@ logger.error(cause, "Request {} failed", requestId);
 
 ### 自定义配置（可选）
 
-`-config` 模块（如 `godikit-logger-provider-slf4j2-logback-config`）绑定了默认的 `logback.xml`。要使用您自己的配置，请排除 config 包：
+`-config` 模块（如 `godikit-logger-provider-slf4j2-logback-config`）绑定了默认的 `logback.xml`。要使用您自己的配置，请排除
+config 包：
 
 ```xml
 <dependency>
