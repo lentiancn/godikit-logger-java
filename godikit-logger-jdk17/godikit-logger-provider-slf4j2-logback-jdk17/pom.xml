@@ -5,7 +5,7 @@
 
     <parent>
         <groupId>com.godikit.logger</groupId>
-        <artifactId>godikit-logger-parent</artifactId>
+        <artifactId>godikit-logger-parent-jdk17</artifactId>
         <version>${revision}</version>
     </parent>
 
@@ -17,10 +17,6 @@
         Enables JDK 17 preview features (e.g. pattern matching for switch) in this module.
     </description>
     <url>https://www.godikit.com/logger</url>
-
-    <properties>
-        <godikit.java.version>17</godikit.java.version>
-    </properties>
 
     <dependencies>
         <dependency>

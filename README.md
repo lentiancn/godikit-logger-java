@@ -59,14 +59,14 @@ English | [简体中文](README_zh-Hans.md) | [繁體中文](README_zh-Hant.md)
 <dependency>
   <groupId>com.godikit.logger</groupId>
   <artifactId>godikit-logger-provider-slf4j2-logback</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.4</version>
 </dependency>
 
 <!-- SLF4J 2.x + Logback — JDK 17 -->
 <dependency>
 <groupId>com.godikit.logger</groupId>
 <artifactId>godikit-logger-provider-slf4j2-logback-jdk17</artifactId>
-<version>1.0.3</version>
+<version>1.0.4</version>
 </dependency>
 ```
 
@@ -95,7 +95,7 @@ your own configuration, exclude the config package:
 <dependency>
   <groupId>com.godikit.logger</groupId>
   <artifactId>godikit-logger-provider-slf4j2-logback</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.4</version>
   <exclusions>
     <exclusion>
       <groupId>com.godikit.logger</groupId>
@@ -151,7 +151,7 @@ certain bridges, exclude them to reduce unnecessary dependencies:
 <dependency>
   <groupId>com.godikit.logger</groupId>
   <artifactId>godikit-logger-provider-slf4j2-logback</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.4</version>
   <exclusions>
     <exclusion>
       <groupId>org.slf4j</groupId>

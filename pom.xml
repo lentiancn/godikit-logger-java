@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.godikit.logger</groupId>
-    <artifactId>godikit-logger-parent</artifactId>
+    <artifactId>godikit-parent</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
-    <name>GodiKit Logger Parent</name>
+    <name>GodiKit Parent</name>
     <description>
         A logging utility package for JDK 8+, designed to unify the management of logging components in Java projects
         and establish a consistent standard.
@@ -15,7 +15,7 @@
     <url>https://www.godikit.com/logger</url>
 
     <properties>
-        <revision>1.0.3</revision>
+        <revision>1.0.4</revision>
         <godikit.charset>UTF-8</godikit.charset>
         <godikit.java.version>8</godikit.java.version>
 
@@ -24,9 +24,6 @@
         <maven.compiler.target>${godikit.java.version}</maven.compiler.target>
         <project.build.sourceEncoding>${godikit.charset}</project.build.sourceEncoding>
         <maven.build.timestamp.format>yyyy-MM-dd'T'HH:mm:ss'Z'</maven.build.timestamp.format>
-
-        <log4j2.version>2.25.5</log4j2.version>
-        <slf4j.version>1.7.36</slf4j.version>
 
         <!-- central-publishing-maven-plugin -->
         <central-publishing-maven-plugin.version>0.12.0</central-publishing-maven-plugin.version>
@@ -61,166 +58,7 @@
     <modules>
         <module>godikit-logger</module>
         <module>godikit-logger-jdk17</module>
-        <module>godikit-logger-provider-slf4j-logback</module>
-        <module>godikit-logger-provider-slf4j-logback-jdk17</module>
-        <module>godikit-logger-provider-slf4j-logback-config</module>
-        <module>godikit-logger-provider-slf4j-logback-config-jdk17</module>
-        <module>godikit-logger-provider-slf4j2-logback</module>
-        <module>godikit-logger-provider-slf4j2-logback-jdk17</module>
-        <module>godikit-logger-provider-slf4j2-logback-config</module>
-        <module>godikit-logger-provider-slf4j2-logback-config-jdk17</module>
-        <module>godikit-logger-example-slf4j-logback</module>
-        <module>godikit-logger-example-slf4j-logback-jdk17</module>
-        <module>godikit-logger-example-slf4j2-logback</module>
-        <module>godikit-logger-example-slf4j2-logback-jdk17</module>
     </modules>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.godikit.exception</groupId>
-                <artifactId>godikit-exception</artifactId>
-                <version>1.0.0</version>
-            </dependency>
-            <dependency>
-                <groupId>com.godikit.exception</groupId>
-                <artifactId>godikit-exception-jdk17</artifactId>
-                <version>1.0.0</version>
-            </dependency>
-            <dependency>
-                <groupId>com.godikit.logger</groupId>
-                <artifactId>godikit-logger</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.godikit.logger</groupId>
-                <artifactId>godikit-logger-jdk17</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.godikit.logger</groupId>
-                <artifactId>godikit-logger-provider-slf4j-logback</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.godikit.logger</groupId>
-                <artifactId>godikit-logger-provider-slf4j-logback-jdk17</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.godikit.logger</groupId>
-                <artifactId>godikit-logger-provider-slf4j-logback-config</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.godikit.logger</groupId>
-                <artifactId>godikit-logger-provider-slf4j-logback-config-jdk17</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.godikit.logger</groupId>
-                <artifactId>godikit-logger-provider-slf4j2-logback</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.godikit.logger</groupId>
-                <artifactId>godikit-logger-provider-slf4j2-logback-jdk17</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.godikit.logger</groupId>
-                <artifactId>godikit-logger-provider-slf4j2-logback-config</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.godikit.logger</groupId>
-                <artifactId>godikit-logger-provider-slf4j2-logback-config-jdk17</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.flogger</groupId>
-                <artifactId>flogger-slf4j-backend</artifactId>
-                <version>0.7.4</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>jcl-over-slf4j</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>jul-to-slf4j</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter</artifactId>
-                <version>5.14.4</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>log4j-over-slf4j</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-to-slf4j</artifactId>
-                <version>${log4j2.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>1.2.13</version>
-            </dependency>
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>1.18.48</version>
-            </dependency>
-            <!--            <dependency>-->
-            <!--                <groupId>org.osgi</groupId>-->
-            <!--                <artifactId>org.osgi.service.log</artifactId>-->
-            <!--                <version>1.5.0</version>-->
-            <!--            </dependency>-->
-            <!--            <dependency>-->
-            <!--                <groupId>org.slf4j</groupId>-->
-            <!--                <artifactId>osgi-over-slf4j</artifactId>-->
-            <!--                <version>${slf4j.version}</version>-->
-            <!--            </dependency>-->
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.tinylog</groupId>
-                <artifactId>tinylog-impl</artifactId>
-                <version>2.8.1</version>
-            </dependency>
-            <!--                        <dependency>-->
-            <!--                            <groupId>org.jboss.slf4j</groupId>-->
-            <!--                            <artifactId>slf4j-jboss-logging</artifactId>-->
-            <!--                            <version>1.2.1.Final</version>-->
-            <!--                        </dependency>-->
-        </dependencies>
-    </dependencyManagement>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.godikit.exception</groupId>
-            <artifactId>godikit-exception</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
 
     <build>
         <pluginManagement>
@@ -439,24 +277,24 @@
         </profile>
     </profiles>
 
-    <developers>
-        <developer>
-            <name>Len (田隆)</name>
-            <email>len@godikit.com</email>
-            <url>https://github.com/lentiancn</url>
-        </developer>
-    </developers>
+        <developers>
+            <developer>
+                <name>Len (田隆)</name>
+                <email>len@godikit.com</email>
+                <url>https://github.com/lentiancn</url>
+            </developer>
+        </developers>
 
-    <licenses>
-        <license>
-            <name>MIT License</name>
-            <url>https://raw.githubusercontent.com/lentiancn/godikit-logger-java/refs/heads/main/LICENSE</url>
-        </license>
-    </licenses>
+        <licenses>
+            <license>
+                <name>MIT License</name>
+                <url>https://raw.githubusercontent.com/lentiancn/godikit-logger-java/refs/heads/main/LICENSE</url>
+            </license>
+        </licenses>
 
-    <scm>
-        <url>https://github.com/lentiancn/godikit-logger-java-java</url>
-        <connection>scm:git:https://github.com/lentiancn/godikit-logger-java-java.git</connection>
-        <developerConnection>scm:git:git@github.com:lentiancn/godikit-logger-java.git</developerConnection>
-    </scm>
+        <scm>
+            <url>https://github.com/lentiancn/godikit-logger-java-java</url>
+            <connection>scm:git:https://github.com/lentiancn/godikit-logger-java-java.git</connection>
+            <developerConnection>scm:git:git@github.com:lentiancn/godikit-logger-java.git</developerConnection>
+        </scm>
 </project>
