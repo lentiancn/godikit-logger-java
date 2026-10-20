@@ -5,7 +5,7 @@
 
     <parent>
         <groupId>com.godikit.logger</groupId>
-        <artifactId>godikit-logger-parent</artifactId>
+        <artifactId>godikit-parent</artifactId>
         <version>${revision}</version>
         <relativePath>../godikit-logger/pom.xml</relativePath>
     </parent>
