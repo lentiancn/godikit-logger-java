@@ -5,28 +5,18 @@
 
     <parent>
         <groupId>com.godikit.logger</groupId>
-        <artifactId>godikit-logger-parent</artifactId>
+        <artifactId>godikit-parent</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>godikit-logger-provider-slf4j2-logback-config-jdk17</artifactId>
+    <artifactId>godikit-logger</artifactId>
     <version>${revision}</version>
-    <name>GodiKit Logger Provider - SLF4J 2.x + Logback Config (JDK17)</name>
+    <name>GodiKit Logger</name>
     <description>
-        JDK 17 build of the SLF4J 2.x + Logback config provider for GodiKit Logger.
+        A logging utility package for JDK 8+, designed to unify the management of logging components in Java projects
+        and establish a consistent standard.
     </description>
     <url>https://www.godikit.com/logger</url>
-
-    <properties>
-        <godikit.java.version>17</godikit.java.version>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.godikit.logger</groupId>
-            <artifactId>godikit-logger-provider-slf4j2-logback-config</artifactId>
-        </dependency>
-    </dependencies>
 
     <developers>
         <developer>

@@ -5,19 +5,24 @@
 
     <parent>
         <groupId>com.godikit.logger</groupId>
-        <artifactId>godikit-logger-parent</artifactId>
+        <artifactId>godikit-logger-parent-jdk17</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>godikit-logger-provider-slf4j-logback-config</artifactId>
+    <artifactId>godikit-logger-provider-slf4j2-logback-config-jdk17</artifactId>
     <version>${revision}</version>
-    <name>GodiKit Logger Provider - SLF4J + Logback Config</name>
+    <name>GodiKit Logger Provider - SLF4J 2.x + Logback Config (JDK17)</name>
     <description>
-        Default Logback configuration and SPI registration for GodiKit Logger.
-        This module provides sensible logging defaults and should be used in
-        conjunction with godikit-logger-provider-slf4j-logback.
+        JDK 17 build of the SLF4J 2.x + Logback config provider for GodiKit Logger.
     </description>
     <url>https://www.godikit.com/logger</url>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.godikit.logger</groupId>
+            <artifactId>godikit-logger-provider-slf4j2-logback-config</artifactId>
+        </dependency>
+    </dependencies>
 
     <developers>
         <developer>

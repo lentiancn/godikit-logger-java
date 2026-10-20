@@ -64,14 +64,14 @@
 <dependency>
   <groupId>com.godikit.logger</groupId>
   <artifactId>godikit-logger-provider-slf4j2-logback</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.4</version>
 </dependency>
 
 <!-- SLF4J 2.x + Logback — JDK 17 -->
 <dependency>
 <groupId>com.godikit.logger</groupId>
 <artifactId>godikit-logger-provider-slf4j2-logback-jdk17</artifactId>
-<version>1.0.3</version>
+<version>1.0.4</version>
 </dependency>
 ```
 
@@ -100,7 +100,7 @@ config 套件：
 <dependency>
   <groupId>com.godikit.logger</groupId>
   <artifactId>godikit-logger-provider-slf4j2-logback</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.4</version>
   <exclusions>
     <exclusion>
       <groupId>com.godikit.logger</groupId>
@@ -155,7 +155,7 @@ logger.info("Processing"); // → [a1b2c3d4...] Processing
 <dependency>
   <groupId>com.godikit.logger</groupId>
   <artifactId>godikit-logger-provider-slf4j2-logback</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.4</version>
   <exclusions>
     <exclusion>
       <groupId>org.slf4j</groupId>

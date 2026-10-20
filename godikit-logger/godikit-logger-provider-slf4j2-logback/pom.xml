@@ -5,15 +5,19 @@
 
     <parent>
         <groupId>com.godikit.logger</groupId>
-        <artifactId>godikit-logger-parent</artifactId>
+        <artifactId>godikit-parent</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>godikit-logger-provider-slf4j-logback</artifactId>
+    <artifactId>godikit-logger-provider-slf4j2-logback</artifactId>
     <version>${revision}</version>
-    <name>GodiKit Logger Provider - SLF4J + Logback</name>
-    <description>Adapts the GodiKit Logger API to SLF4J facade with Logback implementation.</description>
+    <name>GodiKit Logger Provider - SLF4J 2.x + Logback</name>
+    <description>Adapts the GodiKit Logger API to SLF4J 2.x facade with Logback implementation.</description>
     <url>https://www.godikit.com/logger</url>
+
+    <properties>
+        <slf4j.version>2.0.20</slf4j.version>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -22,15 +26,17 @@
         </dependency>
         <dependency>
             <groupId>com.godikit.logger</groupId>
-            <artifactId>godikit-logger-provider-slf4j-logback-config</artifactId>
+            <artifactId>godikit-logger-provider-slf4j2-logback-config</artifactId>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
+            <version>1.3.16</version>
         </dependency>
         <dependency>
             <groupId>com.google.flogger</groupId>
@@ -39,18 +45,22 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jul-to-slf4j</artifactId>
+            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>log4j-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-to-slf4j</artifactId>
+            <version>2.26.1</version>
         </dependency>
         <dependency>
             <groupId>org.tinylog</groupId>

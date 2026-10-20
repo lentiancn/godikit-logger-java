@@ -5,41 +5,31 @@
 
     <parent>
         <groupId>com.godikit.logger</groupId>
-        <artifactId>godikit-logger-parent</artifactId>
+        <artifactId>godikit-logger-parent-jdk17</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>godikit-logger-provider-slf4j2-logback-jdk17</artifactId>
+    <artifactId>godikit-logger-provider-slf4j-logback-jdk17</artifactId>
     <version>${revision}</version>
-    <name>GodiKit Logger Provider - SLF4J 2.x + Logback (JDK17)</name>
+    <name>GodiKit Logger Provider - SLF4J + Logback (JDK17)</name>
     <description>
-        JDK 17 build of the SLF4J 2.x + Logback provider for GodiKit Logger.
+        JDK 17 build of the SLF4J + Logback provider for GodiKit Logger.
         Enables JDK 17 preview features (e.g. pattern matching for switch) in this module.
     </description>
     <url>https://www.godikit.com/logger</url>
 
-    <properties>
-        <godikit.java.version>17</godikit.java.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.godikit.logger</groupId>
-            <artifactId>godikit-logger-provider-slf4j2-logback</artifactId>
+            <artifactId>godikit-logger-provider-slf4j-logback</artifactId>
         </dependency>
         <dependency>
             <groupId>com.godikit.logger</groupId>
-            <artifactId>godikit-logger-provider-slf4j2-logback-config-jdk17</artifactId>
+            <artifactId>godikit-logger-provider-slf4j-logback-config-jdk17</artifactId>
         </dependency>
         <dependency>
             <groupId>com.godikit.logger</groupId>
             <artifactId>godikit-logger-jdk17</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.5.38</version>
         </dependency>
     </dependencies>
 
