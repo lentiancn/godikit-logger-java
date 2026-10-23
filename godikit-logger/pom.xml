@@ -13,9 +13,8 @@
     <version>${revision}</version>
     <packaging>pom</packaging>
     <name>GodiKit Logger Parent</name>
-    <description>
-        A logging utility package for JDK 8+, designed to unify the management of logging components in Java projects
-        and establish a consistent standard.
+    <description>Aggregator module of GodiKit Logger, grouping the core API artifact, the SLF4J 1.7 and SLF4J 2.x +
+        Logback providers with their default configurations, and the corresponding usage examples.
     </description>
     <url>https://www.godikit.com/logger</url>
 
