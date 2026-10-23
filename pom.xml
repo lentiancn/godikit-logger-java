@@ -8,7 +8,10 @@
     <version>${revision}</version>
     <packaging>pom</packaging>
     <name>GodiKit Logger Reactor</name>
-    <description>GodiKit Logger is a unified, SPI-based logging facade for JDK 8+, enabling zero-configuration backend switching via the JDK ServiceLoader mechanism, with built-in No-Op fallback, multi-framework bridges, and automatic MDC trace ID injection.</description>
+    <description>GodiKit Logger is a unified, SPI-based logging facade for JDK 8+, enabling zero-configuration backend
+        switching via the JDK ServiceLoader mechanism, with built-in No-Op fallback, multi-framework bridges, and
+        automatic MDC trace ID injection.
+    </description>
     <url>https://www.godikit.com/logger</url>
 
     <properties>

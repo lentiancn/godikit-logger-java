@@ -5,11 +5,8 @@
     <groupId>com.godikit.logger</groupId>
     <artifactId>godikit-logger-example-slf4j-logback-jdk17</artifactId>
     <version>1.0.0</version>
-    <name>GodiKit Logger Example (JDK 17)</name>
-    <description>
-        JDK 17 build of usage examples for GodiKit Logger, demonstrating basic logging
-        and MDC-based trace ID injection with SLF4J + Logback.
-    </description>
+    <name>GodiKit Logger Example (SLF4J 1.7, JDK 17)</name>
+    <description>JDK 17 build of the usage examples for GodiKit Logger with the SLF4J 1.7 + Logback provider, demonstrating how Commons Logging, JUL, Log4j, Log4j2, Flogger, JBoss Logging and TinyLog calls are all redirected to a single logging backend, together with MDC-based trace ID injection.
 
     <properties>
         <java.version>17</java.version>

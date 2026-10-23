@@ -11,12 +11,8 @@
 
     <artifactId>godikit-logger-provider-slf4j-logback-config-jdk17</artifactId>
     <version>${revision}</version>
-    <name>GodiKit Logger Provider - SLF4J + Logback Config (JDK 17)</name>
-    <description>
-        JDK 17 build of the default Logback configuration for GodiKit Logger.
-        This module provides the same configuration as godikit-logger-provider-slf4j-logback-config
-        but compiled for JDK 17 to enable preview features.
-    </description>
+    <name>GodiKit Logger Provider - SLF4J 1.7 + Logback Config (JDK 17)</name>
+    <description>JDK 17 build of the default Logback configuration for GodiKit Logger with SLF4J 1.7. Ships a ready-to-use logback.xml that wires a console appender with colorized log levels and automatic MDC trace ID injection, and is intended to be used together with godikit-logger-provider-slf4j-logback-jdk17.
     <url>https://www.godikit.com/logger</url>
 
     <dependencies>

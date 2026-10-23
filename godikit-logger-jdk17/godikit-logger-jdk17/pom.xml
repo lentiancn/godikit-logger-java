@@ -11,11 +11,8 @@
 
     <artifactId>godikit-logger-jdk17</artifactId>
     <version>${revision}</version>
-    <name>GodiKit Logger (JDK17)</name>
-    <description>
-        A logger utility package for JDK 17+, designed to unify the management of logger components in Java
-        projects and establish a consistent standard.
-    </description>
+    <name>GodiKit Logger (JDK 17)</name>
+    <description>JDK 17 build of the core GodiKit Logger API artifact. Exposes the same Logger interface, LoggerFactory entry point and LoggerProvider SPI contract as the JDK 8 line, compiled against the JDK 17 variant of godikit-exception, and built with JDK 17 preview features enabled.
     <url>https://www.godikit.com/logger</url>
 
     <dependencies>
