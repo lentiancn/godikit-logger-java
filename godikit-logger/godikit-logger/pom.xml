@@ -12,7 +12,11 @@
     <artifactId>godikit-logger</artifactId>
     <version>${revision}</version>
     <name>GodiKit Logger</name>
-    <description>Core API artifact of GodiKit Logger for JDK 8+. Defines the Logger interface, the LoggerFactory entry point, and the LoggerProvider SPI protocol, with built-in No-Op and System.out fallback providers and automatic MDC trace ID injection. Backend implementations are supplied as separate provider artifacts and discovered through the JDK ServiceLoader mechanism.</description>
+    <description>Core API artifact of GodiKit Logger for JDK 8+. Defines the Logger interface, the LoggerFactory entry
+        point, and the LoggerProvider SPI protocol, with built-in No-Op and System.out fallback providers and automatic
+        MDC trace ID injection. Backend implementations are supplied as separate provider artifacts and discovered
+        through the JDK ServiceLoader mechanism.
+    </description>
     <url>https://www.godikit.com/logger</url>
 
     <developers>

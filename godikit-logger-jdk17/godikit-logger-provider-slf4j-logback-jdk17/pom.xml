@@ -12,7 +12,11 @@
     <artifactId>godikit-logger-provider-slf4j-logback-jdk17</artifactId>
     <version>${revision}</version>
     <name>GodiKit Logger Provider - SLF4J 1.7 + Logback (JDK 17)</name>
-    <description>JDK 17 variant of the SLF4J 1.7 + Logback provider for GodiKit Logger. Assembles the JDK 17 core API, the JDK 17 default Logback configuration and the SLF4J 1.7 + Logback backend into a single artifact targeting the Java 17 toolchain.
+    <description>JDK 17 variant of the SLF4J 1.7 + Logback provider for GodiKit Logger. Assembles the JDK 17 core API,
+        the JDK 17 default Logback configuration and the SLF4J 1.7 + Logback backend into a single artifact targeting
+        the
+        Java 17 toolchain.
+    </description>
     <url>https://www.godikit.com/logger</url>
 
     <dependencies>

@@ -6,7 +6,10 @@
     <artifactId>godikit-logger-example-slf4j-logback</artifactId>
     <version>1.0.0</version>
     <name>GodiKit Logger Example (SLF4J 1.7)</name>
-    <description>Usage examples for GodiKit Logger with the SLF4J 1.7 + Logback provider, demonstrating how Commons Logging, JUL, Log4j, Log4j2, Flogger, JBoss Logging and TinyLog calls are all redirected to a single logging backend, together with MDC-based trace ID injection.</description>
+    <description>Usage examples for GodiKit Logger with the SLF4J 1.7 + Logback provider, demonstrating how Commons
+        Logging, JUL, Log4j, Log4j2, Flogger, JBoss Logging and TinyLog calls are all redirected to a single logging
+        backend, together with MDC-based trace ID injection.
+    </description>
 
     <properties>
         <java.version>8</java.version>

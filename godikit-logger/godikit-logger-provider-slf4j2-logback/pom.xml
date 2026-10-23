@@ -12,7 +12,11 @@
     <artifactId>godikit-logger-provider-slf4j2-logback</artifactId>
     <version>${revision}</version>
     <name>GodiKit Logger Provider - SLF4J 2.x + Logback</name>
-    <description>Logging provider for GodiKit Logger backed by SLF4J 2.x + Logback. Adapts the GodiKit Logger API to the SLF4J 2.x fluent API, registers itself through the LoggerProvider SPI contract, auto-injects the MDC trace ID into every log line, and bundles the bridges that redirect Commons Logging, JUL, Log4j, Log4j2, Flogger and TinyLog calls to the same backend.</description>
+    <description>Logging provider for GodiKit Logger backed by SLF4J 2.x + Logback. Adapts the GodiKit Logger API to the
+        SLF4J 2.x fluent API, registers itself through the LoggerProvider SPI contract, auto-injects the MDC trace ID
+        into every log line, and bundles the bridges that redirect Commons Logging, JUL, Log4j, Log4j2, Flogger and
+        TinyLog calls to the same backend.
+    </description>
     <url>https://www.godikit.com/logger</url>
 
     <properties>
