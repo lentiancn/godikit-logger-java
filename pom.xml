@@ -7,11 +7,8 @@
     <artifactId>godikit-parent</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
-    <name>GodiKit Parent</name>
-    <description>
-        A logging utility package for JDK 8+, designed to unify the management of logging components in Java projects
-        and establish a consistent standard.
-    </description>
+    <name>GodiKit Logger Reactor</name>
+    <description>GodiKit Logger is a unified, SPI-based logging facade for JDK 8+, enabling zero-configuration backend switching via the JDK ServiceLoader mechanism, with built-in No-Op fallback, multi-framework bridges, and automatic MDC trace ID injection.</description>
     <url>https://www.godikit.com/logger</url>
 
     <properties>
@@ -293,8 +290,8 @@
     </licenses>
 
     <scm>
-        <url>https://github.com/lentiancn/godikit-logger-java-java</url>
-        <connection>scm:git:https://github.com/lentiancn/godikit-logger-java-java.git</connection>
+        <url>https://github.com/lentiancn/godikit-logger-java</url>
+        <connection>scm:git:https://github.com/lentiancn/godikit-logger-java.git</connection>
         <developerConnection>scm:git:git@github.com:lentiancn/godikit-logger-java.git</developerConnection>
     </scm>
 </project>

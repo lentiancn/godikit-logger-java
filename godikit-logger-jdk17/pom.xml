@@ -50,8 +50,8 @@
     </licenses>
 
     <scm>
-        <url>https://github.com/lentiancn/godikit-logger-java-java</url>
-        <connection>scm:git:https://github.com/lentiancn/godikit-logger-java-java.git</connection>
+        <url>https://github.com/lentiancn/godikit-logger-java</url>
+        <connection>scm:git:https://github.com/lentiancn/godikit-logger-java.git</connection>
         <developerConnection>scm:git:git@github.com:lentiancn/godikit-logger-java.git</developerConnection>
     </scm>
 </project>
